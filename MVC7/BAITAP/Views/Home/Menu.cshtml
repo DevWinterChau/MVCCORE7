@@ -1,0 +1,21 @@
+﻿@model IEnumerable<BAITAP.Models.Mathang>
+
+<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+    <li class="nav-item"><a class="nav-link active" aria-current="page" asp-controller="customer" asp-action="Index">Trang chính</a></li>
+    <li class="nav-item"><a class="nav-link" href="#!">Giới thiệu</a></li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" asp-controller="Danhmucs" asp-action="Index" role="button" data-bs-toggle="dropdown" aria-expanded="false">Danh mục sản phẩm</a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" asp-controller="Danhmucs" asp-action="Index"> Tất cả sản phẩm</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            @{
+                foreach (var item in Model)
+                {
+                    <li><a class="dropdown-item" asp-controller="Danhmucs" asp-action="Index"></a></li>
+
+                }
+            }
+        </ul>
+    </li>
+</ul>
+

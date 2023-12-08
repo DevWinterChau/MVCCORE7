@@ -1,0 +1,42 @@
+﻿@model BAITAP.Models.Mh
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-danger">Xác nhận xóa</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thông tin sản phẩm</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">Tên sản phẩm</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Ten)</dd>
+
+            <dt class="col-sm-3">Hình ảnh</dt>
+            <dd class="col-sm-9">
+                <img src="~/images/products/@Html.DisplayFor(model => model.Hinhanh)" class="img-thumbnail" />
+            </dd>
+
+            <dt class="col-sm-3">Ngày tạo</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Ngaytao)</dd>
+
+            <dt class="col-sm-3">Ngày cập nhật</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Ngaycapnhat)</dd>
+        </dl>
+
+        <div class="text-center">
+            <p class="text-danger">Bạn có chắc chắn muốn xóa sản phẩm này?</p>
+
+            <form asp-action="Delete" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+
+                <button type="submit" class="btn btn-danger">Xóa</button>
+                <a asp-action="Index" class="btn btn-info">Quay lại danh sách</a>
+            </form>
+        </div>
+    </div>
+</div>

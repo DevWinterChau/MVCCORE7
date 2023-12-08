@@ -1,0 +1,33 @@
+﻿@model BAITAP.Models.Chucvu
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center text-danger">Xác nhận xóa</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Chức vụ</h4>
+        <dl class="row">
+            <dt class="col-sm-3">Tên chức vụ</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Ten)</dd>
+
+            <dt class="col-sm-3">Hệ số</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Heso)</dd>
+        </dl>
+
+        <div class="text-center">
+            <p class="text-danger">Bạn có chắc chắn muốn xóa mục này?</p>
+
+            <form asp-action="Delete" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Macv" />
+
+                <button type="submit" class="btn btn-danger">Xóa</button>
+                <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+            </form>
+        </div>
+    </div>
+</div>

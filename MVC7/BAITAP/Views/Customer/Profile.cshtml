@@ -1,0 +1,94 @@
+﻿@model BAITAP.DTO.ProfileCustomer
+@{
+    ViewData["Title"] = "Thông tin tài khoản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<div class="container padding-bottom-3x mb-2">
+    <div class="row">
+        <div class="col-lg-4">
+            <aside class="user-info-wrapper">
+                <div class="user-cover" style="background-image: url(https://bootdey.com/img/Content/bg1.jpg);">
+                </div>
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <a class="edit-avatar" href="#"></a><img src="~/images/account/user.png" alt="@Model.KhachHang.Ten"/>
+                    </div>
+                    <div class="user-data">
+                        <h4>@Model.KhachHang.Ten</h4><span>@Model.KhachHang.Email</span>
+                    </div>
+                </div>
+            </aside>
+            <nav class="list-group">
+                <a class="list-group-item with-badge" href="#"><i class=" fa fa-th"></i>Đơn mua hàng<span class="badge badge-primary badge-pill">6</span></a>
+                <a class="list-group-item" href="#"><i class="fa fa-user"></i>Thông tin tài khoản</a>
+                <a class="list-group-item" href="#"><i class="fa fa-map"></i>Địa chỉ</a>
+                <a class="list-group-item with-badge active" href="#"><i class="fa fa-heart"></i>Sản phẩm yêu thích<span class="badge badge-primary badge-pill">3</span></a>
+            </nav>
+        </div>
+        <div class="col-lg-8">
+            <div class="padding-top-2x mt-2 hidden-lg-up"></div>
+            <!-- Wishlist Table-->
+            <div class="table-responsive wishlist-table margin-bottom-none">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Danh sách sản phẩm yêu thích</th>
+                            <th class="text-center"><a class="btn btn-sm btn-outline-danger" href="#">Xóa danh sách yêu thichs</a></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            if(Model.WistList != null)
+                            {
+                                if (Model.WistList.Count > 0)
+                                {
+                                    foreach (var item in Model.WistList)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="product-item">
+                                                    <a class="product-thumb" href="#">
+                                                        <img src="~/images/products/@item.hinhanh" />
+                                                    </a>
+                                                    <div class="product-info">
+                                                        <h4 class="product-title"><a href="#">@item.ten</a></h4>
+                                                        <div class="text-lg text-medium text-muted">@item.giaban.ToString("N0") đ</div>
+
+                                                    </div>
+                                                   
+                                                    <div>
+                                                        <a class="btn btn-outline-info mt-auto" href="#" onclick="addToCart('@item.id', '@item.giaban', '@item.hinhanh', '@item.ten')"><i class="bi bi-bag-plus-fill"></i> Thêm vào giỏ hàng</a>
+                                                        <a class="btn btn-outline-warning">
+                                                            Xóa
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                               
+                                            </td>
+                                            <td class="text-center"><a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Remove item"><i class="icon-cross"></i></a></td>
+                                        </tr>
+
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>
+                                        Chưa có sản phẩm yêu thích
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    
+                    </tbody>
+                </table>
+            </div>
+            <hr class="mb-4">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,98 @@
+﻿@model BAITAP.Models.CtKhuyenMai
+
+@{
+    ViewData["Title"] = "Chi Tiết";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Chi Tiết</h1>
+
+<div class="container">
+    <h4>Chi Tiết Khuyến Mãi</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TenKm)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TenKm)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MoTa)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MoTa)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NgayBatDau)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NgayBatDau)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NgayKetThuc)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NgayKetThuc)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Soluongmuatoithieu)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Soluongmuatoithieu)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Sotienmuatoithieu)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Sotienmuatoithieu)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PhanTramGiamGia)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhanTramGiamGia)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GiaGiam)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GiaGiam)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DieuKienApDung)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DieuKienApDung)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Soluongsudung)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Soluongsudung)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TrangThai)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TrangThai)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MaLoaiKmNavigation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MaLoaiKmNavigation.MaLoaiKm)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NhomSpkhuyemaiNavigation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NhomSpkhuyemaiNavigation.MaDm)
+        </dd>
+    </dl>
+</div>
+
+<div class="container">
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.Id">Chỉnh Sửa</a> |
+    <a class="btn btn-secondary" asp-action="Index">Quay Lại</a>
+</div>

@@ -1,0 +1,58 @@
+﻿@model BAITAP.Models.Mathang
+
+@{
+    ViewData["Title"] = "Chi tiết sản phẩm";
+    var MotasanphamHTML = Model.MoTa;
+}
+
+<div class="product-container ">
+        <div class="product-title">
+            @Html.DisplayFor(model => model.Ten)
+        </div>
+
+        <div class="product-info">
+            <div>
+                <dt>Tên sản phẩm:</dt>
+                <dd>@Html.DisplayFor(model => model.Ten)</dd>
+                <dt>Lượt xem:</dt>
+                <dd>@Html.DisplayFor(model => model.LuotXem)</dd>
+
+                <dt>Lượt mua:</dt>
+                <dd>@Html.DisplayFor(model => model.LuotMua)</dd>
+
+                <dt>Danh mục:</dt>
+                <dd>@Html.DisplayFor(model => model.Danhmucs.Ten)</dd>
+            </div>
+            <div>
+            <img class="product-image" src="~/images/products/@Html.DisplayFor(model => model.HinhAnh)" style="max-width: 300px;" />
+
+            </div>
+        </div>
+
+        <div class="product-description">
+            <dt>Mô tả:</dt>
+            <dd>@Html.Raw(MotasanphamHTML)</dd>
+        </div>
+        @if(Model.GiaGoc > Model.GiaBan)
+        {
+            <div class="product-price-goc">
+                Giá gốc:@Model.GiaGoc.ToString("N0") đ
+            </div>
+            <div class="product-price">
+                Giảm còn: @Model.GiaBan.ToString("N0") đ
+            </div>
+        }
+        else
+        {
+            <div class="product-price">
+            Giá bán: @Model.GiaBan.ToString("N0") đ
+        </div>
+        }
+   
+        <div>
+        <a class="btn btn-outline-info mt-auto" href="#" onclick="addToCart('@Model.MaMh', '@Model.GiaBan', '@Model.HinhAnh', '@Model.Ten')"><i class="bi bi-bag-plus-fill"></i> Thêm vào giỏ hàng</a>
+
+
+        <a class="btn btn-primary" asp-action="Index"><i class="bi bi-box-seam-fill"></i> Danh sách sản phẩm</a>
+        </div>
+</div>

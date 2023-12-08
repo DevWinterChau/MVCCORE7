@@ -1,0 +1,37 @@
+﻿@model BAITAP.Models.Hoadon
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center text-danger">Xác nhận xóa</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Chi tiết Hoadon</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">Ngày</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Ngay)</dd>
+            <dt class="col-sm-3">Tổng tiền</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Tongtien)</dd>
+            <dt class="col-sm-3">Trạng thái</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Trangthai)</dd>
+            <dt class="col-sm-3">Mã Khách hàng</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.MakhNavigation.MaKh)</dd>
+        </dl>
+
+        <div class="text-center">
+            <p class="text-danger">Bạn có chắc chắn muốn xóa hóa đơn này?</p>
+
+            <form asp-action="Delete" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Mahd" />
+
+                <button type="submit" class="btn btn-danger">Xóa</button>
+                <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+            </form>
+        </div>
+    </div>
+</div>
