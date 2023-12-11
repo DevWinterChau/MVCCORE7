@@ -2,7 +2,7 @@
 @using System.Text.Json;
 @using System.Text.Json.Serialization;
 @using BAITAP.DTO;
-@model List<SanphamKhuyemMai>
+@model List<SanPhamDTO>
 
 @{
     ViewData["Title"] = "Trang chính";
@@ -95,73 +95,41 @@
                 <div class="col mb-5">
                     <div class="card h-100">
                         <!-- Sale badge-->
-                        @if (item.Phantramkhuyenmai > 0)
+                        @if (item.KhuyenMai)
                         {
-                            <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Khuyến mãi @item.Phantramkhuyenmai%</div>
+                            <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Khuyến mãi</div>
                         }
-                        @if (item.mathang.LuotMua > 10)
+                        @if (item.NoiBat)
                         {
-                            <div class="badge bg-danger text-white position-absolute" style="top: 2rem; right: 0.5rem">Bán chạy</div>
+                            <div class="badge bg-danger text-white position-absolute" style="top: 2rem; right: 0.5rem">Nổi bật</div>
 
                         }
                         <!-- Product image-->
 
-                        <a asp-action="Details" asp-route-id="@item.mathang.MaMh" style="text-decoration: none;">
-                            <img class="card-img-top" src="~/images/products/@item.mathang.HinhAnh" alt="@item.mathang.HinhAnh" />
+                        <a asp-action="Details2" asp-route-id="@item.mh.Id" style="text-decoration: none;">
+                            <img class="card-img-top" src="~/images/products/@item.mh.Hinhanh" alt="@item.mh.Hinhanh" />
                         </a>
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <!-- Product name-->
-                                <a asp-action="Details" asp-route-id="@item.Mhs.Id" style="text-decoration: none;">
+                                <a asp-action="Details" asp-route-id="@item.mh.Id" style="text-decoration: none;">
                                     <h5 class="fw-bolder text-info">
-                                        @Html.DisplayFor(modelItem => item.Mhs.Ten)
+                                        @Html.DisplayFor(modelItem => item.mh.Ten)
                                     </h5>
-                                </a>
-
-                                <!-- Product reviews-->
+                                </a>                                
                                 <div class="d-flex justify-content-center small text-warning mb-2">
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star-fill"></div>
-                                    <div class="bi-star"></div>
-                                </div>
-
-
-                                <!-- Product price-->
-                                @if (item.Phantramkhuyenmai > 0)
-                                {
-                                    <span class="text-muted text-decoration-line-through">
-                                        Giá góc: @item.mathang.GiaBan.ToString("N0") đ
-                                    </span>
-                                    <span class="text-danger ">
-                                        Khuyến mãi: @item.Giakhuyemai.ToString("N0") đ
-                                    </span>
+                                @{
+                                    float count = item.DanhGiaTrungBinh;
+                                    @for(int i =0; i<count; i++)
+                                    {
+                                        <div class="bi-star-fill"></div>
+                                    }
                                 }
-                                else
-                                {
-                                    <span class="text-danger ">
-                                        Giá bán: @item.mathang.GiaBan.ToString("N0") đ
-                                    </span>
-                                }
+                                </div>                              
                             </div>
                         </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center">
-                                <a class="btn btn-outline-danger mt-auto" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh"><i class="bi bi-heart-fill"></i></a>
-                                <!-- <a asp-controller="Customer" asp-action="Addtocart" asp-route-id="item.MaMh">Mua</a> -->
-                                @if (item.Phantramkhuyenmai > 0 && item.Giakhuyemai > 0)
-                                {
-                                    <a class="btn btn-outline-info mt-auto" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', '@item.Giakhuyemai')"><i class="bi bi-bag-plus-fill"></i> Chọn mua</a>
-                                }
-                                else
-                                {
-                                    <a class="btn btn-outline-info mt-auto" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', 0)"><i class="bi bi-bag-plus-fill"></i> Chọn mua</a>
-                                }
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             }
@@ -223,7 +191,6 @@
     </div>
 </section>
 <script>
-
     function addToCart(id, giaban, hinhanh, ten, giakhuyenmai) {
         console.log(id, giaban, hinhanh, ten, giakhuyenmai);  // Log the parameters directly
         var cart = JSON.parse(localStorage.getItem('cart')) || [];

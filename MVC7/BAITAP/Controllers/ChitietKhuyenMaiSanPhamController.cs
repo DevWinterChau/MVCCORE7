@@ -138,7 +138,7 @@ namespace BAITAP.Controllers
             var ctKhuyenMaiSanPham = await _context.CtKhuyenMaiSanPhams
                 .Include(c => c.MaCtkmNavigation)
                 .Include(c => c.MamhNavigation)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.MaCtkm == id);
             if (ctKhuyenMaiSanPham == null)
             {
                 return NotFound();
@@ -156,7 +156,7 @@ namespace BAITAP.Controllers
             {
                 return Problem("Entity set 'ApplicationDbContext.CtKhuyenMaiSanPhams'  is null.");
             }
-            var ctKhuyenMaiSanPham = await _context.CtKhuyenMaiSanPhams.FindAsync(id);
+            var ctKhuyenMaiSanPham = await _context.CtKhuyenMaiSanPhams.FirstOrDefaultAsync(x => x.MaCtkm.Equals(id));
             if (ctKhuyenMaiSanPham != null)
             {
                 _context.CtKhuyenMaiSanPhams.Remove(ctKhuyenMaiSanPham);

@@ -17,6 +17,7 @@ using BAITAP.Other;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using BAITAP.DTO;
+using NuGet.Packaging;
 
 namespace BAITAP.Controllers
 {
@@ -125,6 +126,61 @@ namespace BAITAP.Controllers
             ViewBag.ListDanhMuc = await _context.Danhmucs.ToListAsync();
 
             return View(items);
+        }
+
+        public string tinhgiagiaodong(List<Mathang> lstmh)
+        {
+            var newlist = lstmh.OrderByDescending(x => x.GiaBan).ToList();
+            return newlist[0].GiaBan.ToString("N0") + "đ - " + newlist[newlist.Count - 1].GiaBan.ToString("N0") + " đ";
+        }
+        // GET: Customer
+        public async Task<IActionResult> Index1(int page = 1, int pageSize = 8, string keyword = null, string category = null, string sort = null, bool Fill = false, string khuyenmai = "0")
+        {
+            var splist = new List<SanPhamDTO>();
+            DateTime currentDate = DateTime.Now;
+            var query = _context.Mhs.Include(m => m.Danhmucs).AsQueryable();
+            var ctkmsp = await _context.CtKhuyenMaiSanPhams.ToListAsync();
+            var dssp = await _context.Mathangs.Include(x => x.Danhmucs).ToListAsync();
+            foreach(var mh in query)
+            {
+                var newdssp = dssp.Where(x => x.MaMhchinh.Equals(mh.Id)).ToList();
+                var sanpham = new SanPhamDTO();
+                sanpham.mh = mh;
+                sanpham.GiaGiaoDong = tinhgiagiaodong(newdssp);
+                foreach (var item in newdssp) 
+                {
+            
+                    if (await CheckKhuyenMai(item.MaMh))
+                    {
+                        sanpham.KhuyenMai = true;
+                        sanpham.DanhGiaTrungBinh = 4;
+                        sanpham.NoiBat = true;
+                    }
+                    else
+                    {
+                        sanpham.KhuyenMai = false;
+                        sanpham.DanhGiaTrungBinh = 4;
+                        sanpham.NoiBat = true;
+                    }
+                }
+                splist.Add(sanpham);
+            }
+            var items = new List<Mh>();
+            // Apply pagination
+            items = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            // Tính toán các thông tin phân trang
+            var totalItems = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.keyword = keyword;
+            ViewBag.Fill = Fill;
+            // Populate the dropdown with categories
+            ViewBag.ListDanhMuc = await _context.Danhmucs.ToListAsync();
+
+            return View(splist);
         }
 
 
@@ -525,16 +581,35 @@ namespace BAITAP.Controllers
         private async Task<bool> CheckKhuyenMai(int idsp)
         {
             var ctkm = await _context.CtKhuyenMais.ToListAsync();
-            if(ctkm.Count == 0)
+            if(ctkm.Count > 0)
             {
-                return true;
+                // Assuming MaSP is the foreign key in CtKhuyenMais referencing CtKhuyenMaiSanPhams
+                var hasKhuyenMai = await _context.CtKhuyenMais
+                    .Include(x => x.CtKhuyenMaiSanPhams)
+                    .AnyAsync(x => (x.CtKhuyenMaiSanPhams.Any(sp => sp.Mamh == idsp) && x.NgayBatDau <= DateTime.Now && DateTime.Now <= x.NgayKetThuc));
+                return hasKhuyenMai;
+            }
+
+            return false;
+        }
+        private async Task<CtKhuyenMai> CheckKhuyenMaiSanpham(int idsp)
+        {
+            var ctkm = await _context.CtKhuyenMais.ToListAsync();
+            if (ctkm.Count == 0)
+            {
+                return null ;
             }
             // Assuming MaSP is the foreign key in CtKhuyenMais referencing CtKhuyenMaiSanPhams
             var hasKhuyenMai = await _context.CtKhuyenMais
                 .Include(x => x.CtKhuyenMaiSanPhams)
                 .AnyAsync(x => (x.CtKhuyenMaiSanPhams.Any(sp => sp.Mamh == idsp) && x.NgayBatDau <= DateTime.Now && DateTime.Now <= x.NgayKetThuc) || (x.CtKhuyenMaiSanPhams.All(sp => sp.Mamh != idsp)));
-
-            return hasKhuyenMai;
+            if(hasKhuyenMai)
+            {
+                return await _context.CtKhuyenMais
+                .Include(x => x.CtKhuyenMaiSanPhams)
+                .FirstOrDefaultAsync(x => (x.CtKhuyenMaiSanPhams.Any(sp => sp.Mamh == idsp) && x.NgayBatDau <= DateTime.Now && DateTime.Now <= x.NgayKetThuc) || (x.CtKhuyenMaiSanPhams.All(sp => sp.Mamh != idsp)));
+            }
+            return null;
         }
         [HttpPost]
         public async Task<ActionResult> Payment([FromBody] TotalRequestModel totalRequestModel)
@@ -749,5 +824,38 @@ namespace BAITAP.Controllers
             }
             return BadRequest();
         }
+        public async Task<IActionResult> Details2(int Id)
+        {
+            DateTime currentDate = DateTime.Now;
+
+            var sanphamchitiet = new ChitietSanphamDTO();
+            var mathang = await _context.Mhs.Include(m => m.Danhmucs).FirstOrDefaultAsync(x => x.Id.Equals(Id));
+            var danhsachsanpham = await _context.Mathangs.Where(x => x.MaMhchinh.Equals(Id)).ToListAsync();
+            var newdanhsachsanpham = new List<MathangKM>();
+            foreach (var sp in danhsachsanpham)
+            {
+                var newsp = new MathangKM();
+                newsp.mathang = sp;
+
+                if (await CheckKhuyenMai(sp.MaMh))
+                {
+                    var ctkm = await CheckKhuyenMaiSanpham(sp.MaMh);
+                    newsp.Phantramkhuyenmai = ctkm != null ? ctkm.PhanTramGiamGia : 0;
+                    newsp.Giakhuyemai = ctkm != null ? (sp.GiaBan - (sp.GiaBan * (ctkm.PhanTramGiamGia / 100.0))) : 0;
+                }
+                else
+                {
+                    newsp.Phantramkhuyenmai = 0;
+                    newsp.Giakhuyemai =  0;
+                }
+                newdanhsachsanpham.Add(newsp);
+            }
+            sanphamchitiet.mathangchinh = mathang;
+            sanphamchitiet.DanhsachMathang = newdanhsachsanpham;
+            sanphamchitiet.danhmuc = mathang.Danhmucs;
+             return View(sanphamchitiet);
+        }
+
+
     }
 }

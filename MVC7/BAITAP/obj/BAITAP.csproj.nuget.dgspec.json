@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\HK1 -NAM4\\ASP.NET\\BAITAP\\BAITAP\\BAITAP\\BAITAP.csproj": {}
+    "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\BAITAP.csproj": {}
   },
   "projects": {
-    "D:\\HK1 -NAM4\\ASP.NET\\BAITAP\\BAITAP\\BAITAP\\BAITAP.csproj": {
+    "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\BAITAP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\HK1 -NAM4\\ASP.NET\\BAITAP\\BAITAP\\BAITAP\\BAITAP.csproj",
+        "projectUniqueName": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\BAITAP.csproj",
         "projectName": "BAITAP",
-        "projectPath": "D:\\HK1 -NAM4\\ASP.NET\\BAITAP\\BAITAP\\BAITAP\\BAITAP.csproj",
+        "projectPath": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\BAITAP.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "D:\\HK1 -NAM4\\ASP.NET\\BAITAP\\BAITAP\\BAITAP\\obj\\",
+        "outputPath": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages"
