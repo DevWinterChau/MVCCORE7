@@ -596,3 +596,7 @@ a.list-group-item, .list-group-item-action {
 .carousel-inner {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
+.inline-elements {
+    display: inline-block;
+    margin-right: 10px;
+}

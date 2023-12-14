@@ -54,7 +54,6 @@
                 <th>@Html.DisplayNameFor(model => model.Ten)</th>
                 <th>@Html.DisplayNameFor(model => model.Dienthoai)</th>
                 <th>@Html.DisplayNameFor(model => model.Email)</th>
-                <th>@Html.DisplayNameFor(model => model.Matkhau)</th>
                 <th></th>
             </tr>
         </thead>
@@ -65,7 +64,6 @@
                     <td>@Html.DisplayFor(modelItem => item.Ten)</td>
                     <td>@Html.DisplayFor(modelItem => item.Dienthoai)</td>
                     <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Matkhau)</td>
                     <td>
                         <a class="btn btn-outline-primary mb-1" asp-action="Edit" asp-route-id="@item.MaKh"><i class="bi bi-pencil"></i></a>
                         <a class="btn btn-outline-success mb-1" asp-action="Details" asp-route-id="@item.MaKh"><i class="bi bi-eye"></i></a>

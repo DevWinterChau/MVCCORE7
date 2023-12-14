@@ -8,7 +8,7 @@ namespace BAITAP.DTO
         public List<MathangKM> DanhsachMathang { get; set; }
         public CtKhuyenMai CtKhuyenMai { get; set; }
         public Danhmuc danhmuc { get; set; }
-
+        public string GiaGiaoDong { get; set; }
         public CtKhuyenMaiSanPham ctkm { get; set; }
     }
     public class MathangKM

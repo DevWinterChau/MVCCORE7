@@ -19,6 +19,13 @@
                         <span asp-validation-for="MaDm" class="text-danger"></span>
                     </div>
                 </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label">Mặt hàng chính</label>
+                        <select asp-for="MaMhchinh" class="form-control" asp-items="ViewBag.MaMHS"></select>
+                        <span asp-validation-for="MaMhchinh" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-5">

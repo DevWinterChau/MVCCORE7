@@ -55,7 +55,7 @@ app.UseAuthorization();
 app.UseDanhSachMatHangMiddleware();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Customer}/{action=Index}/{id?}");
+    pattern: "{controller=Customer}/{action=Index1}/{id?}");
 app.MapRazorPages();
 
 app.Run();

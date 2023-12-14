@@ -8,5 +8,6 @@ namespace BAITAP.DTO
         public Khachhang KhachHang { get; set; }
         public List<Cart> WistList { get; set; }
         public List<Diachi> Diachi { get; set; }
+        public List<Hoadon> HoadonList { get; set;}
     }
 }

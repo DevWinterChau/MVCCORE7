@@ -27,7 +27,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <body>
     <script>
@@ -36,9 +36,9 @@
         });
     </script>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-info shadow">
+        <nav class="navbar navbar-expand-lg navbar-dark  shadow"  style="background-color: #21D192">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" asp-controller="customer" asp-action="Index"><i class="bi bi-shop-window"></i> AYTI Shop</a>
+                <a class="navbar-brand" asp-controller="customer" asp-action="Index1"><i class="bi bi-shop-window"></i> AYTI Shop</a>
                 <button onclick="handleNavbarDropdownClick()" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon" id="togglebtn"></span></button>
                 <div class="collapse navbar-collapse end-0" id="navbarSupportedContent">
                     <div class="d-flex">
@@ -46,7 +46,7 @@
                         {
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" asp-controller="customer" asp-action="Index">
+                                    <a class="nav-link active" aria-current="page" asp-controller="customer" asp-action="Index1">
                                         <i class="bi bi-house-door"></i> Trang chính
                                     </a>
                                 </li>
@@ -113,13 +113,13 @@
                             </ul>
 
                             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Xin chào @User.Identity?.Name</a>                 
-                            <a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Customer", new { area = "" })" class="btn btn-outline-light m-1"><i class="bi bi-person"></i> Đăng xuất</a>
+                            <a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index1", "Customer", new { area = "" })" class="btn btn-outline-light m-1"><i class="bi bi-person"></i> Đăng xuất</a>
                             }
                             else
                             {
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 end-0">
                                     <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" asp-controller="customer" asp-action="Index">
+                                        <a class="nav-link active" aria-current="page" asp-controller="customer" asp-action="Index1">
                                             <i class="bi bi-house-door"></i> Trang chính
                                         </a>
                                     </li>
@@ -134,7 +134,7 @@
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                             <li class="dropdown-submenu">
-                                                <a class="dropdown-item" asp-controller="customer" asp-action="index">
+                                                <a class="dropdown-item" asp-controller="customer" asp-action="index1">
                                                     <i class="bi bi-box"></i> Danh mục sản phẩm
                                                 </a>
                                                 <ul class="submenu">
@@ -143,7 +143,7 @@
                                                         foreach (var danhMuc in danhSachMatHang)
                                                         {
                                                             <li>
-                                                            <a class="dropdown-item" asp-controller="customer" asp-action="Index" asp-route-Fill="true" asp-route-category="@danhMuc.Ten">@danhMuc.Ten</a>
+                                                            <a class="dropdown-item" asp-controller="customer" asp-action="Index1" asp-route-Fill="true" asp-route-category="@danhMuc.Ten">@danhMuc.Ten</a>
                                                             </li>
                                                         }
                                                     }
@@ -290,43 +290,127 @@
             <span class="carousel-control-next-icon"></span>
         </button>
     </div>
-    <footer class="py-5 bg-info">
+        <!-- Footer -->
+     <footer class="text-center text-lg-start text-dark"
+                style="background-color: #ECEFF1">
         <div class="text-center mb-5"><a class="text-warning" href="#top"><i class="bi bi-chevron-up" style="font-size: 3rem; font-weight: bold; color:white;"></i></a></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-6 text-light">
-                    <h4>
-                        <span class="badge text-white bg-success">A</span>
-                        <span class="badge text-white bg-danger">T</span> AYTI Shop - Cửa hàng Sản phẩm thời trang
-                    </h4>
-                    <p>
-                        <b><i>Địa chỉ:</i></b> 18 Ung Văn Khiêm, phường Đông Xuyên, TP Long Xuyên, An Giang<br>
-                        <b><i>Điện thoại:</i></b> 076 683 7068<br>
-                        <b><i>Email:</i></b> aytishop@gmail.com
-                    </p>
-                </div>
-                <div class="col-3 text-muted bg-info">
-                    <h4>DANH MỤC HÀNG</h4>
-                    @if (Context.Items["DanhSachMatHang"] is List<Danhmuc> dmsp)
-                    {
-                        foreach (var danhMuc in dmsp)
-                        {
-                                <a class="list-group-item" asp-controller="customer" asp-action="Index" asp-route-Fill="true" asp-route-category="@danhMuc.Ten">@danhMuc.Ten</a>
-                        }
-                    }
-                </div>
-                <div class="col-3 text-muted">
-                    <h4>DỊCH VỤ KHÁCH HÀNG</h4>
-                    <a href="#" class="list-group-item">Hướng dẫn mua hàng</a>
-                    <a href="#" class="list-group-item">Câu hỏi thường gặp</a>
-                    <a href="#" class="list-group-item">Liên hệ với chúng tôi</a>
-                </div>
-            </div>
-            <hr>
-            <p class="m-0 text-center text-warning fw-bolder">Copyright &copy; AYTI Shop 2023</p>
-        </div>
-    </footer>
 
+            <!-- Section: Social media -->
+            <section class="d-flex justify-content-between p-4 text-white"
+                     style="background-color: #21D192">
+                <!-- Left -->
+                <div class="me-5">
+                    <span>Get connected with us on social networks:</span>
+                </div>
+                <!-- Left -->
+                <!-- Right -->
+                <div>
+                    <a href="" class="text-white me-4">
+                    <i class="bi bi-facebook"></i>
+                    </a>
+                    <a href="" class="text-white me-4">
+                        <i class="bi bi-twitter-x"></i>
+                    </a>
+                    <a href="" class="text-white me-4">
+                        <i class="bi bi-google"></i>
+                    </a>
+                        <a href="" class="text-white me-4">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                    <a href="" class="text-white me-4">
+                        <i class="bi bi-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/DevWinterChau" class="text-white me-4" target="_blank">
+                        <i class="bi bi-github"></i>
+                    </a>
+                </div>
+                <!-- Right -->
+            </section>
+            <!-- Section: Social media -->
+            <!-- Section: Links  -->
+            <section class="">
+                <div class="container text-center text-md-start mt-5">
+                    <!-- Grid row -->
+                    <div class="row mt-3">
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                            <!-- Content -->
+                            <h6 class="text-uppercase fw-bold">AYTISHOP</h6>
+                            <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                                style="width: 60px; background-color: #7c4dff; height: 2px" />
+                            <p>
+                                Here you can use rows and columns to organize your footer
+                                content. Lorem ipsum dolor sit amet, consectetur adipisicing
+                                elit.
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+                        <!-- Grid column -->
+                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold">DANH MỤC</h6>
+                            <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                                style="width: 60px; background-color: #7c4dff; height: 2px" />
+
+                            @if (Context.Items["DanhSachMatHang"] is List<Danhmuc> dmsp1)
+                            {
+                            <div class="overflow-auto p-2 bg-light"
+                                 style="max-width: 260px; max-height: 200px;">
+                                @foreach (var danhMuc in dmsp1)
+                                {                            
+                                    <code>
+
+                                        <a class="list-group-item text-dark" asp-controller="customer" asp-action="Index1" asp-route-Fill="true" asp-route-category="@danhMuc.Ten">@danhMuc.Ten</a>
+                                    </code>                       
+                                }
+                            </div>
+
+                            }                    
+                        </div>
+                        <!-- Grid column -->
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold">Useful links</h6>
+                            <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                                style="width: 60px; background-color: #7c4dff; height: 2px" />
+                            <p>
+                                <a asp-action="profile" asp-controller="customer" class="text-dark">Tài khoản của bạn</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-dark">Đánh giá mua sắm</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-dark">Help</a>
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+                        <!-- Grid column -->
+                        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold">LIÊN HỆ</h6>
+                            <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                                style="width: 60px; background-color: #7c4dff; height: 2px" />
+                            <p><i class="bi bi-shop-window"></i> Mỹ Xuyên, Long Xuyên, An Giang</p>
+                            <p><i class="bi bi-envelope-arrow-down-fill"></i> aytishop@gmail.com</p>
+                            <p><i class="bi bi-telephone-fill"></i> 0766837068</p>
+                        </div>
+                        <!-- Grid column -->
+                    </div>
+                    <!-- Grid row -->
+                </div>
+            </section>
+            <!-- Section: Links  -->
+            <!-- Copyright -->
+            <div class="text-center p-3"
+                 style="background-color: rgba(0, 0, 0, 0.2)">
+                © 2023 Copyright:
+            <a class="text-dark" href="https://github.com/DevWinterChau" target="_blank">DongChau</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+        <!-- Footer -->
+    <!-- End of .container -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var header = document.querySelector("header");

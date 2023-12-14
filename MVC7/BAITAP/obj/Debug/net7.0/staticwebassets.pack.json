@@ -1365,6 +1365,30 @@
       "PackagePath": "staticwebassets\\images\\login.png"
     },
     {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\panner\\1.png",
+      "PackagePath": "staticwebassets\\images\\panner\\1.png"
+    },
+    {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\panner\\2.png",
+      "PackagePath": "staticwebassets\\images\\panner\\2.png"
+    },
+    {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\panner\\3.png",
+      "PackagePath": "staticwebassets\\images\\panner\\3.png"
+    },
+    {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\panner\\4.png",
+      "PackagePath": "staticwebassets\\images\\panner\\4.png"
+    },
+    {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\panner\\5.png",
+      "PackagePath": "staticwebassets\\images\\panner\\5.png"
+    },
+    {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\panner\\6.png",
+      "PackagePath": "staticwebassets\\images\\panner\\6.png"
+    },
+    {
       "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129210303Ảnh chụp màn hình 2023-09-19 000029.png",
       "PackagePath": "staticwebassets\\images\\products\\20231129210303Ảnh chụp màn hình 2023-09-19 000029.png"
     },
@@ -1587,6 +1611,18 @@
     {
       "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205223805aopolo2.jpg",
       "PackagePath": "staticwebassets\\images\\products\\20231205223805aopolo2.jpg"
+    },
+    {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231214143928giaynam2023.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\20231214143928giaynam2023.jpg"
+    },
+    {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231214145556anhdemo.png",
+      "PackagePath": "staticwebassets\\images\\products\\20231214145556anhdemo.png"
+    },
+    {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231214145756aopolo.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\20231214145756aopolo.jpg"
     },
     {
       "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\dangnhap.png",

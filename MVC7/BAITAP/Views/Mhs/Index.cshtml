@@ -28,10 +28,7 @@
         background-color: #f2f2f2;
     }
 
-    img.thumbnail {
-        max-width: 50%;
-        height: 50%;
-    }
+
 </style>
 
 <div class="table-container">
@@ -92,7 +89,7 @@
                 <tr>
                     <td>@Html.DisplayFor(modelItem => item.Ten)</td>
                     <td class="thumbnail">
-                        <img src="~/images/products/@Html.DisplayFor(modelItem => item.Hinhanh)" class="img-thumbnail" alt="@Html.DisplayFor(modelItem => item.Ten)" />
+                        <img src="~/images/products/@Html.DisplayFor(modelItem => item.Hinhanh)" class="img-thumbnail" alt="@Html.DisplayFor(modelItem => item.Ten)" style="width: 100px; height: 100px;" />
                     </td>
                     <td>@Html.DisplayFor(modelItem => item.Ngaytao)</td>
                     <td>@Html.DisplayFor(modelItem => item.Ngaycapnhat)</td>

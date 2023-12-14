@@ -2,15 +2,143 @@
 @using System.Text.Json;
 @using System.Text.Json.Serialization;
 @using BAITAP.DTO;
-@model List<SanPhamDTO>
+@model SanPham
 
 @{
-    ViewData["Title"] = "Trang chính";
+    ViewData["Title"] = "Trang mua sắm";
 }
 
-<section class="py-5">
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<!-- Modal -->
+@if(ViewData["MaKH"] != null)
+{
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Cho chúng tôi biết về sở thích mua sắm của bạn <i class="bi bi-chat-square-heart-fill"></i></h5>
+            </div>
+                <form asp-action="SaveFavorite" asp-controller="customer" method="post" onsubmit="return validateForm()">
+                <div class="modal-body">
+                    <p>Bạn quan tâm danh mục sản phẩm nào ?</p>
+                    <div class="row">
+                        @foreach (var danhmuc in ViewBag.ListDanhMuc)
+                        {
+                            <div class="col-md-4">
+                                <input type="checkbox" name="SelectedDanhMuc" value="@danhmuc.Ten" id="@danhmuc.Ten">
+                                <label for="danhmuc-@danhmuc.Ten">@danhmuc.Ten</label>
+                            </div>
+                        }
+                    </div>
+
+                    <p>Thương hiệu bạn yêu thích gì ?</p>
+                    <div class="row">
+                        @foreach (var thuonghieu in ViewBag.ThuongHieu)
+                        {
+                            <div class="col-md-4">
+                                <input type="checkbox" name="SelectedThuongHieu" value="@thuonghieu.TenThuonghieu" id="@thuonghieu.TenThuonghieu">
+                                <label for="thuonghieu-@thuonghieu.TenThuonghieu">@thuonghieu.TenThuonghieu</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Lưu sở thích</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="staticthank" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Cảm ơn bạn <i class="bi bi-hearts"></i></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Chúng tôi đã lưu sở thích của bạn để gợi ý giúp bạn mua sắm !!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+}
+
+<script>
+    function validateForm() {
+        // Check if at least one checkbox is checked for each category
+        const danhMucCheckboxes = document.querySelectorAll('input[name="SelectedDanhMuc"]:checked');
+        const thuongHieuCheckboxes = document.querySelectorAll('input[name="SelectedThuongHieu"]:checked');
+
+        if (danhMucCheckboxes.length === 0 && thuongHieuCheckboxes.length === 0) {
+            alert('Chọn ít nhất một danh mục hoặc thương hiệu.');
+            return false; // Prevent form submission
+        }
+
+        return true; // Allow form submission
+    }
+    // Automatically show the modal
+    const modal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+    modal.show();
+
+    function savePreference() {
+        // Your logic to save the user's preference
+        const modalthanks = new bootstrap.Modal(document.getElementById('staticthank'));
+        modalthanks.show();
+
+        // Close the modal after saving the preference
+        modal.hide();
+    }
+</script>
+
+<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="~/images/panner/1.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="~/images/panner/2.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="~/images/panner/3.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="~/images/panner/4.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="~/images/panner/5.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="~/images/panner/6.png" class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+
+<section class="py-3">
     <div class="container px-4 px-lg-5 mt-3">
-        <form id="filterForm" method="post" asp-action="index" asp-route-Fill="true">
+        <form id="filterForm" method="post" asp-action="index1" asp-route-Fill="true">
             <div class="row">
                 <div class="col-md-4">
                     <label for="category-filter" class="form-label">Danh mục:</label>
@@ -68,7 +196,15 @@
                         <text>@ViewBag.sort</text> <!-- Add your other message here -->
                     }
                 }
-                - @ViewBag.keyword -
+                @if(@ViewBag.keyword != null )
+                {
+                    <text> - @ViewBag.keyword -</text>
+                }
+                else
+                {
+                    <text>-</text>
+
+                }
                 @if (ViewBag.khuyenmai == "1")
                 {
                     <text>Có chương trình khuyến mãi</text> <!-- Add your other message here -->
@@ -90,7 +226,7 @@
 
 
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            @foreach (var item in Model)
+            @foreach (var item in Model.ListSanPhamDTOs)
             {
                 <div class="col mb-5">
                     <div class="card h-100">
@@ -126,27 +262,31 @@
                                         <div class="bi-star-fill"></div>
                                     }
                                 }
-                                </div>                              
+                                </div>
+                                <p class="text-danger text-center">
+                                    @item.GiaGiaoDong
+                                </p>
                             </div>
                         </div>
+                     
 
                     </div>
                 </div>
             }
         </div>
-        @if (Model.Count > 0)
+        @if (Model.ListSanPhamDTOs.Count > 0)
         {
             <ul class="pagination justify-content-center" style="margin: 20px 0;">
 
                 <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Index", new { page = 1 , keyword = ViewBag.keyword,  sort = ViewBag.sort , category = ViewBag.category, Fill = ViewBag.Fill})">
+                    <a class="page-link" href="@Url.Action("Index1", new { page = 1 , keyword = ViewBag.keyword,  sort = ViewBag.sort , category = ViewBag.category, Fill = ViewBag.Fill})">
                         <i class="bi bi-skip-start-btn-fill"></i>
                     </a>
                 </li>
                 @if (ViewBag.CurrentPage > 1)
                 {
                     <li class="page-item">
-                        <a class="page-link" href="@Url.Action("Index", new {
+                        <a class="page-link" href="@Url.Action("Index1", new {
                                 page = ViewBag.CurrentPage - 1,
                                 keyword = ViewBag.keyword,
                                 sort = ViewBag.sort,
@@ -167,7 +307,7 @@
                         }
                         else
                         {
-                            <a class="page-link" href="@Url.Action("Index", new { page = i,  keyword = ViewBag.keyword,  sort = ViewBag.sort , category = ViewBag.category,    Fill = ViewBag.Fill })">@i</a>
+                            <a class="page-link" href="@Url.Action("Index1", new { page = i,  keyword = ViewBag.keyword,  sort = ViewBag.sort , category = ViewBag.category,    Fill = ViewBag.Fill })">@i</a>
                         }
                     </li>
                 }
@@ -175,13 +315,13 @@
                 @if (ViewBag.CurrentPage < ViewBag.TotalPages)
                 {
                     <li class="page-item ">
-                        <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1,  keyword = ViewBag.keyword,  sort = ViewBag.sort , category = ViewBag.category, Fill = ViewBag.Fill  })">
+                        <a class="page-link" href="@Url.Action("Index1", new { page = ViewBag.CurrentPage + 1,  keyword = ViewBag.keyword,  sort = ViewBag.sort , category = ViewBag.category, Fill = ViewBag.Fill  })">
                             <i class="bi bi-arrow-right-square-fill"></i>
                         </a>
                     </li>
                 }
                 <li class="page-item">
-                    <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.TotalPages,  keyword = ViewBag.keyword,  sort = ViewBag.sort , category = ViewBag.category, Fill = ViewBag.Fill })">
+                    <a class="page-link" href="@Url.Action("Index1", new { page = ViewBag.TotalPages,  keyword = ViewBag.keyword,  sort = ViewBag.sort , category = ViewBag.category, Fill = ViewBag.Fill })">
                         <i class="bi bi-skip-end-btn-fill"></i>
                     </a>
                 </li>
@@ -190,58 +330,51 @@
         }
     </div>
 </section>
-<script>
-    function addToCart(id, giaban, hinhanh, ten, giakhuyenmai) {
-        console.log(id, giaban, hinhanh, ten, giakhuyenmai);  // Log the parameters directly
-        var cart = JSON.parse(localStorage.getItem('cart')) || [];
-        var existingProduct = cart.find(item => item.id === id);
-        if (existingProduct) {
-            existingProduct.soluongmua++;
-            Toastify({
-                text: "Đã cập nhật số lượng vào giỏ hàng !",
-                duration: 3000,
-                gravity: "bottom", // Chọn bottom để hiển thị ở dưới
-                position: 'right',
-                backgroundColor: "rgba(0, 128, 0, 0.8)", // Màu nền xanh lá cây với độ trong suốt
-                stopOnFocus: true,
-                className: 'custom-toast', // Thêm class để tùy chỉnh CSS
-            }).showToast();
-        } else {
-            cart.push({ id, ten, giaban, hinhanh, soluongmua: 1, giakhuyenmai: giakhuyenmai });
-            // Hiển thị toast thông báo
-            Toastify({
-                text: "Đã thêm vào giỏ hàng !",
-                duration: 3000,
-                gravity: "bottom",
-                position: 'right',
-                backgroundColor: "rgba(0, 128, 0, 0.8)", // Màu nền xanh lá cây với độ trong suốt
-                stopOnFocus: true,
-                className: 'custom-toast', // Thêm class để tùy chỉnh CSS
-            }).showToast();
 
-        }
+@if(Model.ListSanPhamHot.Count > 0)
+{
+    <section class="py-3">
+        <div class="row">
+            <h3 class="text-danger">Các sản phẩm đang HOT</h3>
+            <ul class="list-group list-group-horizontal position-relative overflow-auto ">
+                @foreach (var item in Model.ListSanPhamHot)
+                {
+                    <li class="list-group-item">
+                        <div class="card h-30">
+                            <!-- Sale badge-->
+                            <div class="badge bg-danger text-white position-absolute" style="top: 2rem; right: 0.5rem">HOT</div>
+                            <!-- Product image-->
 
-        console.log(cart);
-        localStorage.setItem('cart', JSON.stringify(cart));
-        displayNumbercart();
-    }
+                            <a asp-action="Details2" asp-route-id="@item.mathangchinh.Id" style="text-decoration: none;">
+                                <img class="card-img-top" src="~/images/products/@item.mathangchinh.Hinhanh" alt="@item.mathangchinh.Hinhanh" style="width: 200px; height: 250px;" />
+                            </a>
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <a asp-action="Details" asp-route-id="@item.mathangchinh.Id" style="text-decoration: none;">
+                                        <h5 class="fw-bolder text-info">
+                                            @Html.DisplayFor(modelItem => item.mathangchinh.Ten)
+                                        </h5>
+                                    </a>
+                                    <p class="text-danger text-center">
+                                        Đã bán @item.LuotMuatrungbinh <i class="bi bi-fire"></i>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
 
-    var filterForm = document.getElementById("filterForm");
+            </ul>
+        </div>
 
-    function handleScroll() {
-        var scroll = window.scrollY;
+    </section>
+}
+@if(ViewData["MaKH"] != null)
+{
+    <section class="py-3">
+        <h3 class="text-info">Phù hợp cho bạn</h3>
 
-        if (scroll > 50) {
-            filterForm.classList.add("form-fixed");
-        } else {
-            filterForm.classList.remove("form-fixed");
-        }
-    }
-
-    window.addEventListener("scroll", handleScroll);
-</script>
-
-
-
-
-
+    </section>
+}

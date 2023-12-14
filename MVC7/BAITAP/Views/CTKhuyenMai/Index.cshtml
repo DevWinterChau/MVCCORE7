@@ -53,18 +53,10 @@
         <thead>
             <tr>
                 <th>@Html.DisplayNameFor(model => model.TenKm)</th>
-                <th>@Html.DisplayNameFor(model => model.MoTa)</th>
                 <th>@Html.DisplayNameFor(model => model.NgayBatDau)</th>
                 <th>@Html.DisplayNameFor(model => model.NgayKetThuc)</th>
-                <th>@Html.DisplayNameFor(model => model.Soluongmuatoithieu)</th>
-                <th>@Html.DisplayNameFor(model => model.Sotienmuatoithieu)</th>
                 <th>@Html.DisplayNameFor(model => model.PhanTramGiamGia)</th>
-                <th>@Html.DisplayNameFor(model => model.GiaGiam)</th>
-                <th>@Html.DisplayNameFor(model => model.DieuKienApDung)</th>
-                <th>@Html.DisplayNameFor(model => model.Soluongsudung)</th>
                 <th>@Html.DisplayNameFor(model => model.TrangThai)</th>
-                <th>@Html.DisplayNameFor(model => model.MaLoaiKmNavigation.MaLoaiKm)</th>
-                <th>@Html.DisplayNameFor(model => model.NhomSpkhuyemaiNavigation.MaDm)</th>
                 <th></th>
             </tr>
         </thead>
@@ -73,18 +65,10 @@
             {
                 <tr>
                     <td>@Html.DisplayFor(modelItem => item.TenKm)</td>
-                    <td>@Html.DisplayFor(modelItem => item.MoTa)</td>
                     <td>@Html.DisplayFor(modelItem => item.NgayBatDau)</td>
                     <td>@Html.DisplayFor(modelItem => item.NgayKetThuc)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Soluongmuatoithieu)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Sotienmuatoithieu)</td>
                     <td>@Html.DisplayFor(modelItem => item.PhanTramGiamGia)</td>
-                    <td>@Html.DisplayFor(modelItem => item.GiaGiam)</td>
-                    <td>@Html.DisplayFor(modelItem => item.DieuKienApDung)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Soluongsudung)</td>
                     <td>@Html.DisplayFor(modelItem => item.TrangThai)</td>
-                    <td>@Html.DisplayFor(modelItem => item.MaLoaiKmNavigation.MaLoaiKm)</td>
-                    <td>@Html.DisplayFor(modelItem => item.NhomSpkhuyemaiNavigation.MaDm)</td>
                     <td>
                         <a class="btn btn-outline-primary mb-1" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>
                         <a class="btn btn-outline-success mb-1" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i></a>

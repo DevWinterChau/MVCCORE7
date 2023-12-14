@@ -237,7 +237,7 @@ namespace BAITAP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Ten,Hinhanh,Ngaytao,Ngaycapnhat")] Mh mh)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Ten,Hinhanh,Ngaytao,Ngaycapnhat")] Mh mh, IFormFile? fileanh)
         {
             if (id != mh.Id)
             {
@@ -246,6 +246,18 @@ namespace BAITAP.Controllers
 
             if (ModelState.IsValid)
             {
+                if (fileanh != null)
+                {
+                    var tenfile = DateTime.Now.ToString("yyyyMMddHHmmss") + fileanh.FileName;
+                    // Save the file using the fileanhFileName property
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "products", tenfile);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await fileanh.CopyToAsync(stream);
+                        mh.Hinhanh = tenfile;
+                    }
+
+                }
                 try
                 {
                     _context.Update(mh);

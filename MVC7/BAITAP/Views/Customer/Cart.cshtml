@@ -37,10 +37,10 @@
                                 <div>
                                     <div class="row">
                                         <div class="col">
-                                            <input type="text" placeholder="Họ tên..." class="form-control m-1" id="hoten" />
+                                            <input type="text" placeholder="Họ tên..." class="form-control m-1" id="hoten" value="@Model.KhachhangLogin.Name" />
                                         </div>
                                         <div class="col">
-                                            <input type="number" placeholder="Số điện thoại..." class="form-control m-1" id="sodienthoai" />
+                                            <input type="number" placeholder="Số điện thoại..." class="form-control m-1" id="sodienthoai" value="@Model.KhachhangLogin.Phone" />
                                         </div>
                                     </div>
                                     <select id="city" class="form-control m-1">
@@ -62,10 +62,10 @@
                                 <div>
                                     <div class="row">
                                         <div class="col">
-                                            <input type="text" placeholder="Họ tên..." class="form-control m-1" id="hoten" />
+                                            <input type="text" placeholder="Họ tên..." class="form-control m-1" id="hoten" value="@Model.KhachhangLogin.Name" />
                                         </div>
                                         <div class="col">
-                                            <input type="number" placeholder="Số điện thoại..." class="form-control m-1" id="sodienthoai" />
+                                            <input type="number" placeholder="Số điện thoại..." class="form-control m-1" id="sodienthoai" value="@Model.KhachhangLogin.Phone" />
                                         </div>
                                     </div>
                                     <select id="city" class="form-control m-1">
@@ -466,8 +466,8 @@
             var dataToSend = {
                 cartItems: cartItems,
                 Diachi: {
-                    id: @(Model != null && Model.Diachiganday.MaDc != null && ViewBag.UseNearest == true ? Model.Diachiganday.MaDc : 0),
-                    Diachi1: address,
+                    id: @(Model != null  && Model.Diachiganday != null && ViewBag.UseNearest == true ? Model.Diachiganday.MaDc : 0),
+                    Diachi: address,
                     phuongxa: ward,
                     quanhuyen: district,
                     tinhthanh: city,
@@ -561,7 +561,7 @@
             var dataToSend = {
                 cartItems: cartItems,
                 Diachi: {
-                    id: @(Model != null && Model.Diachiganday.MaDc != null && ViewBag.UseNearest == true ? Model.Diachiganday.MaDc : 0),
+                    id: @(Model?.Diachiganday?.MaDc ?? 0),
                     Diachi: address,
                     phuongxa: ward,
                     quanhuyen: district,
