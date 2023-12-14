@@ -19,6 +19,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using BAITAP.DTO;
 using NuGet.Packaging;
 using System.Security.Cryptography;
+using Microsoft.CodeAnalysis.Elfie.Model.Map;
 
 namespace BAITAP.Controllers
 {
@@ -194,7 +195,7 @@ namespace BAITAP.Controllers
 
         public async Task<List<SanPhamHot>> DanhSachSanPhamHOT()
         {
-            var lismh = await _context.Mhs.ToListAsync();
+            var lismh = await _context.Mhs.Include(m => m.Danhmucs).ToListAsync();
             List<SanPhamHot> ListSanPhamHot = new List<SanPhamHot>();
             foreach(var mh in lismh)
             {
@@ -600,6 +601,7 @@ namespace BAITAP.Controllers
                         cthd.Thanhtien = item.soluongmua * item.giaban;
                         var mathang = await _context.Mathangs.FirstOrDefaultAsync((x => x.MaMh.Equals(item.id)));
                         mathang.LuotMua += item.soluongmua;
+                        mathang.SoLuong -= 1;
                         cthd.Dongia = item.giaban;
                         _context.Cthoadons.Add(cthd);
                     }
@@ -1060,12 +1062,37 @@ namespace BAITAP.Controllers
             }
             return BadRequest();
         }
+        [HttpPost]
+        public async Task<IActionResult> UpdateLuotXem(int Id)
+        {
+            var mathang = await _context.Mhs.FirstOrDefaultAsync(x => x.Id.Equals(Id));
+            if(mathang == null)
+            {
+                return Json(new
+                {
+                    success = true,
+                    status = 1,
+                    message = "Sản phẩm không tồn tại!"
+                });
+            }
+            mathang.LuotXem += 1;
+            await _context.SaveChangesAsync();
+            return Json(new
+            {
+                success = false,
+                status = 1,
+                message = "Cập nhật không thành công !"
+            });
+        }
+
+
         public async Task<IActionResult> Details2(int Id)
         {
             DateTime currentDate = DateTime.Now;
 
             var sanphamchitiet = new ChitietSanphamDTO();
             var mathang = await _context.Mhs.Include(m => m.Danhmucs).FirstOrDefaultAsync(x => x.Id.Equals(Id));
+            ViewData["ID"] = mathang.Id;
             var danhsachsanpham = await _context.Mathangs.Where(x => x.MaMhchinh.Equals(Id)).ToListAsync();
             sanphamchitiet.GiaGiaoDong = tinhgiagiaodong(danhsachsanpham);
             var newdanhsachsanpham = new List<MathangKM>();
@@ -1114,7 +1141,28 @@ namespace BAITAP.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index1");
         }
+        [HttpPost]
+        public async Task<IActionResult> XoaDiaChi(int id)
+        {
+            if (id == null)
+            {
+                return View("Profile");
+            }
 
+            var diachi = await _context.Diachis.FirstOrDefaultAsync(x => x.MaDc.Equals(id));
+
+            if (diachi == null)
+            {
+                return NotFound();
+            }
+
+            _context.Diachis.Remove(diachi);
+            await _context.SaveChangesAsync();
+
+            // Tạo URL mới với fragment identifier và chuyển hướng đến đó
+            var urlWithFragment = Url.Action("Profile") + "#diachi";
+            return Redirect(urlWithFragment);
+        }
 
     }
 }

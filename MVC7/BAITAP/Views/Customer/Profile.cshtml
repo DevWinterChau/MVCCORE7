@@ -232,7 +232,6 @@
                     <thead>
                         <tr>
                             <th>Danh sách địa chỉ</th>
-                            <th class="text-center"><a class="btn btn-sm btn-outline-danger" href="#"><i class="bi bi-x-square-fill"></i></a></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -255,8 +254,8 @@
                                                 </div>
                                             </td>
                                             <td class="text-center">
-                                                <div>                                                  
-                                                    <a class="btn btn-outline-warning">
+                                                <div>
+                                                    <a class="btn btn-outline-warning" asp-action="XoaDiaChi" asp-controller="Customer" asp-route-id="@item.MaDc">
                                                         <i class="bi bi-trash"></i>
                                                     </a>
                                                 </div>

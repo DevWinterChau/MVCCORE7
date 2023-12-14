@@ -27,7 +27,7 @@ public partial class Hoadon
 
     public string? Tinh { get; set; }
 
-    public virtual ICollection<Cthoadon> Cthoadons { get; set; } = new List<Cthoadon>();
+    public virtual ICollection<Cthoadon>? Cthoadons { get; set; } = new List<Cthoadon>();
 
-    public virtual Khachhang MakhNavigation { get; set; } = null!;
+    public virtual Khachhang? MakhNavigation { get; set; } = null!;
 }

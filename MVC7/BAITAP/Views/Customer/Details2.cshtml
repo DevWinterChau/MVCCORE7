@@ -10,7 +10,7 @@
    </div>
   <div class="ps-lg-3 mt-10">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <h4 class="title text-dark">
                     @Model.mathangchinh.Ten <br />
                 </h4>
@@ -27,11 +27,11 @@
                     </div>
                     <span class="text-muted"><i class="fas fa-shopping-basket fa-sm mx-1"></i>@Model.GiaGiaoDong</span>
                 </div>
-                <div class="d-flex flex-row my-3">
-                    Mô tả: 
-                </div>
-            </div>
-            <div class="col-md-4">
+                <div class="overflow-auto  bg-light"
+                     style="max-width: 100%; max-height: 300px;">
+                <h3>Mô tả:</h3>
+                <code>@Html.Raw(@Model.mathangchinh.Mota)</code>
+                </div>                
             </div>
             <div class="col-md-4">
             <img src="~/images/products/@Model.mathangchinh.Hinhanh" alt="Hình ảnh" style="max-width: 200px;" />
@@ -46,7 +46,6 @@
                     <th scope="col">Thuộc tích</th>
                     <th scope="col">Giá Bán</th>
                     <th scope="col">Tình trạng</th>
-                    <th scope="col">Số Lượng còn</th>
                     <th scope="col">Hình ảnh</th>
                     <th></th>
                 </tr>
@@ -84,7 +83,7 @@
                             <img src="~/images/products/@item.mathang.HinhAnh" alt="Hình ảnh" style="max-width: 100px;" />
                         </td>
                         <td>
-                            <a class="btn btn-outline-danger mt-auto" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh"><i class="bi bi-heart-fill"></i></a>
+                            <a class="btn btn-outline-danger" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh"><i class="bi bi-heart-fill"></i></a>
                             <!-- <a asp-controller="Customer" asp-action="Addtocart" asp-route-id="item.MaMh">Mua</a> -->
                             @if (item.Phantramkhuyenmai > 0 && item.Giakhuyemai > 0)
                             {
@@ -100,12 +99,60 @@
                 }
             </tbody>
         </table>
+
         </div>
+
   </div>
 
 
 
 <script>
+
+    var timeout = 15000;
+    var timer;
+    function startTimer() {
+        timer = setTimeout(function () {
+            // Sử dụng Ajax để update Lượt xem
+            updateView();
+        }, timeout);
+    }
+
+    function cancelTimer() {
+        console.log('Đã tới thời gian update');
+        clearTimeout(timer);
+    }
+
+    function updateView() {
+        // Sử dụng JSON.stringify để chuyển đối tượng thành chuỗi JSON
+        fetch('/customer/UpdateLuotXem/' + encodeURIComponent('@ViewData["ID"]'), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            // Nếu bạn cần thêm dữ liệu trong trường hợp POST, hãy thêm body ở đây
+            // body: JSON.stringify({ key: 'value' }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Lượt xem đã được cập nhật:', data);
+                cancelTimer();
+            })
+            .catch(error => {
+                console.error('Lỗi khi cập nhật lượt xem:', error);
+            });
+    }
+
+    // Gọi hàm bắt đầu đồng hồ đếm khi trang được tải
+    document.addEventListener('DOMContentLoaded', function () {
+        startTimer();
+    });
+
+    // Nếu có sự kiện nào đó khi người dùng tương tác với trang, hủy đồng hồ đếm và bắt đầu lại
+    document.addEventListener('click', function () {
+        cancelTimer();
+        startTimer();
+    });
+
     function addToCart(id, giaban, hinhanh, ten, giakhuyenmai, soluongconsp) {
         var cart = JSON.parse(localStorage.getItem('cart')) || [];
 

@@ -98,10 +98,20 @@
                 }
             }
         </script>
-
         <div class="form-group" id="attributesGroup">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-12">
+                    <label class="control-label">Mô tả:</label>
+                    <textarea class='form-control' id='motaEditormhc'></textarea>
+                    <script>
+                        CKEDITOR.replace("motaEditormhc");
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" id="attributesGroup">
+                <div class="row">
+                    <div class="col-md-4">
                     <label class="control-label">Giá góc</label>
                     <input type="text" id="textgiagoc" placeholder="Nhập giá góc..." class="form-control" />
                 </div>
@@ -177,29 +187,37 @@
 
 
     
+        <div class="row">
+            <div class="col-md-12">
+                    <table class="table" id="variantsTable" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên Sản phẩm</th>
+                                <th>Giá bán</th>
+                                <th>Giá gốc</th>
+                                <th>Số lượng</th>
+                                <th>Mô tả</th>
+                                <th>Màu sắc</th>
+                                <th>Kích thước</th>
+                                <th>Chất liệu</th>
+                                <th>Hình ảnh</th>
+                                <th>Browse/th>
+                                <th>Đơn vị tính</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Table rows will be dynamically generated here -->
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+ 
 
-        <table class="table" id="variantsTable" style="width: 100%;">
-            <thead>
-                <tr>
-                    <th>STT</th>
-                    <th>Tên Sản phẩm</th>
-                    <th>Giá bán</th>
-                    <th>Giá gốc</th>
-                    <th>Số lượng</th>
-                    <th>Mô tả</th>
-                    <th>Màu sắc</th>
-                    <th>Kích thước</th>
-                    <th>Chất liệu</th>
-                    <th>Hình ảnh</th>
-                    <th>Đơn vị tính</th>
-                    <th>Trạng thái</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Table rows will be dynamically generated here -->
-            </tbody>
-        </table>
-            <div class="row">
+
+        <!-- Button save and reset -->
+        <div class="row">
                 <div class="col-md-1">
                     <button type="button" class="btn btn-success" onclick="addPhienbansanpham()">Lưu</button>
                     <script>
@@ -257,6 +275,7 @@
                     Ten: "",
                     Hinhanh: "",
                     MaDm: 0,
+                    Mota: ""
                     // Add other properties based on your form inputs
                 };
             $(document).ready(function () {
@@ -307,6 +326,19 @@
                         const chatlieuList = $("#attributeListchatlieu").find("li");
                         const kichthuocList = $("#attributeListkichthuoc").find("li");
      
+                        // Get the CKEditor instance
+                        var editor = CKEDITOR.instances.motaEditormhc;
+
+                        // Check if the instance exists
+                        if (editor) {
+                            // Get the content of the CKEditor instance
+                            var editorContent = editor.getData();
+                            mathang.Mota = editorContent;
+                            // Now, editorContent contains the value of the CKEditor instance
+                            console.log(editorContent);
+                        } else {
+                            console.error('CKEditor instance not found.');
+                        }
 
                         if (mausacList.length === 0 || chatlieuList.length === 0 || kichthuocList.length === 0) {
                             alert("Vui lòng chọn các thuộc tính sản phẩm");
@@ -360,7 +392,7 @@
                                         // Remove all child elements from the table row
                                         variantRow.empty();
                                         variantRow.append(`<td>${index}</td>`);
-                                        variantRow.append(`<td>${tensp} ${thuonghieu} - ${mausacValue} - ${kichthuocValue} - ${chatlieuValue}</td>`);
+                                        variantRow.append(`<td class="mh-60">${tensp} ${thuonghieu} - ${mausacValue} - ${kichthuocValue} - ${chatlieuValue}</td>`);
                                         const giagocInput = $(`<input type='text' class='form-control' id='col-giagoc{index}' value=${giagoc} placeholder='Nhập giá góc' />`);
                                         giagocInput.on('input', function () {
                                             updateGiagoc(giagocInput.val(), index - 1);

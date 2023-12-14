@@ -229,6 +229,7 @@ namespace BAITAP.Controllers
             {
                 return NotFound();
             }
+            ViewData["MaDm"] = new SelectList(_context.Danhmucs, "MaDm", "Ten");
             return View(mh);
         }
 
@@ -237,7 +238,7 @@ namespace BAITAP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Ten,Hinhanh,Ngaytao,Ngaycapnhat")] Mh mh, IFormFile? fileanh)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Ten,Hinhanh,Ngaytao,Ngaycapnhat, LuotXem, Madm, Mota")] Mh mh, IFormFile? fileanh)
         {
             if (id != mh.Id)
             {

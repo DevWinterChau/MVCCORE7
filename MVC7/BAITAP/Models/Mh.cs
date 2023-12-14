@@ -14,8 +14,10 @@ public partial class Mh
     public DateTime Ngaytao { get; set; }
 
     public DateTime Ngaycapnhat { get; set; }
+    public int? LuotXem { get; set; }
 
     public int? Madm { get; set; }
+    public string? Mota { get; set; }    
 
-    public virtual Danhmuc Danhmucs { get; set; }
+    public virtual Danhmuc? Danhmucs { get; set; }
 }
