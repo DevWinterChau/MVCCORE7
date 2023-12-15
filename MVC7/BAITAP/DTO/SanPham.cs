@@ -6,6 +6,6 @@ namespace BAITAP.DTO
     {
         public List<SanPhamDTO> ListSanPhamDTOs { get; set; }
         public List<SanPhamHot> ListSanPhamHot { get; set; }
-        public List<Mh> ListSanPhamGoiY {  get; set; }  
+        public List<Mathang> ListSanPhamGoiY {  get; set; }  
     }
 }

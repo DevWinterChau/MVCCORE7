@@ -168,10 +168,10 @@
                                     var khachHang = JsonConvert.DeserializeObject<BAITAP.Common.KhachHangLogin>(checkAdmin);
 
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="bi bi-menu-button-wide-fill"></i> Xin chào @khachHang.Name 
+                                        <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-menu-button-wide-fill"></i> Xin Chào @khachHang.Name
                                         </a>
-                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                                             <li class="dropdown-submenu">
 
                                                 <ul class="submenu">
@@ -427,6 +427,8 @@
         });
         var filterForm = document.getElementById("filterForm");
         var navbarDropdown = document.getElementById("navbarDropdown");
+        var navbarDropdown1 = document.getElementById("navbarDropdown1");
+
         var togglebtn = document.getElementById("togglebtn");
 
         function handleScroll() {
@@ -449,6 +451,8 @@
 
         window.addEventListener("scroll", handleScroll);
         navbarDropdown.addEventListener("click", handleNavbarDropdownClick);
+        navbarDropdown1.addEventListener("click", handleNavbarDropdownClick);
+
     </script>
 
     <script src="~/ckeditor/ckeditor.js"></script>

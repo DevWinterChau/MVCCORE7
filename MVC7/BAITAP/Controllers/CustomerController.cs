@@ -205,7 +205,24 @@ namespace BAITAP.Controllers
                 itemhot.LuotMuatrungbinh = TinhLuotMuaTrungBinh(listSanpham);
                 ListSanPhamHot.Add (itemhot);
             }
-            return ListSanPhamHot.OrderByDescending(x => x.LuotMuatrungbinh).Where(x => x.LuotMuatrungbinh >100 ).ToList();
+            return ListSanPhamHot.OrderByDescending(x => x.LuotMuatrungbinh).ToList();
+        }
+
+        public async Task<List<Mathang>> DanhSachSanGoiYDuaVaoSoThich(int IDKH)
+        {
+            List<Mathang> ListSanPhamHot = new List<Mathang>();
+            var listsothichTH = await _context.Thuonghieusothiches.Where(x => x.Makh.Equals(IDKH)).ToListAsync();
+            var listsothichDM = await _context.Danhmucsothiches.Where(x => x.Makh.Equals(IDKH)).ToListAsync();
+            var lismh = await _context.Mhs.Include(m => m.Danhmucs).ToListAsync();
+            foreach(var itemTH in listsothichTH)
+            {
+                foreach (var itemDM in listsothichDM)
+                {
+                    var listSanpham = await _context.Mathangs.Where(x => x.Thuonghieu.Equals(itemTH.Thuonghieuyeuthich) &&  x.Danhmucs.Ten.Equals(itemDM.Loaisanphamyeuthich)).ToListAsync();
+                    ListSanPhamHot.AddRange(listSanpham);
+                }
+            }
+            return ListSanPhamHot;
         }
 
         // GET: Customer
@@ -312,7 +329,8 @@ namespace BAITAP.Controllers
             var danhsachsanpham = new SanPham();
             danhsachsanpham.ListSanPhamDTOs = splist;
             danhsachsanpham.ListSanPhamHot = await DanhSachSanPhamHOT();
-           /// danhsachsanpham.ListSanPhamGoiY = query.ToListAsync();
+            if (getID() != null) danhsachsanpham.ListSanPhamGoiY = await DanhSachSanGoiYDuaVaoSoThich(getID().ID); else danhsachsanpham.ListSanPhamGoiY = null;
+
             return View(danhsachsanpham);
         }
 
@@ -911,7 +929,6 @@ namespace BAITAP.Controllers
 
             }
 
-
             string url = _configuration["Vnpay:PaymentUrl"];
             string returnUrl = _configuration["Vnpay:ReturnUrl"];
             string tmnCode = _configuration["Vnpay:TmnCode"];
@@ -1089,7 +1106,6 @@ namespace BAITAP.Controllers
         public async Task<IActionResult> Details2(int Id)
         {
             DateTime currentDate = DateTime.Now;
-
             var sanphamchitiet = new ChitietSanphamDTO();
             var mathang = await _context.Mhs.Include(m => m.Danhmucs).FirstOrDefaultAsync(x => x.Id.Equals(Id));
             ViewData["ID"] = mathang.Id;

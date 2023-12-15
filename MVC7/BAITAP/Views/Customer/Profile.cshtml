@@ -232,6 +232,9 @@
                     <thead>
                         <tr>
                             <th>Danh sách địa chỉ</th>
+                            <th></th>
+                            <th></th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -255,9 +258,37 @@
                                             </td>
                                             <td class="text-center">
                                                 <div>
-                                                    <a class="btn btn-outline-warning" asp-action="XoaDiaChi" asp-controller="Customer" asp-route-id="@item.MaDc">
-                                                        <i class="bi bi-trash"></i>
-                                                    </a>
+                                                    @if(item.Macdinh == 0)
+                                                    {
+                                                        <form asp-action="XoaDiaChi" asp-controller="customer" method="post" asp-route-id="@item.MaDc">
+                                                            <button type="submit" class="btn btn-outline-danger">
+                                                                <i class="bi bi-trash"></i>
+                                                            </button>
+                                                        </form>
+                                  
+                                                    }
+                                                    else
+                                                    {
+                                                        
+                                                    }
+
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div>
+                                                    @if (item.Macdinh == 0)
+                                                    {
+                                                        <form asp-action="Diachimacdinh" asp-controller="customer" method="post" asp-route-id="@item.MaDc">
+                                                            <button type="submit" class="btn btn-outline-danger">
+                                                                <i class="bi bi-check-circle-fill"></i> Mặc định
+                                                            </button>
+                                                        </form>
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
+
                                                 </div>
                                             </td>
                                         </tr>
