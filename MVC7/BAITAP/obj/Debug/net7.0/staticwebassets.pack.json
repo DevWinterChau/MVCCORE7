@@ -5,6 +5,38 @@
       "PackagePath": "staticwebassets\\BAITAP.bundle.scp.css"
     },
     {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\admin\\assets\\demo\\chart-area-demo.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\demo\\chart-area-demo.js"
+    },
+    {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\admin\\assets\\demo\\chart-bar-demo.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\demo\\chart-bar-demo.js"
+    },
+    {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\admin\\assets\\demo\\chart-pie-demo.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\demo\\chart-pie-demo.js"
+    },
+    {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\admin\\assets\\demo\\datatables-demo.js",
+      "PackagePath": "staticwebassets\\admin\\assets\\demo\\datatables-demo.js"
+    },
+    {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\admin\\assets\\img\\error-404-monochrome.svg",
+      "PackagePath": "staticwebassets\\admin\\assets\\img\\error-404-monochrome.svg"
+    },
+    {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\admin\\css\\styles.css",
+      "PackagePath": "staticwebassets\\admin\\css\\styles.css"
+    },
+    {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\admin\\js\\datatables-simple-demo.js",
+      "PackagePath": "staticwebassets\\admin\\js\\datatables-simple-demo.js"
+    },
+    {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\admin\\js\\scripts.js",
+      "PackagePath": "staticwebassets\\admin\\js\\scripts.js"
+    },
+    {
       "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\ckeditor\\CHANGES.md",
       "PackagePath": "staticwebassets\\ckeditor\\CHANGES.md"
     },
@@ -1389,246 +1421,6 @@
       "PackagePath": "staticwebassets\\images\\panner\\6.png"
     },
     {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129210303Ảnh chụp màn hình 2023-09-19 000029.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231129210303Ảnh chụp màn hình 2023-09-19 000029.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129214243Screenshot (68).png",
-      "PackagePath": "staticwebassets\\images\\products\\20231129214243Screenshot (68).png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129215104Ảnh chụp màn hình 2023-09-29 181047.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231129215104Ảnh chụp màn hình 2023-09-29 181047.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129215113Ảnh chụp màn hình 2023-09-29 202309.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231129215113Ảnh chụp màn hình 2023-09-29 202309.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129215114Ảnh chụp màn hình 2023-09-27 155946.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231129215114Ảnh chụp màn hình 2023-09-27 155946.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129215211Ảnh chụp màn hình 2023-09-29 181047.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231129215211Ảnh chụp màn hình 2023-09-29 181047.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129215214Ảnh chụp màn hình 2023-09-29 202309.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231129215214Ảnh chụp màn hình 2023-09-29 202309.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129215217Ảnh chụp màn hình 2023-09-27 155946.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231129215217Ảnh chụp màn hình 2023-09-27 155946.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129215936Ảnh chụp màn hình 2023-09-27 155913.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231129215936Ảnh chụp màn hình 2023-09-27 155913.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129215936Ảnh chụp màn hình 2023-09-29 175000.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231129215936Ảnh chụp màn hình 2023-09-29 175000.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129215936Ảnh chụp màn hình 2023-09-29 181115.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231129215936Ảnh chụp màn hình 2023-09-29 181115.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129220004Ảnh chụp màn hình 2023-09-29 175000.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231129220004Ảnh chụp màn hình 2023-09-29 175000.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129220012Ảnh chụp màn hình 2023-09-29 181115.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231129220012Ảnh chụp màn hình 2023-09-29 181115.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129220015Ảnh chụp màn hình 2023-09-27 155913.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231129220015Ảnh chụp màn hình 2023-09-27 155913.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129220546hinhanhgiay.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231129220546hinhanhgiay.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129220549hinhanhgiay.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231129220549hinhanhgiay.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129220619hinhanhgiay.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231129220619hinhanhgiay.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129220622hinhanhgiay.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231129220622hinhanhgiay.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129220833giaypuma.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231129220833giaypuma.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129220833hinhanhgiay.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231129220833hinhanhgiay.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129221838hinhanhgiay.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231129221838hinhanhgiay.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129221844giaypuma.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231129221844giaypuma.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231129222051Ảnh chụp màn hình 2023-09-29 190004.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231129222051Ảnh chụp màn hình 2023-09-29 190004.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231204221050Ảnh chụp màn hình 2023-09-29 204806.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231204221050Ảnh chụp màn hình 2023-09-29 204806.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231204221119Ảnh chụp màn hình 2023-09-29 180344.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231204221119Ảnh chụp màn hình 2023-09-29 180344.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231204221221Ảnh chụp màn hình 2023-09-29 180344.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231204221221Ảnh chụp màn hình 2023-09-29 180344.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231204221501Ảnh chụp màn hình 2023-09-19 000029.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231204221501Ảnh chụp màn hình 2023-09-19 000029.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231204221528Ảnh chụp màn hình 2023-08-22 123725.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231204221528Ảnh chụp màn hình 2023-08-22 123725.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231204223036Ảnh chụp màn hình 2023-09-27 155913.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231204223036Ảnh chụp màn hình 2023-09-27 155913.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231204225515user.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231204225515user.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231204230700user.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231204230700user.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231204231532iphone-15-pro-max-blue-thumbnew-200x200.webp",
-      "PackagePath": "staticwebassets\\images\\products\\20231204231532iphone-15-pro-max-blue-thumbnew-200x200.webp"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231204231545iphone-15-pro-max-blue-thumbnew-200x200.webp",
-      "PackagePath": "staticwebassets\\images\\products\\20231204231545iphone-15-pro-max-blue-thumbnew-200x200.webp"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231204233126giaypuma.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231204233126giaypuma.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231204233126hinhanhgiay.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231204233126hinhanhgiay.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205182745aopolo.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205182745aopolo.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205182745aopolo2.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205182745aopolo2.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205182838aopolo.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205182838aopolo.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205182841aopolo.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205182841aopolo.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205182903aopolo.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205182903aopolo.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205182903aopolo2.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205182903aopolo2.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205182947aopolo.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205182947aopolo.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205182950aopolo.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205182950aopolo.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205182953aopolo.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205182953aopolo.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205182956aopolo2.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205182956aopolo2.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205183000aopolo2.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205183000aopolo2.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205183002aopolo2.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205183002aopolo2.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205183005aopolo2.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205183005aopolo2.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205183008aopolo2.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205183008aopolo2.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205183011aopolo2.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205183011aopolo2.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205183202aopolo.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205183202aopolo.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205183205aopolo.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205183205aopolo.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205183205aopolo2.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205183205aopolo2.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205183516aopolo.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205183516aopolo.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205183516aopolo2.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205183516aopolo2.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231205223805aopolo2.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231205223805aopolo2.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231214143928giaynam2023.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231214143928giaynam2023.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231214145556anhdemo.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231214145556anhdemo.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231214145756aopolo.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\20231214145756aopolo.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231214202450Ảnh chụp màn hình 2023-08-22 123725.png",
-      "PackagePath": "staticwebassets\\images\\products\\20231214202450Ảnh chụp màn hình 2023-08-22 123725.png"
-    },
-    {
       "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231214214715aothunmarvel.jpg",
       "PackagePath": "staticwebassets\\images\\products\\20231214214715aothunmarvel.jpg"
     },
@@ -1639,106 +1431,6 @@
     {
       "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\20231214220959aothunmarvel.jpg",
       "PackagePath": "staticwebassets\\images\\products\\20231214220959aothunmarvel.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\dangnhap.png",
-      "PackagePath": "staticwebassets\\images\\products\\dangnhap.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\g1.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\g1.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\g2.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\g2.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\g3.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\g3.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\g4.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\g4.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\h1.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\h1.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\h2.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\h2.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\h3.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\h3.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\h4.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\h4.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\h5.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\h5.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\h6.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\h6.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\iphone-15-pro-max-blue-thumbnew-200x200.webp",
-      "PackagePath": "staticwebassets\\images\\products\\iphone-15-pro-max-blue-thumbnew-200x200.webp"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\m1.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\m1.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\m2.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\m2.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\m3.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\m3.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\m4.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\m4.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\v1.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\v1.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\v2.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\v2.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\v3.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\v3.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\v4.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\v4.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\v5.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\v5.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\v6.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\v6.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\v7.jpg",
-      "PackagePath": "staticwebassets\\images\\products\\v7.jpg"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\Ảnh chụp màn hình 2023-08-22 123725.png",
-      "PackagePath": "staticwebassets\\images\\products\\Ảnh chụp màn hình 2023-08-22 123725.png"
-    },
-    {
-      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\Ảnh chụp màn hình 2023-09-27 153858.png",
-      "PackagePath": "staticwebassets\\images\\products\\Ảnh chụp màn hình 2023-09-27 153858.png"
     },
     {
       "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\js\\site.js",
@@ -1811,6 +1503,22 @@
     {
       "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-theme.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-theme.css"
+    },
+    {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-theme.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-theme.css.map"
+    },
+    {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-theme.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-theme.min.css"
+    },
+    {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-theme.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-theme.min.css.map"
     },
     {
       "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",

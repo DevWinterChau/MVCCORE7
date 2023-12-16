@@ -16,6 +16,270 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\HK1 -NAM4\ASP.NET\MVCCORE7\MVC7\BAITAP
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/ChitietKhuyenMaiSanPham/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2hpdGlldEtodXllbk1haVNhblBoYW1cQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/ChitietKhuyenMaiSanPham/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2hpdGlldEtodXllbk1haVNhblBoYW1cRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/ChitietKhuyenMaiSanPham/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2hpdGlldEtodXllbk1haVNhblBoYW1cRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/ChitietKhuyenMaiSanPham/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2hpdGlldEtodXllbk1haVNhblBoYW1cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/ChitietKhuyenMaiSanPham/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2hpdGlldEtodXllbk1haVNhblBoYW1cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Chucvus/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2h1Y3Z1c1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Chucvus/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2h1Y3Z1c1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Chucvus/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2h1Y3Z1c1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Chucvus/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2h1Y3Z1c1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Chucvus/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2h1Y3Z1c1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/CTKhuyenMai/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ1RLaHV5ZW5NYWlcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/CTKhuyenMai/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ1RLaHV5ZW5NYWlcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/CTKhuyenMai/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ1RLaHV5ZW5NYWlcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/CTKhuyenMai/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ1RLaHV5ZW5NYWlcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/CTKhuyenMai/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ1RLaHV5ZW5NYWlcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Danhmucs/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGFuaG11Y3NcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Danhmucs/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGFuaG11Y3NcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Danhmucs/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGFuaG11Y3NcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Danhmucs/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGFuaG11Y3NcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Danhmucs/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGFuaG11Y3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Diachis/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGlhY2hpc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Diachis/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGlhY2hpc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Diachis/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGlhY2hpc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Diachis/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGlhY2hpc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Diachis/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGlhY2hpc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Hoadons/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9hZG9uc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Hoadons/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9hZG9uc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Hoadons/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9hZG9uc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Hoadons/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9hZG9uc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Hoadons/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9hZG9uc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Home/changepass.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxjaGFuZ2VwYXNzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Home/Info.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxJbmZvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Home/setting.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxzZXR0aW5nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Khachhangs/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2hhY2hoYW5nc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Khachhangs/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2hhY2hoYW5nc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Khachhangs/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2hhY2hoYW5nc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Khachhangs/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2hhY2hoYW5nc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Khachhangs/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2hhY2hoYW5nc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/LoaiKhuyenMais/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTG9haUtodXllbk1haXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/LoaiKhuyenMais/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTG9haUtodXllbk1haXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/LoaiKhuyenMais/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTG9haUtodXllbk1haXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/LoaiKhuyenMais/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTG9haUtodXllbk1haXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/LoaiKhuyenMais/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTG9haUtodXllbk1haXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Mathangs/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWF0aGFuZ3NcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Mathangs/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWF0aGFuZ3NcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Mathangs/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWF0aGFuZ3NcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Mathangs/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWF0aGFuZ3NcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Mathangs/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWF0aGFuZ3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Mhs/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWhzXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Mhs/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWhzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Mhs/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWhzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Mhs/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWhzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Mhs/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWhzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Nhanviens/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTmhhbnZpZW5zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Nhanviens/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTmhhbnZpZW5zXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Nhanviens/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTmhhbnZpZW5zXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Nhanviens/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTmhhbnZpZW5zXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Nhanviens/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTmhhbnZpZW5zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Thuonghieux/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVGh1b25naGlldXhcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Thuonghieux/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVGh1b25naGlldXhcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Thuonghieux/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVGh1b25naGlldXhcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Thuonghieux/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVGh1b25naGlldXhcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Thuonghieux/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVGh1b25naGlldXhcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Identity/Pages/Account/ConfirmEmail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxDb25maXJtRW1haWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -56,64 +320,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/ChitietKhuyenMaiSanPham/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hpdGlldEtodXllbk1haVNhblBoYW1cQ3JlYXRlLmNzaHRtbA==
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/ChitietKhuyenMaiSanPham/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hpdGlldEtodXllbk1haVNhblBoYW1cRGVsZXRlLmNzaHRtbA==
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Pages/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0xheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/ChitietKhuyenMaiSanPham/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hpdGlldEtodXllbk1haVNhblBoYW1cRGV0YWlscy5jc2h0bWw=
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/ChitietKhuyenMaiSanPham/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hpdGlldEtodXllbk1haVNhblBoYW1cRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/ChitietKhuyenMaiSanPham/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hpdGlldEtodXllbk1haVNhblBoYW1cSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Chucvus/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2h1Y3Z1c1xDcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Chucvus/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2h1Y3Z1c1xEZWxldGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Chucvus/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2h1Y3Z1c1xEZXRhaWxzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Chucvus/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2h1Y3Z1c1xFZGl0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Chucvus/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2h1Y3Z1c1xJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/CTKhuyenMai/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ1RLaHV5ZW5NYWlcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/CTKhuyenMai/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ1RLaHV5ZW5NYWlcRGVsZXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/CTKhuyenMai/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ1RLaHV5ZW5NYWlcRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/CTKhuyenMai/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ1RLaHV5ZW5NYWlcRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/CTKhuyenMai/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ1RLaHV5ZW5NYWlcSW5kZXguY3NodG1s
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Customer/Cart.cshtml]
@@ -160,182 +380,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcU2VhcmNoUHJvZHVjdHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Danhmucs/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuaG11Y3NcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Danhmucs/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuaG11Y3NcRGVsZXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Danhmucs/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuaG11Y3NcRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Danhmucs/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuaG11Y3NcRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Danhmucs/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuaG11Y3NcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Diachis/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlhY2hpc1xDcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Diachis/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlhY2hpc1xEZWxldGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Diachis/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlhY2hpc1xEZXRhaWxzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Diachis/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlhY2hpc1xFZGl0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Diachis/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlhY2hpc1xJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Hoadons/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9hZG9uc1xDcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Hoadons/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9hZG9uc1xEZWxldGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Hoadons/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9hZG9uc1xEZXRhaWxzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Hoadons/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9hZG9uc1xFZGl0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Hoadons/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9hZG9uc1xJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Home/Info.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmZvLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Home/Menu.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxNZW51LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Khachhangs/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2hhY2hoYW5nc1xDcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Khachhangs/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2hhY2hoYW5nc1xEZWxldGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Khachhangs/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2hhY2hoYW5nc1xEZXRhaWxzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Khachhangs/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2hhY2hoYW5nc1xFZGl0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Khachhangs/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS2hhY2hoYW5nc1xJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/LoaiKhuyenMais/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haUtodXllbk1haXNcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/LoaiKhuyenMais/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haUtodXllbk1haXNcRGVsZXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/LoaiKhuyenMais/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haUtodXllbk1haXNcRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/LoaiKhuyenMais/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haUtodXllbk1haXNcRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/LoaiKhuyenMais/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haUtodXllbk1haXNcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Mathangs/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWF0aGFuZ3NcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Mathangs/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWF0aGFuZ3NcRGVsZXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Mathangs/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWF0aGFuZ3NcRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Mathangs/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWF0aGFuZ3NcRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Mathangs/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWF0aGFuZ3NcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Mhs/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWhzXENyZWF0ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Mhs/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWhzXERlbGV0ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Mhs/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWhzXERldGFpbHMuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Mhs/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWhzXEVkaXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Mhs/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWhzXEluZGV4LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Nhanviens/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmhhbnZpZW5zXENyZWF0ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Nhanviens/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmhhbnZpZW5zXERlbGV0ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Nhanviens/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmhhbnZpZW5zXERldGFpbHMuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Nhanviens/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmhhbnZpZW5zXEVkaXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Nhanviens/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmhhbnZpZW5zXEluZGV4LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -348,26 +392,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Thuonghieux/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGh1b25naGlldXhcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Thuonghieux/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGh1b25naGlldXhcRGVsZXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Thuonghieux/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGh1b25naGlldXhcRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Thuonghieux/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGh1b25naGlldXhcRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Thuonghieux/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGh1b25naGlldXhcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -375,6 +399,10 @@ build_metadata.AdditionalFiles.CssScope =
 [D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+
+[D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Areas/Admin/Views/Shared/_Layoutadmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9MYXlvdXRhZG1pbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = b-qx6ul1zxe7
 
 [D:/HK1 -NAM4/ASP.NET/MVCCORE7/MVC7/BAITAP/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s

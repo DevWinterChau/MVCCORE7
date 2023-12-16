@@ -53,9 +53,18 @@ app.UseSession();
 app.UseRouting();
 app.UseAuthorization();
 app.UseDanhSachMatHangMiddleware();
-app.MapControllerRoute(
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+      name: "Admin",
+      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
+    app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Customer}/{action=Index1}/{id?}");
+});
+
 app.MapRazorPages();
 
 app.Run();

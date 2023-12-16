@@ -1,0 +1,76 @@
+﻿@model IEnumerable<BAITAP.Models.CtKhuyenMaiSanPham>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<style>
+    /* Add your custom styles here */
+    .table-container {
+        max-width: 800px; /* Adjust the maximum width as needed */
+        margin: auto;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 12px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    td {
+        max-width: 200px; /* Limit the maximum width of cells */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+     }
+</style>
+
+<div class="table-container">
+    <p class="text-right">
+        <a class="btn btn-success"  asp-action="Create">Thêm mới</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Phantramkhuyenmai)</th>
+                <th>@Html.DisplayNameFor(model => model.MaCtkmNavigation.Id)</th>
+                <th>@Html.DisplayNameFor(model => model.MamhNavigation.MaMh)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Phantramkhuyenmai)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MaCtkmNavigation.Id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MamhNavigation.MaMh)</td>
+                    <td>
+                        <a class="btn btn-outline-primary mb-1" asp-action="Edit" asp-route-id="@item.MaCtkm"><i class="bi bi-pencil"></i></a>
+                        <a class="btn btn-outline-success mb-1" asp-action="Details" asp-route-id="@item.MaCtkm"><i class="bi bi-eye"></i></a>
+                        <a class="btn btn-outline-danger mb-1" asp-action="Delete" asp-route-id="@item.MaCtkm"><i class="bi bi-archive-fill"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

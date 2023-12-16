@@ -1,0 +1,43 @@
+﻿@model BAITAP.Models.Nhanvien
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<h1 class="text-danger">Xác nhận xóa</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thông tin nhân viên</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">Tên nhân viên</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Ten)</dd>
+
+            <dt class="col-sm-3">Điện thoại</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Dienthoai)</dd>
+
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Email)</dd>
+
+            <dt class="col-sm-3">Mật khẩu</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Matkhau)</dd>
+
+            <dt class="col-sm-3">Chức vụ</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.MacvNavigation.Ten)</dd>
+        </dl>
+
+        <div class="text-center">
+            <p class="text-danger">Bạn có chắc chắn muốn xóa nhân viên này?</p>
+
+            <form asp-action="Delete" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Manv" />
+
+                <button type="submit" class="btn btn-danger">Xóa</button>
+                <a asp-action="Index" class="btn btn-info">Quay lại danh sách</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -42,81 +42,7 @@
                 <button onclick="handleNavbarDropdownClick()" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon" id="togglebtn"></span></button>
                 <div class="collapse navbar-collapse end-0" id="navbarSupportedContent">
                     <div class="d-flex">
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" asp-controller="customer" asp-action="Index1">
-                                        <i class="bi bi-house-door"></i> Trang chính
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="home" asp-action="info">
-                                        <i class="bi bi-info-circle"></i> Giới thiệu
-                                    </a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="bi bi-gear"></i> Quản lý
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li class="dropdown-submenu">
-                                            <a class="dropdown-item" href="#">
-                                                <i class="bi bi-person"></i> Khách Hàng
-                                            </a>
-                                            <ul class="submenu">
-                                                <li><a class="dropdown-item" asp-controller="Khachhangs" asp-action="Index">Danh sách Khách hàng</a></li>
-                                                <li><a class="dropdown-item" asp-controller="diachis" asp-action="index">Danh sách Địa chỉ</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown-submenu">
-                                            <a class="dropdown-item" href="#">
-                                                <i class="bi bi-box"></i> Sản Phẩm
-                                            </a>
-                                            <ul class="submenu">
-                                                <li><a class="dropdown-item" asp-controller="mhs" asp-action="Index">Danh sách Sản phẩm chính</a></li>
-                                                <li><a class="dropdown-item" asp-controller="Mathangs" asp-action="Index">Danh sách Phiên bản sản phẩm</a></li>
-                                                <li><a class="dropdown-item" asp-controller="Danhmucs" asp-action="Index">Danh sách Loại sản phẩm</a></li>
-                                                <li><a class="dropdown-item" asp-controller="thuonghieux" asp-action="Index">Danh sách Thương hiệu</a></li>
 
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown-submenu">
-                                            <a class="dropdown-item" href="#">
-                                                <i class="bi bi-person"></i> Nhân Viên
-                                            </a>
-                                            <ul class="submenu">
-                                                <li><a class="dropdown-item" asp-controller="Nhanviens" asp-action="Index">Danh sách Nhân viên</a></li>
-                                                <li><a class="dropdown-item" asp-controller="Chucvus" asp-action="Index">Danh sách Chức vụ</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" asp-controller="Hoadons" asp-action="Index">
-                                                <i class="bi bi-file-text"></i> Hóa Đơn
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" asp-controller="ctkhuyenmai" asp-action="Index">
-                                                <i class="bi bi-file-text"></i> Chương trình khuyến mãi
-                                            </a>
-                                            <a class="dropdown-item" asp-controller="chitietkhuyenmaisanpham" asp-action="Index">
-                                                <i class="bi bi-file-text"></i> Danh sách sản phẩm khuyến mãi
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" asp-controller="loaikhuyenmais" asp-action="Index">
-                                                <i class="bi bi-file-text"></i> Loại Khuyễn Mãi
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-
-                            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Xin chào @User.Identity?.Name</a>                 
-                            <a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index1", "Customer", new { area = "" })" class="btn btn-outline-light m-1"><i class="bi bi-person"></i> Đăng xuất</a>
-                            }
-                            else
-                            {
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 end-0">
                                     <li class="nav-item">
                                         <a class="nav-link active" aria-current="page" asp-controller="customer" asp-action="Index1">
@@ -206,9 +132,7 @@
                                     
 
                                 }
-                                <li class="nav-item">
-                                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-light m-1"><i class="bi bi-person"></i>Quản lý</a>
-                                </li>
+
 
                                 <li class="nav-item">
                                     <a asp-action="Cart" asp-controller="customer" class="btn btn-outline-light m-1">
@@ -226,7 +150,6 @@
                                 </li>
 
                               </ul>
-                              }
                     </div>
                 </div>
             </div>

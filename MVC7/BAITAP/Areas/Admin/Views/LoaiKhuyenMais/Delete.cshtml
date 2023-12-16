@@ -1,0 +1,31 @@
+﻿@model BAITAP.Models.LoaiKhuyenMai
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<h1 class="text-center text-danger">Xác nhận xóa</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Chi tiết LoaiKhuyenMai</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">Tên loại khuyến mãi</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.TenLoaiKm)</dd>
+        </dl>
+
+        <div class="text-center">
+            <p class="text-danger">Bạn có chắc chắn muốn xóa loại khuyến mãi này?</p>
+
+            <form asp-action="Delete" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="MaLoaiKm" />
+
+                <button type="submit" class="btn btn-danger">Xóa</button>
+                <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+            </form>
+        </div>
+    </div>
+</div>

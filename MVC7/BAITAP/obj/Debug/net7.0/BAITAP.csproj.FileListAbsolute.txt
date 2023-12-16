@@ -582,3 +582,5 @@ D:\HK1 -NAM4\ASP.NET\MVCCORE7\MVC7\BAITAP\obj\Debug\net7.0\refint\BAITAP.dll
 D:\HK1 -NAM4\ASP.NET\MVCCORE7\MVC7\BAITAP\obj\Debug\net7.0\BAITAP.pdb
 D:\HK1 -NAM4\ASP.NET\MVCCORE7\MVC7\BAITAP\obj\Debug\net7.0\BAITAP.genruntimeconfig.cache
 D:\HK1 -NAM4\ASP.NET\MVCCORE7\MVC7\BAITAP\obj\Debug\net7.0\ref\BAITAP.dll
+D:\HK1 -NAM4\ASP.NET\MVCCORE7\MVC7\BAITAP\bin\Debug\net7.0\bundleconfig.json
+D:\HK1 -NAM4\ASP.NET\MVCCORE7\MVC7\BAITAP\obj\Debug\net7.0\scopedcss\Areas\Admin\Views\Shared\_Layoutadmin.cshtml.rz.scp.css

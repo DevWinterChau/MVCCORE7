@@ -29,7 +29,6 @@ namespace BAITAP.Controllers
         private readonly IConfiguration _configuration;
         public IHttpContextAccessor HttpContextAccessor { get; }
 
-
         // Inject the IHttpContextAccessor to access the session
         public CustomerController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
         {
@@ -55,8 +54,8 @@ namespace BAITAP.Controllers
                             mathang = mathang,
                             danhmuc = danhmuc,
                             ctkm = ctkm,
-                            Phantramkhuyenmai = ctkm != null ? (ctkm.Phantramkhuyenmai != null ? ctkm.Phantramkhuyenmai : 0) : 0,
-                            Giakhuyemai = ctkm != null ? (mathang.GiaBan - (mathang.GiaBan * (ctkm.Phantramkhuyenmai / 100.0))) : 0
+                            Phantramkhuyenmai = ctkm != null ? ctkm.Phantramkhuyenmai != null ? ctkm.Phantramkhuyenmai : 0 : 0,
+                            Giakhuyemai = ctkm != null ? mathang.GiaBan - mathang.GiaBan * (ctkm.Phantramkhuyenmai / 100.0) : 0
                         };
 
 
@@ -129,7 +128,6 @@ namespace BAITAP.Controllers
 
             return View(items);
         }
-
         public string tinhgiagiaodong(List<Mathang> lstmh)
         {
             if (lstmh == null || lstmh.Count == 0)
@@ -147,7 +145,6 @@ namespace BAITAP.Controllers
 
             return minValue.ToString("N0") + "đ - " + maxValue.ToString("N0") + " đ";
         }
-
         public int TinhLuotMuaTrungBinh(List<Mathang> lstmh)
         {
             if (lstmh == null || lstmh.Count == 0)
@@ -159,24 +156,22 @@ namespace BAITAP.Controllers
             {
                 tong += item.LuotMua;
             }
-            return tong != 0 ? tong : 0 ;
+            return tong != 0 ? tong : 0;
         }
-
         public int tinhgiacaonhat(List<Mathang> lstmh)
         {
             if (lstmh == null || lstmh.Count == 0)
             {
-                return 0 ;
+                return 0;
             }
 
             return lstmh.Max(x => x.GiaBan);
         }
-
         public async Task<List<string>> SothichDanhMuc(int IDKH)
         {
             List<string> items = new List<string>();
             var listsothich = await _context.Danhmucsothiches.Where(x => x.Makh.Equals(IDKH)).ToListAsync();
-            foreach(var sothich in listsothich)
+            foreach (var sothich in listsothich)
             {
                 items.Add(sothich.Loaisanphamyeuthich);
             }
@@ -192,39 +187,36 @@ namespace BAITAP.Controllers
             }
             return items;
         }
-
         public async Task<List<SanPhamHot>> DanhSachSanPhamHOT()
         {
             var lismh = await _context.Mhs.Include(m => m.Danhmucs).ToListAsync();
             List<SanPhamHot> ListSanPhamHot = new List<SanPhamHot>();
-            foreach(var mh in lismh)
+            foreach (var mh in lismh)
             {
                 var itemhot = new SanPhamHot();
-                var listSanpham = await _context.Mathangs.Where(x  => x.MaMhchinh.Equals(mh.Id)).ToListAsync();
+                var listSanpham = await _context.Mathangs.Where(x => x.MaMhchinh.Equals(mh.Id)).ToListAsync();
                 itemhot.mathangchinh = mh;
                 itemhot.LuotMuatrungbinh = TinhLuotMuaTrungBinh(listSanpham);
-                ListSanPhamHot.Add (itemhot);
+                ListSanPhamHot.Add(itemhot);
             }
             return ListSanPhamHot.OrderByDescending(x => x.LuotMuatrungbinh).ToList();
         }
-
         public async Task<List<Mathang>> DanhSachSanGoiYDuaVaoSoThich(int IDKH)
         {
             List<Mathang> ListSanPhamHot = new List<Mathang>();
             var listsothichTH = await _context.Thuonghieusothiches.Where(x => x.Makh.Equals(IDKH)).ToListAsync();
             var listsothichDM = await _context.Danhmucsothiches.Where(x => x.Makh.Equals(IDKH)).ToListAsync();
             var lismh = await _context.Mhs.Include(m => m.Danhmucs).ToListAsync();
-            foreach(var itemTH in listsothichTH)
+            foreach (var itemTH in listsothichTH)
             {
                 foreach (var itemDM in listsothichDM)
                 {
-                    var listSanpham = await _context.Mathangs.Where(x => x.Thuonghieu.Equals(itemTH.Thuonghieuyeuthich) &&  x.Danhmucs.Ten.Equals(itemDM.Loaisanphamyeuthich)).ToListAsync();
+                    var listSanpham = await _context.Mathangs.Where(x => x.Thuonghieu.Equals(itemTH.Thuonghieuyeuthich) && x.Danhmucs.Ten.Equals(itemDM.Loaisanphamyeuthich)).ToListAsync();
                     ListSanPhamHot.AddRange(listSanpham);
                 }
             }
             return ListSanPhamHot;
         }
-
         // GET: Customer
         public async Task<IActionResult> Index1(int page = 1, int pageSize = 8, string keyword = null, string category = null, string sort = null, bool Fill = false, string khuyenmai = "0")
         {
@@ -235,7 +227,7 @@ namespace BAITAP.Controllers
             var dssp = await _context.Mathangs.Include(x => x.Danhmucs).ToListAsync();
             bool checkKM = false;
             if (getID() != null) ViewData["MaKH"] = getID().ID; else ViewData["MaKH"] = null;
-            
+
             foreach (var mh in query)
             {
                 var newdssp = dssp.Where(x => x.MaMhchinh.Equals(mh.Id)).ToList();
@@ -243,9 +235,9 @@ namespace BAITAP.Controllers
                 sanpham.mh = mh;
                 sanpham.GiaGiaoDong = tinhgiagiaodong(newdssp);
                 sanpham.giacaonhat = tinhgiacaonhat(newdssp);
-                foreach (var item in newdssp) 
+                foreach (var item in newdssp)
                 {
-            
+
                     if (await CheckKhuyenMai(item.MaMh))
                     {
                         checkKM = true;
@@ -267,7 +259,7 @@ namespace BAITAP.Controllers
             // Filter by category name if provided
             if (!string.IsNullOrEmpty(category) && category != "Tất cả")
             {
-                splist = splist.Where(m => m.mh.Danhmucs.Ten.Equals( category)).ToList();
+                splist = splist.Where(m => m.mh.Danhmucs.Ten.Equals(category)).ToList();
                 ViewBag.category = category;
             }
             else
@@ -325,36 +317,19 @@ namespace BAITAP.Controllers
             ViewBag.ThuongHieu = await _context.Thuonghieus.ToListAsync();
             // Populate the dropdown with categories
             ViewBag.ListDanhMuc = await _context.Danhmucs.ToListAsync();
-            
+
             var danhsachsanpham = new SanPham();
             danhsachsanpham.ListSanPhamDTOs = splist;
             danhsachsanpham.ListSanPhamHot = await DanhSachSanPhamHOT();
             if (getID() != null) danhsachsanpham.ListSanPhamGoiY = await DanhSachSanGoiYDuaVaoSoThich(getID().ID); else danhsachsanpham.ListSanPhamGoiY = null;
-
+            ViewData["CheckSoThich"] = null;
+            if (danhsachsanpham.ListSanPhamGoiY != null)
+            {
+                if (danhsachsanpham.ListSanPhamGoiY.Count > 0)
+                    ViewData["CheckSoThich"] = "ok";
+            }
             return View(danhsachsanpham);
         }
-
-
-        public async Task<IActionResult> SearchProducts(int page = 1, int pageSize = 8, string keyword = "")
-        {
-            var items = await _context.Mathangs.Where(x => x.Ten.Contains(keyword.Trim())
-                                                           || x.Danhmucs.Ten.Contains(keyword.Trim())
-                                                            || x.MoTa.Contains(keyword.Trim()))
-            .Include(m => m.Danhmucs)
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize)
-            .ToListAsync();
-            // Tính toán các thông tin phân trang
-            var totalItems = await _context.Mathangs.CountAsync();
-            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
-            ViewBag.CurrentPage = page;
-            ViewBag.TotalPages = totalPages;
-            ViewBag.Keyword = keyword;
-            ViewData["MaDm"] = new SelectList(_context.Danhmucs, "MaDm", "Ten");
-
-            return View(items);
-        }
-
         // GET: Customer/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -373,12 +348,6 @@ namespace BAITAP.Controllers
 
             return View(mathang);
         }
-
-        /*
-        public async Task<IActionResult> Cart1()
-        {
-            return View(GetWishlist());
-        }*/
         public async Task<IActionResult> Cart(bool isusenearest = false)
         {
             try
@@ -401,14 +370,12 @@ namespace BAITAP.Controllers
                 ViewBag.UseNearest = isusenearest;
                 return View();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return View(ex);
             }
-          
+
         }
-
-
         public async Task<IActionResult> Profile(int page = 1, int pageSize = 6)
         {
             ProfileCustomer profile = new ProfileCustomer();
@@ -450,7 +417,6 @@ namespace BAITAP.Controllers
 
             return View("Login");
         }
-
         public async Task<IActionResult> PurchaseOrder()
         {
             return View();
@@ -487,27 +453,22 @@ namespace BAITAP.Controllers
         }
         public List<Cart> GetWishlist(int ID)
         {
-            var jsonKH = HttpContext.Session.GetString("wishlist_"+ID.ToString());
+            var jsonKH = HttpContext.Session.GetString("wishlist_" + ID.ToString());
             return jsonKH != null ? JsonConvert.DeserializeObject<List<Cart>>(jsonKH) : null;
         }
-
         private async Task<Mathang> GetMathangById(int id)
         {
             return await _context.Mathangs.FirstOrDefaultAsync(x => x.MaMh == id);
         }
-
-
-
         private void SaveDiachiToSession(Diachi1 carts)
         {
             var sessionKh = HttpContext.Session;
             sessionKh.SetString("diachi", JsonConvert.SerializeObject(carts));
         }
-
         private void SaveWishlistToSession(List<Cart> carts, int ID)
         {
             var sessionKh = HttpContext.Session;
-            sessionKh.SetString("wishlist_"+ID.ToString(), JsonConvert.SerializeObject(carts));
+            sessionKh.SetString("wishlist_" + ID.ToString(), JsonConvert.SerializeObject(carts));
         }
         private void SaveCarrtToSession(List<Cart> carts)
         {
@@ -519,14 +480,10 @@ namespace BAITAP.Controllers
             var sessionKh = HttpContext.Session;
             sessionKh.SetString("hoadon", JsonConvert.SerializeObject(hoadon));
         }
-
-
-
-
         public async Task<IActionResult> AddToWishlistAsync(int id)
         {
             var sesskh = getID();
-            if(sesskh == null)
+            if (sesskh == null)
             {
                 return RedirectToAction("Login", "Customer");
             }
@@ -558,12 +515,11 @@ namespace BAITAP.Controllers
                 return RedirectToAction("Profile", "Customer");
             }
         }
-
         [HttpPost]
         public async Task<IActionResult> Total([FromBody] TotalRequestModel totalRequestModel)
         {
             //Check các sản phẩm trong giỏ hàng có còn thời hạn khuyến mãi hay không 
-            foreach(var itemsp in totalRequestModel.cartItems)
+            foreach (var itemsp in totalRequestModel.cartItems)
             {
                 if (await CheckKhuyenMaiMuaHang(itemsp.id) == false)
                 {
@@ -572,14 +528,14 @@ namespace BAITAP.Controllers
                         success = false,
                         status = 1,
                         message = "Sản phẩm " + itemsp.ten + " đã hết chương trình khuyến mãi!"
-                    }) ;
+                    });
                 }
             }
             KhachHangLogin idKH = new KhachHangLogin();
             var sessionKh = HttpContext.Session;
             string jsonKH = sessionKh.GetString("KH_SESSION");
             if (jsonKH != null)
-                {
+            {
                 idKH = JsonConvert.DeserializeObject<KhachHangLogin>(jsonKH);
             }
             else
@@ -592,10 +548,11 @@ namespace BAITAP.Controllers
             }
             if (totalRequestModel != null && totalRequestModel.cartItems.Count > 0)
             {
-                try {
+                try
+                {
                     // Xử lý dữ liệu ở đây
                     // Ví dụ: tính tổng giá trị đơn hàng từ danh sách sản phẩm trong giỏ hàng
-                    int totalPrice = totalRequestModel.cartItems.Sum(item => (item.giaban * item.soluongmua)); // Giả sử có thuộc tính Price trong CartItem
+                    int totalPrice = totalRequestModel.cartItems.Sum(item => item.giaban * item.soluongmua); // Giả sử có thuộc tính Price trong CartItem
                     var hoadon = new Hoadon();
                     // hoadon.Makh = totalRequestModel.ID;
                     hoadon.Makh = idKH.ID;
@@ -617,14 +574,14 @@ namespace BAITAP.Controllers
                         cthd.Mamh = item.id;
                         cthd.Soluong = item.soluongmua;
                         cthd.Thanhtien = item.soluongmua * item.giaban;
-                        var mathang = await _context.Mathangs.FirstOrDefaultAsync((x => x.MaMh.Equals(item.id)));
+                        var mathang = await _context.Mathangs.FirstOrDefaultAsync(x => x.MaMh.Equals(item.id));
                         mathang.LuotMua += item.soluongmua;
                         mathang.SoLuong -= 1;
                         cthd.Dongia = item.giaban;
                         _context.Cthoadons.Add(cthd);
                     }
-                    var listdiachikhachhang =  await _context.Diachis.Where(d => d.Makh.Equals(idKH.ID)).ToListAsync();
-                    if(listdiachikhachhang.Count == 0)
+                    var listdiachikhachhang = await _context.Diachis.Where(d => d.Makh.Equals(idKH.ID)).ToListAsync();
+                    if (listdiachikhachhang.Count == 0)
                     {
                         var diachikhachhang = new Diachi();
                         diachikhachhang.Makh = idKH.ID;
@@ -649,13 +606,13 @@ namespace BAITAP.Controllers
                         // Lưu thay đổi vào cơ sở dữ liệu
                         await _context.SaveChangesAsync();
                         var item = listdiachikhachhang.Find(x => x.MaDc.Equals(totalRequestModel.diachi.id));
-                        if(item != null)
+                        if (item != null)
                         {
                             item.Macdinh = 1;
                         }
                         else
                         {
-                            
+
                             var diachikhachhang = new Diachi();
                             diachikhachhang.Makh = idKH.ID;
                             diachikhachhang.Diachi1 = totalRequestModel.diachi.Diachi;
@@ -670,9 +627,10 @@ namespace BAITAP.Controllers
                     var cartsession = HttpContext.Session;
                     cartsession.Remove("cart");
                     // Trả về một phản hồi JSON với dữ liệu bạn muốn truyền về trang
-                    return Json(new {
+                    return Json(new
+                    {
                         success = true,
-                        message = "Đặt hàng thành công!" ,
+                        message = "Đặt hàng thành công!",
                         hoadon
                     });
                 }
@@ -686,7 +644,6 @@ namespace BAITAP.Controllers
             // Trả về một phản hồi nếu dữ liệu không hợp lệ hoặc không có
             return BadRequest();
         }
-
         public ActionResult Logout()
         {
             HttpContext.Session.Clear();
@@ -696,7 +653,7 @@ namespace BAITAP.Controllers
         }
         public ActionResult Register(Khachhang loginModel)
         {
-            
+
             if (loginModel.Ten == null)
             {
                 return View(loginModel);
@@ -731,15 +688,14 @@ namespace BAITAP.Controllers
             return Redirect(!string.IsNullOrEmpty(returnUrlFromSession) ? returnUrlFromSession : "Index1");
 
         }
-
-        public async Task< ActionResult> Login(Khachhang loginModel)
+        public async Task<ActionResult> Login(Khachhang loginModel)
         {
             // Check if the user is already authenticated using session
             var khSession = HttpContext.Session.GetString("KH_SESSION");
             if (!string.IsNullOrEmpty(khSession))
             {
                 // User is already authenticated, redirect to the Customer/Index page
-                return RedirectToAction("Index", "Customer");
+                return RedirectToAction("Index1", "Customer");
             }
 
             // If there's a returnUrl in the query string, store it in the session
@@ -748,54 +704,50 @@ namespace BAITAP.Controllers
             {
                 HttpContext.Session.SetString("returnUrlsession", returnUrlFromQuery);
             }
-  
-                if (!string.IsNullOrEmpty(loginModel.Email) && !string.IsNullOrEmpty(loginModel.Matkhau))
+
+            if (!string.IsNullOrEmpty(loginModel.Email) && !string.IsNullOrEmpty(loginModel.Matkhau))
+            {
+                var user = await _context.Khachhangs.FirstOrDefaultAsync(x => x.Email == loginModel.Email);
+
+                if (user == null)
                 {
-                    var user = await _context.Khachhangs.FirstOrDefaultAsync(x => x.Email == loginModel.Email);
+                    TempData["Message"] = "Email chưa đăng ký tài khoản!";
 
-                    if (user == null)
-                    {
-                        TempData["Message"] = "Email chưa đăng ký tài khoản!";
-
-                    }
-                    else
-                    {
+                }
+                else
+                {
                     string passwordToVerify = loginModel.Matkhau; // Replace with the password to verify
                     bool passwordMatch = HashPasword.HashPasword.VerifyPassword(passwordToVerify, user.Matkhau, user.Salt);
 
                     // Validate the entered password
-                    if (passwordMatch)                        {
-                            var session = new KhachHangLogin
-                            {
-                                ID = user.MaKh,
-                                Name = user.Ten,
-                                Email = user.Email,
-                                Phone = user.Dienthoai
-                            };
+                    if (passwordMatch)
+                    {
+                        var session = new KhachHangLogin
+                        {
+                            ID = user.MaKh,
+                            Name = user.Ten,
+                            Email = user.Email,
+                            Phone = user.Dienthoai
+                        };
 
-                            // Store user information in session
-                            HttpContext.Session.SetString("KH_SESSION", JsonConvert.SerializeObject(session));
+                        // Store user information in session
+                        HttpContext.Session.SetString("KH_SESSION", JsonConvert.SerializeObject(session));
 
-                            // Retrieve the returnUrl from the session
-                            var returnUrlFromSession = HttpContext.Session.GetString("returnUrlsession");
-                            HttpContext.Session.Remove("returnUrlsession");
-                           // return View("Cart");
-                            // Redirect back to the original page after successful login
-                            return Redirect(!string.IsNullOrEmpty(returnUrlFromSession) ? returnUrlFromSession : "Index1");
-                        }
-                        TempData["Message"] = "Mật khẩu không đúng. Vui lòng kiểm tra lại!";
-
+                        // Retrieve the returnUrl from the session
+                        var returnUrlFromSession = HttpContext.Session.GetString("returnUrlsession");
+                        HttpContext.Session.Remove("returnUrlsession");
+                        // return View("Cart");
+                        // Redirect back to the original page after successful login
+                        return Redirect(!string.IsNullOrEmpty(returnUrlFromSession) ? returnUrlFromSession : "Index1");
                     }
+                    TempData["Message"] = "Mật khẩu không đúng. Vui lòng kiểm tra lại!";
+
                 }
-            
+            }
+
             // Validate user credentials
 
-                return View(loginModel);
-        }
-
-        private string HashFunction(string password)
-        {
-            return "hello";
+            return View(loginModel);
         }
         private async Task<bool> CheckKhuyenMai(int idsp)
         {
@@ -845,25 +797,22 @@ namespace BAITAP.Controllers
 
             return true; // The product is not in any active promotion
         }
-
-
-
         private async Task<CtKhuyenMai> CheckKhuyenMaiSanpham(int idsp)
         {
             var ctkm = await _context.CtKhuyenMais.ToListAsync();
             if (ctkm.Count == 0)
             {
-                return null ;
+                return null;
             }
             // Assuming MaSP is the foreign key in CtKhuyenMais referencing CtKhuyenMaiSanPhams
             var hasKhuyenMai = await _context.CtKhuyenMais
                 .Include(x => x.CtKhuyenMaiSanPhams)
-                .AnyAsync(x => (x.CtKhuyenMaiSanPhams.Any(sp => sp.Mamh == idsp) && x.NgayBatDau <= DateTime.Now && DateTime.Now <= x.NgayKetThuc) || (x.CtKhuyenMaiSanPhams.All(sp => sp.Mamh != idsp)));
-            if(hasKhuyenMai)
+                .AnyAsync(x => x.CtKhuyenMaiSanPhams.Any(sp => sp.Mamh == idsp) && x.NgayBatDau <= DateTime.Now && DateTime.Now <= x.NgayKetThuc || x.CtKhuyenMaiSanPhams.All(sp => sp.Mamh != idsp));
+            if (hasKhuyenMai)
             {
                 return await _context.CtKhuyenMais
                 .Include(x => x.CtKhuyenMaiSanPhams)
-                .FirstOrDefaultAsync(x => (x.CtKhuyenMaiSanPhams.Any(sp => sp.Mamh == idsp) && x.NgayBatDau <= DateTime.Now && DateTime.Now <= x.NgayKetThuc) || (x.CtKhuyenMaiSanPhams.All(sp => sp.Mamh != idsp)));
+                .FirstOrDefaultAsync(x => x.CtKhuyenMaiSanPhams.Any(sp => sp.Mamh == idsp) && x.NgayBatDau <= DateTime.Now && DateTime.Now <= x.NgayKetThuc || x.CtKhuyenMaiSanPhams.All(sp => sp.Mamh != idsp));
             }
             return null;
         }
@@ -906,7 +855,7 @@ namespace BAITAP.Controllers
                 {
                     // Xử lý dữ liệu ở đây
                     // Ví dụ: tính tổng giá trị đơn hàng từ danh sách sản phẩm trong giỏ hàng
-                    totalPrice = totalRequestModel.cartItems.Sum(item => (item.giaban * item.soluongmua)); // Giả sử có thuộc tính Price trong CartItem
+                    totalPrice = totalRequestModel.cartItems.Sum(item => item.giaban * item.soluongmua); // Giả sử có thuộc tính Price trong CartItem
                     // hoadon.Makh = totalRequestModel.ID;
                     hoadon.Makh = idKH.ID;
                     hoadon.Ngay = DateTime.Now;
@@ -918,7 +867,7 @@ namespace BAITAP.Controllers
                     hoadon.Quanhuyen = totalRequestModel.diachi.quanhuyen;
                     hoadon.Tinh = totalRequestModel.diachi.tinhthanh;
                     hoadon.Trangthai = 0;
-                    SaveHoadonToSession( hoadon );
+                    SaveHoadonToSession(hoadon);
                     SaveCarrtToSession(totalRequestModel.cartItems);
                     SaveDiachiToSession(totalRequestModel.diachi);
                 }
@@ -945,7 +894,7 @@ namespace BAITAP.Controllers
             pay.AddRequestData("vnp_CurrCode", "VND"); //Đơn vị tiền tệ sử dụng thanh toán. Hiện tại chỉ hỗ trợ VND
             pay.AddRequestData("vnp_IpAddr", Util.GetIpAddress(HttpContextAccessor)); //Địa chỉ IP của khách hàng thực hiện giao dịch
             pay.AddRequestData("vnp_Locale", "vn"); //Ngôn ngữ giao diện hiển thị - Tiếng Việt (vn), Tiếng Anh (en)
-            pay.AddRequestData("vnp_OrderInfo", "Thanh toan don hang" +hoadon.Mahd); //Thông tin mô tả nội dung thanh toán
+            pay.AddRequestData("vnp_OrderInfo", "Thanh toan don hang" + hoadon.Mahd); //Thông tin mô tả nội dung thanh toán
             pay.AddRequestData("vnp_OrderType", "other"); //topup: Nạp tiền điện thoại - billpayment: Thanh toán hóa đơn - fashion: Thời trang - other: Thanh toán trực tuyến
             pay.AddRequestData("vnp_ReturnUrl", returnUrl); //URL thông báo kết quả giao dịch khi Khách hàng kết thúc thanh toán
             pay.AddRequestData("vnp_TxnRef", DateTime.Now.Ticks.ToString()); //mã hóa đơn
@@ -958,7 +907,7 @@ namespace BAITAP.Controllers
                 message = "Chuyển hướng thanh toán VNPay",
                 url = paymentUrl
             });
-          //  return Redirect(paymentUrl);
+            //  return Redirect(paymentUrl);
         }
         public async Task<IActionResult> PaymentConfirm()
         {
@@ -994,24 +943,54 @@ namespace BAITAP.Controllers
                         var hoadon = GetHoaDon();
                         var diachi = getDiachi();
                         var kh = getID();
-                            try
+                        try
+                        {
+
+                            _context.Hoadons.Add(hoadon);
+                            await _context.SaveChangesAsync();  // Save changes to get the generated MAHD
+                            foreach (var item in cartlist)
                             {
-     
-                                _context.Hoadons.Add(hoadon);
-                                await _context.SaveChangesAsync();  // Save changes to get the generated MAHD
-                                foreach (var item in cartlist)
+                                var cthd = new Cthoadon();
+                                cthd.Mahd = hoadon.Mahd;
+                                cthd.Mamh = item.id;
+                                cthd.Soluong = item.soluongmua;
+                                cthd.Thanhtien = item.soluongmua * item.giaban;
+                                cthd.Dongia = item.giaban;
+                                _context.Cthoadons.Add(cthd);
+                            }
+                            var listdiachikhachhang = await _context.Diachis.Where(d => d.Makh.Equals(kh.ID)).ToListAsync();
+                            if (listdiachikhachhang.Count == 0)
+                            {
+                                var diachikhachhang = new Diachi();
+                                diachikhachhang.Makh = kh.ID;
+                                diachikhachhang.Diachi1 = diachi.Diachi;
+                                diachikhachhang.Phuongxa = diachi.phuongxa;
+                                diachikhachhang.Quanhuyen = diachi.quanhuyen;
+                                diachikhachhang.Tinhthanh = diachi.tinhthanh;
+                                diachikhachhang.Macdinh = diachi.macdinh;
+                                _context.Diachis.Add(diachikhachhang);
+                            }
+                            else
+                            {
+                                // Lấy tất cả các bản ghi có Macdinh = 1
+                                var currentDefaultAddresses = await _context.Diachis.Where(x => x.Macdinh == 1 && x.Makh == kh.ID).ToListAsync();
+
+                                // Cập nhật tất cả chúng để Macdinh = 0
+                                foreach (var address in currentDefaultAddresses)
                                 {
-                                    var cthd = new Cthoadon();
-                                    cthd.Mahd = hoadon.Mahd;
-                                    cthd.Mamh = item.id;
-                                    cthd.Soluong = item.soluongmua;
-                                    cthd.Thanhtien = item.soluongmua * item.giaban;
-                                    cthd.Dongia = item.giaban;
-                                    _context.Cthoadons.Add(cthd);
+                                    address.Macdinh = 0;
                                 }
-                                var listdiachikhachhang = await _context.Diachis.Where(d => d.Makh.Equals(kh.ID)).ToListAsync();
-                                if (listdiachikhachhang.Count == 0)
+
+                                // Lưu thay đổi vào cơ sở dữ liệu
+                                await _context.SaveChangesAsync();
+                                var item = listdiachikhachhang.Find(x => x.MaDc.Equals(diachi.id));
+                                if (item != null)
                                 {
+                                    item.Macdinh = 1;
+                                }
+                                else
+                                {
+
                                     var diachikhachhang = new Diachi();
                                     diachikhachhang.Makh = kh.ID;
                                     diachikhachhang.Diachi1 = diachi.Diachi;
@@ -1021,48 +1000,18 @@ namespace BAITAP.Controllers
                                     diachikhachhang.Macdinh = diachi.macdinh;
                                     _context.Diachis.Add(diachikhachhang);
                                 }
-                                else
-                                {
-                                    // Lấy tất cả các bản ghi có Macdinh = 1
-                                    var currentDefaultAddresses = await _context.Diachis.Where(x => x.Macdinh == 1 && x.Makh == kh.ID).ToListAsync();
-
-                                    // Cập nhật tất cả chúng để Macdinh = 0
-                                    foreach (var address in currentDefaultAddresses)
-                                    {
-                                        address.Macdinh = 0;
-                                    }
-
-                                    // Lưu thay đổi vào cơ sở dữ liệu
-                                    await _context.SaveChangesAsync();
-                                    var item = listdiachikhachhang.Find(x => x.MaDc.Equals(diachi.id));
-                                    if (item != null)
-                                    {
-                                        item.Macdinh = 1;
-                                    }
-                                    else
-                                    {
-
-                                        var diachikhachhang = new Diachi();
-                                        diachikhachhang.Makh = kh.ID;
-                                        diachikhachhang.Diachi1 = diachi.Diachi;
-                                        diachikhachhang.Phuongxa = diachi.phuongxa;
-                                        diachikhachhang.Quanhuyen = diachi.quanhuyen;
-                                        diachikhachhang.Tinhthanh = diachi.tinhthanh;
-                                        diachikhachhang.Macdinh = diachi.macdinh;
-                                        _context.Diachis.Add(diachikhachhang);
-                                    }
-                                }
-                                await _context.SaveChangesAsync();
-                                var cartsession = HttpContext.Session;
-                                cartsession.Remove("cart");
-                                cartsession.Remove("diachi");
-                                cartsession.Remove("hoadon");
+                            }
+                            await _context.SaveChangesAsync();
+                            var cartsession = HttpContext.Session;
+                            cartsession.Remove("cart");
+                            cartsession.Remove("diachi");
+                            cartsession.Remove("hoadon");
                             return View();
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine(ex.ToString());
-                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.ToString());
+                        }
 
                     }
                     else
@@ -1083,7 +1032,7 @@ namespace BAITAP.Controllers
         public async Task<IActionResult> UpdateLuotXem(int Id)
         {
             var mathang = await _context.Mhs.FirstOrDefaultAsync(x => x.Id.Equals(Id));
-            if(mathang == null)
+            if (mathang == null)
             {
                 return Json(new
                 {
@@ -1101,8 +1050,6 @@ namespace BAITAP.Controllers
                 message = "Cập nhật không thành công !"
             });
         }
-
-
         public async Task<IActionResult> Details2(int Id)
         {
             DateTime currentDate = DateTime.Now;
@@ -1121,22 +1068,21 @@ namespace BAITAP.Controllers
                 {
                     var ctkm = await CheckKhuyenMaiSanpham(sp.MaMh);
                     newsp.Phantramkhuyenmai = ctkm != null ? ctkm.PhanTramGiamGia : 0;
-                    newsp.Giakhuyemai = ctkm != null ? (sp.GiaBan - (sp.GiaBan * (ctkm.PhanTramGiamGia / 100.0))) : 0;
+                    newsp.Giakhuyemai = ctkm != null ? sp.GiaBan - sp.GiaBan * (ctkm.PhanTramGiamGia / 100.0) : 0;
                 }
                 else
                 {
                     newsp.Phantramkhuyenmai = 0;
-                    newsp.Giakhuyemai =  0;
+                    newsp.Giakhuyemai = 0;
                 }
                 newdanhsachsanpham.Add(newsp);
             }
             sanphamchitiet.mathangchinh = mathang;
 
-            sanphamchitiet.DanhsachMathang = newdanhsachsanpham.OrderBy(x => x.mathang.Kichco).ToList() ;
+            sanphamchitiet.DanhsachMathang = newdanhsachsanpham.OrderBy(x => x.mathang.Kichco).ToList();
             sanphamchitiet.danhmuc = mathang.Danhmucs;
             return View(sanphamchitiet);
         }
-
         [HttpPost]
         public async Task<IActionResult> SaveFavorite(FavoriteViewModel model)
         {

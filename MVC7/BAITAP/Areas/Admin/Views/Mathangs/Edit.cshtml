@@ -1,0 +1,166 @@
+﻿@model BAITAP.Models.Mathang
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
+}
+<hr />
+<div >
+    <div >
+        <h1 class="text-center text-info">Cập nhật sản phẩm</h1>
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MaMh" />
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label asp-for="Danhmucs.Ten" class="control-label"></label>
+                        <select asp-for="MaDm" class="form-control" asp-items="ViewBag.MaDm"></select>
+                        <span asp-validation-for="MaDm" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label">Mặt hàng chính</label>
+                        <select asp-for="MaMhchinh" class="form-control" asp-items="ViewBag.MaMHS"></select>
+                        <span asp-validation-for="MaMhchinh" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label asp-for="Ten" class="control-label"></label>
+                        <input asp-for="Ten" class="form-control" />
+                        <span asp-validation-for="Ten" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label asp-for="GiaGoc" class="control-label"></label>
+                        <input asp-for="GiaGoc" class="form-control" />
+                        <span asp-validation-for="GiaGoc" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label asp-for="GiaBan" class="control-label"></label>
+                        <input asp-for="GiaBan" class="form-control" />
+                        <span asp-validation-for="GiaBan" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label asp-for="SoLuong" class="control-label"></label>
+                        <input asp-for="SoLuong" class="form-control" />
+                        <span asp-validation-for="SoLuong" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+            </div>
+     
+
+            <div class="form-group">
+                <div class="form-group">
+                    <label asp-for="MoTa" class="control-label"></label>
+                    <textarea asp-for="MoTa" class="form-control" id="motaEditor"></textarea>
+                    <script>
+                        CKEDITOR.replace("motaEditor");
+                    </script>
+                    <span asp-validation-for="MoTa" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="HinhAnh" class="control-label"></label>
+                <input asp-for="HinhAnh" class="form-control" type="hidden"/>
+                <span asp-validation-for="HinhAnh" class="text-danger"></span>
+            </div>
+            <input type="file" name="fileanh" class="form-control" />
+            <p class="text-danger">Không chọn mặc định là hình ảnh cũ</p>
+            <div class="row">
+                <div class="col-md-3">
+
+                    <div class="form-group">
+                        <label asp-for="LuotXem" class="control-label"></label>
+                        <input asp-for="LuotXem" class="form-control" />
+                        <span asp-validation-for="LuotXem" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="form-group">
+                        <label asp-for="LuotMua" class="control-label"></label>
+                        <input asp-for="LuotMua" class="form-control" />
+                        <span asp-validation-for="LuotMua" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="Kichco" class="control-label"></label>
+                        <input asp-for="Kichco" class="form-control" />
+                        <span asp-validation-for="Kichco" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="Mausac" class="control-label"></label>
+                        <input asp-for="Mausac" class="form-control" />
+                        <span asp-validation-for="Mausac" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="Chatlieu" class="control-label"></label>
+                        <input asp-for="Chatlieu" class="form-control" />
+                        <span asp-validation-for="Chatlieu" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="Donvitinh" class="control-label"></label>
+                        <input asp-for="Donvitinh" class="form-control" />
+                        <span asp-validation-for="Donvitinh" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label asp-for="Trangthai" class="control-label"></label>
+
+                    <input type="hidden" name="Trangthai" value="false" /> <!-- Hidden field with default value -->
+
+                    <input class="form-check" type="checkbox" id="trangthaiCheckbox" onclick="toggleCheckboxValue()" />
+
+                    <script>
+                        function toggleCheckboxValue() {
+                            var checkbox = document.getElementById('trangthaiCheckbox');
+                            var hiddenField = document.querySelector('input[name="Trangthai"]');
+
+                            // Update the hidden field value based on checkbox state
+                            hiddenField.value = checkbox.checked ? 'true' : 'false';
+                        }
+                    </script>
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-success ml-2" />
+                <a class="btn btn-info" asp-action="Index">Quay lại danh sách</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
