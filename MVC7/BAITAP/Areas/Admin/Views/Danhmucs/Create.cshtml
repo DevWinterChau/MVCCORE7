@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 
-<h1 class="text-center">Thêm mới danh mục</h1>
+<h4 class="text-center text-dark">Thêm mới danh mục</h4>
 
 <div class="row justify-content-center">
     <div class="col-md-6">
@@ -20,11 +20,9 @@
 
             <div class="form-group text-center">
                 <button type="submit" class="btn btn-primary">Tạo mới</button>
+                <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+
             </div>
         </form>
     </div>
-</div>
-
-<div class="text-center mt-3">
-    <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
 </div>
