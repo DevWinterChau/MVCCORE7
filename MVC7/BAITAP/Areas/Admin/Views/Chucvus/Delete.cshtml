@@ -5,11 +5,9 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 
-<h1 class="text-center text-danger">Xác nhận xóa</h1>
-
+<h4 class="text-center text-danger">Xác nhận xóa chức vụ @Html.DisplayFor(model => model.Ten)</h4>
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">Chức vụ</h4>
         <dl class="row">
             <dt class="col-sm-3">Tên chức vụ</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Ten)</dd>

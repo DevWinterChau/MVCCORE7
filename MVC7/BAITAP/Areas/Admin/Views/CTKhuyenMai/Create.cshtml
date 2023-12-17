@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 
-<h1 class="text-center text-info">Thêm Mới Chương trình Khuyến mãi</h1>
+<h4 class="text-center ">Thêm mới chương trình khuyến mãi  </h4>
 
 <div class="row justify-content-center">
     <div class="col-md-8">
@@ -97,7 +97,7 @@
                     <label class="control-label">Trạng Thái:</label>
                     <div class="form-check">
                         <input class="form-check-input" asp-for="TrangThai" />
-                        <label class="form-check-label">Đang Hoạt Động</label>
+                        <label class="form-check-label">Trạng thái</label>
                     </div>
                 </div>
 
@@ -108,12 +108,11 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Lưu" class="btn btn-success" />
+                <a asp-action="Index" class="btn btn-outline-info">Quay lại danh sách</a>
+
             </div>
         </form>
     </div>
 </div>
 
-<div class="text-center">
-    <a asp-action="Index">Quay lại danh sách</a>
-</div>

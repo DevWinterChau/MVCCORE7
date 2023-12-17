@@ -24,11 +24,28 @@ namespace BAITAP.Areas.Admin.Controllers
         }
 
         // GET: Chucvus
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 8, string keyword = null, string category = null, string sort = null, bool Fill = false)
         {
-            return _context.Chucvus != null ?
-                        View(await _context.Chucvus.ToListAsync()) :
-                        Problem("Entity set 'ApplicationDbContext.Chucvus'  is null.");
+            var applicationDbContext = await _context.Chucvus.Include(x => x.Nhanviens).ToListAsync();
+            var totalItems = applicationDbContext.Count();
+            // Filter by keyword if provided
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                applicationDbContext = applicationDbContext.Where(x => x.Ten.Contains(keyword.Trim())).ToList();
+            }
+            // Apply pagination
+            var items = applicationDbContext.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            // Tính toán các thông tin phân trang
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.keyword = keyword;
+            ViewBag.Fill = Fill;
+            // Populate the dropdown with categories
+            ViewBag.ListDanhMuc = await _context.CtKhuyenMais.ToListAsync();
+            return View(items);
         }
 
         // GET: Chucvus/Details/5

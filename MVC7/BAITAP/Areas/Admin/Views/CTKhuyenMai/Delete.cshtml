@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 
-<h1 class="text-center text-danger">Xác nhận xóa</h1>
+<h4 class="text-center text-danger">Xác nhận xóa</h4>
 
 <div class="card">
     <div class="card-body">
@@ -46,10 +46,10 @@
             <dd class="col-sm-9">@Html.DisplayFor(model => model.TrangThai)</dd>
 
             <dt class="col-sm-3">Mã Loại Khuyến Mãi</dt>
-            <dd class="col-sm-9">@Html.DisplayFor(model => model.MaLoaiKmNavigation.MaLoaiKm)</dd>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.MaLoaiKmNavigation.TenLoaiKm)</dd>
 
             <dt class="col-sm-3">Nhóm Sản Phẩm Khuyến Mãi</dt>
-            <dd class="col-sm-9">@Html.DisplayFor(model => model.NhomSpkhuyemaiNavigation.MaDm)</dd>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.NhomSpkhuyemaiNavigation.Ten)</dd>
         </dl>
 
         <div class="text-center">

@@ -5,8 +5,6 @@
     Layout = "~/Views/Shared/_Layoutadmin.cshtml";
 }
 
-<h1>Chi Tiết</h1>
-
 <div class="container">
     <h4>Chi Tiết Khuyến Mãi Sản Phẩm</h4>
     <hr />
@@ -15,19 +13,19 @@
             <strong>@Html.DisplayNameFor(model => model.Phantramkhuyenmai)</strong>
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Phantramkhuyenmai)
+            @Html.DisplayFor(model => model.Phantramkhuyenmai) %
         </dd>
         <dt class="col-sm-2">
             <strong>@Html.DisplayNameFor(model => model.MaCtkmNavigation)</strong>
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MaCtkmNavigation.Id)
+            @Html.DisplayFor(model => model.MaCtkmNavigation.TenKm)
         </dd>
         <dt class="col-sm-2">
             <strong>@Html.DisplayNameFor(model => model.MamhNavigation)</strong>
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MamhNavigation.MaMh)
+            @Html.DisplayFor(model => model.MamhNavigation.Ten)
         </dd>
     </dl>
 </div>

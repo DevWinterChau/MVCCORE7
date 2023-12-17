@@ -46,9 +46,47 @@
 </style>
 
 <div class="table-container">
+    <form id="filterForm" method="post" asp-action="index" asp-route-Fill="true">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="startDate" class="form-label">Ngày bắt đầu:</label>
+                <input type="date" class="form-control" name="ngaybatdau" />
+            </div>
+
+            <div class="col-md-4">
+                <label for="endDate" class="form-label">Ngày kết thúc:</label>
+                <input type="date" class="form-control" name="ngayketthuc" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label for="category-filter" class="form-label">Loại khuyến mãi:</label>
+                <select class="form-control" name="category">
+
+                    <option value="">Tất cả</option>
+                    @foreach (var category in ViewBag.ListDanhMuc)
+                    {
+                        <option value="@category.TenLoaiKm" selected="@(ViewBag.category == category.TenLoaiKm)">@category.TenLoaiKm</option>
+                    }
+                </select>
+                <button class="btn btn-success text-end mt-2" type="submit">Lọc</button>
+            </div>
+
+            <div class="col-md-4">
+                <label for="keyword" class="form-label">Từ khóa tìm kiếm:</label>
+                <div class="input-group">
+                    <input value="@ViewBag.keyword" type="text" class="form-control" name="keyword" placeholder="Nhập từ khóa...">
+                    <button class="btn btn-success" type="submit">Tìm kiếm</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
     <p class="text-right">
         <a class="btn btn-success" asp-action="Create">Thêm mới</a>
     </p>
+
     <table class="table">
         <thead>
             <tr>
@@ -78,4 +116,59 @@
             }
         </tbody>
     </table>
+    @if (Model != null)
+    {
+        <ul class="pagination justify-content-center" style="margin: 20px 0;">
+
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index", new { page = 1 , keyword = ViewBag.keyword,  sort = ViewBag.sort , category = ViewBag.category, Fill = ViewBag.Fill})">
+                    <i class="bi bi-skip-start-btn-fill"></i>
+                </a>
+            </li>
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index", new {
+                                page = ViewBag.CurrentPage - 1,
+                                keyword = ViewBag.keyword,
+                                sort = ViewBag.sort,
+                                category = ViewBag.category,
+                                Fill = ViewBag.Fill
+                            })">
+                        <i class="bi bi-arrow-left-square-fill"></i>
+                    </a>
+                </li>
+            }
+
+            @for (var i = Math.Max(1, ViewBag.CurrentPage - 2); i <= Math.Min(ViewBag.TotalPages, ViewBag.CurrentPage + 2); i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    @if (i == ViewBag.CurrentPage)
+                    {
+                        <span class="page-link">@i</span>
+                    }
+                    else
+                    {
+                        <a class="page-link" href="@Url.Action("Index", new { page = i,  keyword = ViewBag.keyword,  sort = ViewBag.sort , category = ViewBag.category,    Fill = ViewBag.Fill })">@i</a>
+                    }
+                </li>
+            }
+
+            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+            {
+                <li class="page-item ">
+                    <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1,  keyword = ViewBag.keyword,  sort = ViewBag.sort , category = ViewBag.category, Fill = ViewBag.Fill  })">
+                        <i class="bi bi-arrow-right-square-fill"></i>
+                    </a>
+                </li>
+            }
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.TotalPages,  keyword = ViewBag.keyword,  sort = ViewBag.sort , category = ViewBag.category, Fill = ViewBag.Fill })">
+                    <i class="bi bi-skip-end-btn-fill"></i>
+                </a>
+            </li>
+        </ul>
+
+    }
+
 </div>

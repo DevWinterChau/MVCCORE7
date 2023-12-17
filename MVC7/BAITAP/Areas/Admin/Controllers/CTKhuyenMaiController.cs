@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BAITAP.Data;
 using BAITAP.Models;
 using Microsoft.AspNetCore.Authorization;
+using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 
 namespace BAITAP.Areas.Admin.Controllers
 {
@@ -24,10 +25,49 @@ namespace BAITAP.Areas.Admin.Controllers
         }
 
         // GET: CTKhuyenMai
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 8, string keyword = null, string category = null, string sort = null, bool Fill = false, DateTime? ngaybatdau =null, DateTime? ngayketthuc = null)
         {
-            var applicationDbContext = _context.CtKhuyenMais.Include(c => c.MaLoaiKmNavigation).Include(c => c.NhomSpkhuyemaiNavigation);
-            return View(await applicationDbContext.ToListAsync());
+            var applicationDbContext = await _context.CtKhuyenMais.Include(c => c.MaLoaiKmNavigation).Include(c => c.NhomSpkhuyemaiNavigation).ToListAsync();
+            var totalItems = applicationDbContext.Count();
+
+            // Filter by category name if provided
+            if (!string.IsNullOrEmpty(category) && category != "Tất cả")
+            {
+                applicationDbContext = applicationDbContext.Where(m => m.MaLoaiKmNavigation.TenLoaiKm.Equals(category)).ToList();
+                ViewBag.category = category;
+            }
+            else
+            {
+                ViewBag.category = "Tất cả";
+            }
+
+
+            // Filter by keyword if provided
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                applicationDbContext = applicationDbContext.Where(x => x.MaLoaiKmNavigation.TenLoaiKm.Contains(keyword.Trim())
+                                                           || x.MoTa.Contains(keyword.Trim())
+                                                           || x.TenKm.Contains(keyword.Trim())).ToList();
+            }
+            if(!string.IsNullOrEmpty(ngaybatdau.ToString()) && !string.IsNullOrEmpty(ngayketthuc.ToString()))
+            {
+                applicationDbContext = applicationDbContext.Where(x => x.NgayBatDau <= ngaybatdau
+                                                          && x.NgayKetThuc <= ngayketthuc).ToList();
+            }
+
+            // Apply pagination
+            var items = applicationDbContext.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            // Tính toán các thông tin phân trang
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.keyword = keyword;
+            ViewBag.Fill = Fill;
+            // Populate the dropdown with categories
+            ViewBag.ListDanhMuc = await _context.LoaiKhuyenMais.ToListAsync();
+            return View(items);
         }
 
         // GET: CTKhuyenMai/Details/5
@@ -79,8 +119,8 @@ namespace BAITAP.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MaLoaiKm"] = new SelectList(_context.LoaiKhuyenMais, "MaLoaiKm", "MaLoaiKm", ctKhuyenMai.MaLoaiKm);
-            ViewData["NhomSpkhuyemai"] = new SelectList(_context.Danhmucs, "MaDm", "MaDm", ctKhuyenMai.NhomSpkhuyemai);
+            ViewData["MaLoaiKm"] = new SelectList(_context.LoaiKhuyenMais, "MaLoaiKm", "TenLoaiKm", ctKhuyenMai.MaLoaiKm);
+            ViewData["NhomSpkhuyemai"] = new SelectList(_context.Danhmucs, "MaDm", "Ten", ctKhuyenMai.NhomSpkhuyemai);
             return View(ctKhuyenMai);
         }
 
@@ -97,8 +137,8 @@ namespace BAITAP.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["MaLoaiKm"] = new SelectList(_context.LoaiKhuyenMais, "MaLoaiKm", "MaLoaiKm", ctKhuyenMai.MaLoaiKm);
-            ViewData["NhomSpkhuyemai"] = new SelectList(_context.Danhmucs, "MaDm", "MaDm", ctKhuyenMai.NhomSpkhuyemai);
+            ViewData["MaLoaiKm"] = new SelectList(_context.LoaiKhuyenMais, "MaLoaiKm", "TenLoaiKm", ctKhuyenMai.MaLoaiKm);
+            ViewData["NhomSpkhuyemai"] = new SelectList(_context.Danhmucs, "MaDm", "Ten", ctKhuyenMai.NhomSpkhuyemai);
             return View(ctKhuyenMai);
         }
 
@@ -134,8 +174,8 @@ namespace BAITAP.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MaLoaiKm"] = new SelectList(_context.LoaiKhuyenMais, "MaLoaiKm", "MaLoaiKm", ctKhuyenMai.MaLoaiKm);
-            ViewData["NhomSpkhuyemai"] = new SelectList(_context.Danhmucs, "MaDm", "MaDm", ctKhuyenMai.NhomSpkhuyemai);
+            ViewData["MaLoaiKm"] = new SelectList(_context.LoaiKhuyenMais, "MaLoaiKm", "TenLoaiKm", ctKhuyenMai.MaLoaiKm);
+            ViewData["NhomSpkhuyemai"] = new SelectList(_context.Danhmucs, "MaDm", "Ten", ctKhuyenMai.NhomSpkhuyemai);
             return View(ctKhuyenMai);
         }
 

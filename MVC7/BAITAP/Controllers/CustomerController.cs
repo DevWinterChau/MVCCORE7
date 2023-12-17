@@ -201,17 +201,37 @@ namespace BAITAP.Controllers
             }
             return ListSanPhamHot.OrderByDescending(x => x.LuotMuatrungbinh).ToList();
         }
-        public async Task<List<Mathang>> DanhSachSanGoiYDuaVaoSoThich(int IDKH)
+        public async Task<List<SanphamKhuyemMai>> DanhSachSanGoiYDuaVaoSoThich(int IDKH)
         {
-            List<Mathang> ListSanPhamHot = new List<Mathang>();
+            List<SanphamKhuyemMai> ListSanPhamHot = new List<SanphamKhuyemMai>();
+
+            DateTime currentDate = DateTime.Now;
+
+            var query = from mathang in _context.Mathangs
+                        join ctkm in _context.CtKhuyenMaiSanPhams
+                        on mathang.MaMh equals ctkm.Mamh into ctkmGroup
+                        from ctkm in ctkmGroup.DefaultIfEmpty()
+                        join danhmuc in _context.Danhmucs
+                        on mathang.MaDm equals danhmuc.MaDm
+                        //where ctkm.MaCtkmNavigation.NgayBatDau <= currentDate && ctkm.MaCtkmNavigation.NgayKetThuc <= currentDate
+                        select new SanphamKhuyemMai
+                        {
+                            mathang = mathang,
+                            danhmuc = danhmuc,
+                            ctkm = ctkm,
+                            Phantramkhuyenmai = ctkm != null ? ctkm.Phantramkhuyenmai != null ? ctkm.Phantramkhuyenmai : 0 : 0,
+                            Giakhuyemai = ctkm != null ? mathang.GiaBan - mathang.GiaBan * (ctkm.Phantramkhuyenmai / 100.0) : 0
+                        };
+
+
+
             var listsothichTH = await _context.Thuonghieusothiches.Where(x => x.Makh.Equals(IDKH)).ToListAsync();
             var listsothichDM = await _context.Danhmucsothiches.Where(x => x.Makh.Equals(IDKH)).ToListAsync();
-            var lismh = await _context.Mhs.Include(m => m.Danhmucs).ToListAsync();
             foreach (var itemTH in listsothichTH)
             {
                 foreach (var itemDM in listsothichDM)
                 {
-                    var listSanpham = await _context.Mathangs.Where(x => x.Thuonghieu.Equals(itemTH.Thuonghieuyeuthich) && x.Danhmucs.Ten.Equals(itemDM.Loaisanphamyeuthich)).ToListAsync();
+                    var listSanpham = await query.Where(x => x.mathang.Thuonghieu.Equals(itemTH.Thuonghieuyeuthich) && x.danhmuc.Ten.Equals(itemDM.Loaisanphamyeuthich)).ToListAsync();
                     ListSanPhamHot.AddRange(listSanpham);
                 }
             }

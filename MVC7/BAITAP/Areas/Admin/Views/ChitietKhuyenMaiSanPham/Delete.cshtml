@@ -5,20 +5,18 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 
-<h1 class="text-center text-danger">Xác nhận xóa</h1>
-
+<h1 class="text-center text-danger">Xác nhận xóa trình khuyến mãi sản phẩm</h1>
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">Chương trình khuyến mãi sản phẩm</h4>
         <dl class="row">
             <dt class="col-sm-3">Phần trăm khuyến mãi</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Phantramkhuyenmai)</dd>
 
             <dt class="col-sm-3">Mã CTKM</dt>
-            <dd class="col-sm-9">@Html.DisplayFor(model => model.MaCtkmNavigation.Id)</dd>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.MaCtkmNavigation.TenKm)</dd>
 
-            <dt class="col-sm-3">Mã mặt hàng</dt>
-            <dd class="col-sm-9">@Html.DisplayFor(model => model.MamhNavigation.MaMh)</dd>
+            <dt class="col-sm-3">Sản phẩm</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.MamhNavigation.Ten)</dd>
         </dl>
 
         <div class="text-center">
