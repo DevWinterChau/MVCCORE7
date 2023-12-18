@@ -50,7 +50,7 @@
         @if (ViewBag.Fill)
         {
             <h3 class="text-info">
-                Kết quả lọc sản phẩm: @ViewBag.category -
+                @ViewBag.category -
                 @{
                     if (ViewBag.sort == "priceHighToLow")
                     {
@@ -66,7 +66,16 @@
                         <text>@ViewBag.sort</text> <!-- Add your other message here -->
                     }
                 }
-                - @ViewBag.keyword -
+                @if(ViewBag.keyword != null)
+                {
+                    <text> - @ViewBag.keyword - </text>
+
+                }
+                else
+                {
+                    <text> - </text>
+
+                }
                 @if (ViewBag.khuyenmai == "1")
                 {
                     <text>Có chương trình khuyến mãi</text> <!-- Add your other message here -->

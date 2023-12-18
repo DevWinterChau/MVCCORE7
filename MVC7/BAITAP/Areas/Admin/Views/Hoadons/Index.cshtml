@@ -46,6 +46,61 @@
 </style>
 
 <div class="table-container">
+    <form id="filterForm" method="post" asp-action="index" asp-route-Fill="true">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="startDate" class="form-label">Từ ngày:</label>
+                <input type="date" class="form-control" name="ngaybatdau" />
+            </div>
+
+            <div class="col-md-4">
+                <label for="endDate" class="form-label">Đến ngày:</label>
+                <input type="date" class="form-control" name="ngayketthuc" />
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label name="Trangthai" class="control-label">Trạng thái đơn hàng:</label>
+                        <select name="Trangthai" class="form-control">
+                            <option value="5" selected="@(ViewBag.Trangthai == 5)">
+                                Tất cả
+                            </option>
+                            <option value="0" selected="@(ViewBag.Trangthai == 0)">
+                                    Chờ xác nhận
+                             </option>
+                            <option value="1" selected="@(ViewBag.Trangthai == 1)">
+                                    Đã xác nhận
+                             </option>
+                            <option value="2" selected="@(ViewBag.Trangthai == 2)">
+                                    Đang giao hàng
+                             </option>
+                            <option value="3" selected="@(ViewBag.Trangthai == 3)">
+                                    Giao hàng thành công
+                             </option>
+                            <option value="4" selected="@(ViewBag.Trangthai == 4)">
+                                    Hủy
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <input value="Lọc" type="submit" class="btn btn-outline-info mt-4" />
+                </div>
+
+                <div class="row">
+                <div class="col-md-8">
+                    <label for="keyword" class="form-label">Từ khóa tìm kiếm:</label>
+                    <div class="input-group">
+                        <input value="@ViewBag.keyword" type="text" class="form-control" name="keyword" placeholder="Nhập từ khóa...">
+                        <button class="btn btn-success" type="submit">Tìm kiếm</button>
+                    </div>
+                </div>
+                </div>
+        </div>
+
+    </form>
+
     <p class="text-right">
         <a class="btn btn-success" asp-action="Create">Thêm mới</a>
     </p>
@@ -53,10 +108,11 @@
     <table class="table">
         <thead>
             <tr>
+                <th>@Html.DisplayNameFor(model => model.Mahd)</th>
                 <th>@Html.DisplayNameFor(model => model.Ngay)</th>
+                <th>@Html.DisplayNameFor(model => model.MakhNavigation.Ten)</th>
                 <th>@Html.DisplayNameFor(model => model.Tongtien)</th>
                 <th>@Html.DisplayNameFor(model => model.Trangthai)</th>
-                <th>@Html.DisplayNameFor(model => model.MakhNavigation.MaKh)</th>
                 <th></th>
             </tr>
         </thead>
@@ -64,10 +120,27 @@
             @foreach (var item in Model)
             {
                 <tr>
+                     <td>@Html.DisplayFor(modelItem => item.Mahd)</td>
                     <td>@Html.DisplayFor(modelItem => item.Ngay)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MakhNavigation.Ten)</td>
                     <td>@Html.DisplayFor(modelItem => item.Tongtien)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Trangthai)</td>
-                    <td>@Html.DisplayFor(modelItem => item.MakhNavigation.MaKh)</td>
+                    @if(item.Trangthai ==0){
+                        <td><p class="text-danger">Chờ xác nhận</p></td>
+                    }else if(item.Trangthai ==1)
+                    {
+                        <td><p class="text-info">Đã xác nhận</p></td>
+                    }else if(item.Trangthai == 2)
+                    {
+                        <td><p class="text-info">Đang giao hàng</p></td>
+                    }
+                    else if (item.Trangthai == 3)
+                    {
+                        <td><p class="text-info">Giao hàng thành công </p></td>
+                    }
+                    else
+                    {
+                         <td><p class="text-danger">Giao hàng thành công </p></td>
+                    }
                     <td>
                         <a class="btn btn-outline-primary mb-1" asp-action="Edit" asp-route-id="@item.Mahd"><i class="bi bi-pencil"></i></a>
                         <a class="btn btn-outline-success mb-1" asp-action="Details" asp-route-id="@item.Mahd"><i class="bi bi-eye"></i></a>
@@ -77,4 +150,59 @@
             }
         </tbody>
     </table>
+        @if (Model != null)
+    {
+        <ul class="pagination justify-content-center" style="margin: 20px 0;">
+
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index", new { page = 1 , keyword = ViewBag.keyword,  sort = ViewBag.sort , category = ViewBag.category, Fill = ViewBag.Fill,  Trangthai = ViewBag.Trangthai})">
+                    <i class="bi bi-skip-start-btn-fill"></i>
+                </a>
+            </li>
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index", new {
+                                page = ViewBag.CurrentPage - 1,
+                                keyword = ViewBag.keyword,
+                                sort = ViewBag.sort,
+                                category = ViewBag.category,
+                                Fill = ViewBag.Fill
+                            })">
+                        <i class="bi bi-arrow-left-square-fill"></i>
+                    </a>
+                </li>
+            }
+
+            @for (var i = Math.Max(1, ViewBag.CurrentPage - 2); i <= Math.Min(ViewBag.TotalPages, ViewBag.CurrentPage + 2); i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    @if (i == ViewBag.CurrentPage)
+                    {
+                        <span class="page-link">@i</span>
+                    }
+                    else
+                    {
+                        <a class="page-link" href="@Url.Action("Index", new { page = i,  keyword = ViewBag.keyword,  sort = ViewBag.sort , category = ViewBag.category,    Fill = ViewBag.Fill, Trangthai = ViewBag.Trangthai })">@i</a>
+                    }
+                </li>
+            }
+
+            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+            {
+                <li class="page-item ">
+                    <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1,  keyword = ViewBag.keyword,  sort = ViewBag.sort , category = ViewBag.category, Fill = ViewBag.Fill, Trangthai = ViewBag.Trangthai  })">
+                        <i class="bi bi-arrow-right-square-fill"></i>
+                    </a>
+                </li>
+            }
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.TotalPages,  keyword = ViewBag.keyword,  sort = ViewBag.sort , category = ViewBag.category, Fill = ViewBag.Fill, Trangthai = ViewBag.Trangthai })">
+                    <i class="bi bi-skip-end-btn-fill"></i>
+                </a>
+            </li>
+        </ul>
+
+    }
+
 </div>

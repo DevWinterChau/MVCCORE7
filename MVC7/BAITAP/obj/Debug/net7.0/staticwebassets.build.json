@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "JkSJp7RaR6YYu06QUO3cTq+Mn50DO6/t6eeLV4NMn1w=",
+  "Hash": "Ay//pHt62ni0WX5aASQS7qPs7+SRjPWc08lyEuWBwkU=",
   "Source": "BAITAP",
   "BasePath": "_content/BAITAP",
   "Mode": "Default",
@@ -7138,6 +7138,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\products\\20231214220959aothunmarvel.jpg"
+    },
+    {
+      "Identity": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\aothunmarvel.jpg",
+      "SourceId": "BAITAP",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\",
+      "BasePath": "_content/BAITAP",
+      "RelativePath": "images/products/aothunmarvel.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\products\\aothunmarvel.jpg"
+    },
+    {
+      "Identity": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\giaynam2023.jpg",
+      "SourceId": "BAITAP",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\",
+      "BasePath": "_content/BAITAP",
+      "RelativePath": "images/products/giaynam2023.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\products\\giaynam2023.jpg"
     },
     {
       "Identity": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\js\\site.js",

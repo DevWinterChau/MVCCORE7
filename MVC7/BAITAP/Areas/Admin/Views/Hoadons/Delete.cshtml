@@ -9,7 +9,7 @@
 
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">Chi tiết Hoadon</h4>
+        <h4 class="card-title">Chi tiết hóa đơn</h4>
         <hr />
         <dl class="row">
             <dt class="col-sm-3">Ngày</dt>
@@ -17,9 +17,28 @@
             <dt class="col-sm-3">Tổng tiền</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Tongtien)</dd>
             <dt class="col-sm-3">Trạng thái</dt>
-            <dd class="col-sm-9">@Html.DisplayFor(model => model.Trangthai)</dd>
-            <dt class="col-sm-3">Mã Khách hàng</dt>
-            <dd class="col-sm-9">@Html.DisplayFor(model => model.MakhNavigation.MaKh)</dd>
+            @if (Model.Trangthai == 0)
+            {
+                <dd class="col-sm-9">Chờ xác nhận</dd>
+            }
+            else if(Model.Trangthai == 1)
+            {
+                <dd class="col-sm-9">Đã xác nhận</dd>
+            }
+            else if (Model.Trangthai == 2)
+            {
+                <dd class="col-sm-9">Đang giao hàng</dd>
+            }
+            else if (Model.Trangthai == 3)
+            {
+                <dd class="col-sm-9">Đã nhận hàng</dd>
+            }
+            else if (Model.Trangthai == 4)
+            {
+                <dd class="col-sm-9">Hủy</dd>
+            }
+            <dt class="col-sm-3">Khách hàng</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.MakhNavigation.Ten)</dd>
         </dl>
 
         <div class="text-center">

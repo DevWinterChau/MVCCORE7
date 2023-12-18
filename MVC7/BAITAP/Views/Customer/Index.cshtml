@@ -150,7 +150,7 @@
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <div class="text-center">
-                                <a class="btn btn-outline-danger mt-auto" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh"><i class="bi bi-heart-fill"></i></a>
+                                <a class="btn btn-outline-danger" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh" asp-route-giakhuyenmai="@item.Giakhuyemai"><i class="bi bi-heart-fill"></i></a>
                                 <!-- <a asp-controller="Customer" asp-action="Addtocart" asp-route-id="item.MaMh">Mua</a> -->
                                 @if (item.Phantramkhuyenmai > 0 && item.Giakhuyemai > 0)
                                 {

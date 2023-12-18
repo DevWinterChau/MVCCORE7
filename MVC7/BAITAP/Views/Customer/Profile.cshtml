@@ -23,10 +23,10 @@
                 </div>
             </aside>
             <nav class="list-group">
-                <a class="list-group-item with-badge active" href="#danhsachdonhang"><i class="fa fa-th"></i>Đơn mua hàng<span class="badge badge-primary badge-pill">6</span></a>
+                <a class="list-group-item with-badge active" href="#danhsachdonhang"><i class="fa fa-th"></i>Đơn mua hàng<span class="badge badge-primary badge-pill">@ViewData["soluongdonhang"]</span></a>
                 <a class="list-group-item" href="#thongtintaikhoan"><i class="fa fa-user"></i>Thông tin tài khoản</a>
                 <a class="list-group-item" href="#diachi"><i class="fa fa-map"></i>Địa chỉ</a>
-                <a class="list-group-item with-badge" href="#sanphamyeuthich"><i class="fa fa-heart"></i>Sản phẩm yêu thích<span class="badge badge-primary badge-pill">3</span></a>
+                <a class="list-group-item with-badge" href="#sanphamyeuthich"><i class="fa fa-heart"></i>Sản phẩm yêu thích<span class="badge badge-primary badge-pill">@ViewData["slSPYT"]</span></a>
             </nav>
 
         </div>
@@ -58,17 +58,41 @@
                                                     </a>
                                                     <div class="product-info">
                                                         <h4 class="product-title"><a href="#">@item.ten</a></h4>
-                                                        <div class="text-lg text-medium text-muted">@item.giaban.ToString("N0") đ</div>
-
-                                                    </div>
-
-                                                   
+                                                        @if (item.giakhuyenmai> 0)
+                                                        {
+                                                            <div class="text-lg text-medium text-muted">
+                                                                <span class="text-muted text-decoration-line-through">
+                                                                    @item.giaban.ToString("N0") đ
+                                                                </span>
+                                                            </div>
+                                                            <div class="text-lg text-medium text-muted">
+                                                                <span class="text-danger ">
+                                                                    @item.giakhuyenmai.ToString("N0") đ
+                                                                </span>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="text-lg text-medium text-muted">
+                                                                <span class="text-muted text-decoration-line-through">
+                                                                    @item.giaban.ToString("N0") đ
+                                                                </span>
+                                                            </div>
+                                                        }
+                                                    </div>                                                 
                                                 </div>
                                             </td>
                                             <td class="text-center">
                                                 <div>
-                                                    <a class="btn btn-outline-info mt-auto" href="#" onclick="addToCart('@item.id', '@item.giaban', '@item.hinhanh', '@item.ten')"><i class="bi bi-bag-plus-fill"></i> </a>
-                                                    <a class="btn btn-outline-warning">
+                                                    @if (item.giakhuyenmai > 0)
+                                                    {
+                                                        <a class="btn btn-outline-info mt-auto" onclick="addToCart('@item.id', '@item.giaban', '@item.hinhanh', '@item.ten', '@item.giakhuyenmai')"><i class="bi bi-bag-plus-fill"></i> </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="btn btn-outline-info mt-auto" onclick="addToCart('@item.id', '@item.giaban', '@item.hinhanh', '@item.ten', 0)"><i class="bi bi-bag-plus-fill"></i> </a>
+                                                    }
+                                                    <a class="btn btn-outline-warning" asp-action="RemoveItemWishlis" asp-route-id="@item.id">
                                                         <i class="bi bi-trash"></i>
                                                     </a>
                                                 </div>
@@ -191,6 +215,9 @@
                     <img src="~/images/account/user.png" />
                 </a>
                 <form enctype="multipart/form-data" asp-action="UpdateInfo">
+                    <h5 class="text-success"><strong>@TempData["SuccessUpdate"]</strong></h5>
+
+                    <input type="hidden" id="MaKh" name="MaKh" value="@Model.KhachHang.MaKh" class="form-control" />
                     <div class="form-group">
                         <label for="fileanh">Ảnh đại diện:</label>
                         <input type="file" id="fileanh" name="fileanh" class="form-control-file" />
@@ -219,7 +246,30 @@
                         </div>
                     </div>
                 </form>
+                <form enctype="multipart/form-data" id="form1" asp-action="ChangePassWord">
+                    <h5 class="text-success"><strong>@TempData["Success"]</strong></h5>
+                    <h5 class="text-warning"><strong>@TempData["Message"]</strong></h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">                        
+                            <label >Mật khẩu cũ</label>
+                            <input type="password" id="matkhauxacthuc" name="matkhauxacthuc" class="form-control" />
+                        </div>
 
+                        <div class="form-group col-md-4">
+                            <label >Mật khẩu mới</label>
+                            <input type="password" id="matkhauthaydoi" name="matkhauthaydoi" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Nhập lại mật khẩu mới</label>
+                            <input type="password" id="matkhauthaydoiVerifi" name="matkhauthaydoiVerifi" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <button type="submit" class="btn btn-outline-success">Đổi mật khẩu</button>
+                        </div>
+                    </div>
+                </form>
             </div>
             
             <hr class="mb-4">
@@ -352,4 +402,90 @@
         // Show the corresponding content section
         showContent(clickedHref.substr(1)); // Remove the '#' symbol
     });
+
+
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var form = document.getElementById("form1");
+
+        form.addEventListener("submit", function (event) {
+            var newPassword = document.getElementById("matkhauthaydoi").value;
+            var confirmPassword = document.getElementById("matkhauthaydoiVerifi").value;
+
+            if (newPassword !== confirmPassword) {
+                alert("Mật khẩu mới và xác nhận mật khẩu mới không khớp!");
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get the current URL fragment (the part after #)
+        var currentFragment = window.location.hash.substring(1);
+
+        // Activate the corresponding tab based on the current fragment
+        activateTab(currentFragment);
+
+        // Listen for hash changes to update the active tab dynamically
+        window.addEventListener("hashchange", function () {
+            var newFragment = window.location.hash.substring(1);
+            activateTab(newFragment);
+        });
+
+        // Function to activate the tab
+        function activateTab(tabId) {
+            // Remove the "active" class from all tabs
+            var tabs = document.querySelectorAll(".list-group-item");
+            tabs.forEach(function (tab) {
+                tab.classList.remove("active");
+            });
+
+            // Add the "active" class to the tab with the matching ID
+            var targetTab = document.querySelector('a[href="#' + tabId + '"]');
+            if (targetTab) {
+                targetTab.classList.add("active");
+            }
+        }
+    });
+
+
+
+    function addToCart(id, giaban, hinhanh, ten, giakhuyenmai) {
+        var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        var existingProduct = cart.find(item => item.id === id);
+
+        if (existingProduct) {
+            existingProduct.soluongmua++;
+            Toastify({
+                text: "Đã cập nhật số lượng vào giỏ hàng !",
+                duration: 3000,
+                gravity: "bottom", // Chọn bottom để hiển thị ở dưới
+                position: 'right',
+                backgroundColor: "rgba(0, 128, 0, 0.8)", // Màu nền xanh lá cây với độ trong suốt
+                stopOnFocus: true,
+                className: 'custom-toast', // Thêm class để tùy chỉnh CSS
+            }).showToast();
+        } else {
+            cart.push({ id, ten, giaban, hinhanh, soluongmua: 1, giakhuyenmai: giakhuyenmai });
+            // Hiển thị toast thông báo
+            Toastify({
+                text: "Đã thêm vào giỏ hàng !",
+                duration: 3000,
+                gravity: "bottom",
+                position: 'right',
+                backgroundColor: "rgba(0, 128, 0, 0.8)", // Màu nền xanh lá cây với độ trong suốt
+                stopOnFocus: true,
+                className: 'custom-toast', // Thêm class để tùy chỉnh CSS
+            }).showToast();
+
+        }
+
+        console.log(cart);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        displayNumbercart();
+    }
+
 </script>

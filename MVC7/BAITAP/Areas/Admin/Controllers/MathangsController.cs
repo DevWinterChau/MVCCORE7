@@ -115,6 +115,7 @@ namespace BAITAP.Areas.Admin.Controllers
         // GET: Mathangs/Create
         public IActionResult Create()
         {
+            ViewData["MaMHS"] = new SelectList(_context.Mhs, "Id", "Ten");
             ViewData["MaDm"] = new SelectList(_context.Danhmucs, "MaDm", "Ten");
             return View();
         }
@@ -124,7 +125,7 @@ namespace BAITAP.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaMh,Ten,GiaGoc,GiaBan,SoLuong,MoTa,HinhAnh,MaDm,LuotXem,LuotMua")] Mathang mathang, IFormFile fileanh)
+        public async Task<IActionResult> Create([Bind("MaMh,Ten,GiaGoc,GiaBan,SoLuong,MoTa,HinhAnh,MaDm,LuotXem,LuotMua, Mausac, Chatlieu, Kichthuoc, Trangthai, MaMh, Thuonghieu, Donvitinh, Kichco, MaMhchinh")] Mathang mathang, IFormFile? fileanh)
         {
 
 

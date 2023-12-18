@@ -20,6 +20,7 @@ using BAITAP.DTO;
 using NuGet.Packaging;
 using System.Security.Cryptography;
 using Microsoft.CodeAnalysis.Elfie.Model.Map;
+using Humanizer.Localisation.TimeToClockNotation;
 
 namespace BAITAP.Controllers
 {
@@ -201,6 +202,34 @@ namespace BAITAP.Controllers
             }
             return ListSanPhamHot.OrderByDescending(x => x.LuotMuatrungbinh).ToList();
         }
+
+        public async Task<List<SanphamKhuyemMai>> DanhSachSanPhamTuongtu(int IdDanhMuc, string thuonghieu, string size, string mausac)
+        {
+            List<SanphamKhuyemMai> ListSanPhamHot = new List<SanphamKhuyemMai>();
+
+            DateTime currentDate = DateTime.Now;
+
+            var query = from mathang in _context.Mathangs
+                        join ctkm in _context.CtKhuyenMaiSanPhams
+                        on mathang.MaMh equals ctkm.Mamh into ctkmGroup
+                        from ctkm in ctkmGroup.DefaultIfEmpty()
+                        join danhmuc in _context.Danhmucs
+                        on mathang.MaDm equals danhmuc.MaDm
+                        //where ctkm.MaCtkmNavigation.NgayBatDau <= currentDate && ctkm.MaCtkmNavigation.NgayKetThuc <= currentDate
+                        select new SanphamKhuyemMai
+                        {
+                            mathang = mathang,
+                            danhmuc = danhmuc,
+                            ctkm = ctkm,
+                            Phantramkhuyenmai = ctkm != null ? ctkm.Phantramkhuyenmai != null ? ctkm.Phantramkhuyenmai : 0 : 0,
+                            Giakhuyemai = ctkm != null ? mathang.GiaBan - mathang.GiaBan * (ctkm.Phantramkhuyenmai / 100.0) : 0
+                        };
+
+            ListSanPhamHot = await query.ToListAsync();
+
+            return ListSanPhamHot.OrderByDescending(x => x.mathang.MaDm.Equals(IdDanhMuc) && x.mathang.Thuonghieu.Equals(thuonghieu) && x.mathang.Kichco.Equals(size) && x.mathang.Mausac.Equals(mausac)).ToList();
+        }
+
         public async Task<List<SanphamKhuyemMai>> DanhSachSanGoiYDuaVaoSoThich(int IDKH)
         {
             List<SanphamKhuyemMai> ListSanPhamHot = new List<SanphamKhuyemMai>();
@@ -365,7 +394,7 @@ namespace BAITAP.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.ListSanPhamGoiY = await DanhSachSanPhamTuongtu(mathang.MaDm, mathang.Thuonghieu, mathang.Kichco, mathang.Mausac);
             return View(mathang);
         }
         public async Task<IActionResult> Cart(bool isusenearest = false)
@@ -398,6 +427,7 @@ namespace BAITAP.Controllers
         }
         public async Task<IActionResult> Profile(int page = 1, int pageSize = 6)
         {
+          
             ProfileCustomer profile = new ProfileCustomer();
             var sessionKH = getID();
             if (sessionKH != null)
@@ -431,7 +461,14 @@ namespace BAITAP.Controllers
                 ViewBag.PageNumber = page;
                 ViewBag.PageSize = pageSize;
                 ViewBag.TotalPages = totalPages;
-
+                var donhang = _context.Hoadons.AsQueryable();
+                ViewData["soluongdonhang"] = await donhang.CountAsync();
+                var wishlistCart = GetWishlist(sessionKH.ID);
+                if (wishlistCart != null)
+                    ViewData["slSPYT"] = wishlistCart.Count;
+                else
+                    ViewData["slSPYT"] = 0;
+                ViewData["Error"] = "Tào lao";
                 return View(profile);
             }
 
@@ -500,7 +537,7 @@ namespace BAITAP.Controllers
             var sessionKh = HttpContext.Session;
             sessionKh.SetString("hoadon", JsonConvert.SerializeObject(hoadon));
         }
-        public async Task<IActionResult> AddToWishlistAsync(int id)
+        public async Task<IActionResult> AddToWishlistAsync(int id, int giakhuyenmai)
         {
             var sesskh = getID();
             if (sesskh == null)
@@ -526,13 +563,75 @@ namespace BAITAP.Controllers
                         ten = mathang.Ten,
                         soluongmua = 1,
                         giaban = mathang.GiaBan,
-                        hinhanh = mathang.HinhAnh
+                        hinhanh = mathang.HinhAnh,
+                        giakhuyenmai = giakhuyenmai
                     };
 
                     carts.Add(cartItemAdd);
                     SaveWishlistToSession(carts, sesskh.ID);
                 }
                 return RedirectToAction("Profile", "Customer");
+            }
+        }
+
+        public async Task<IActionResult> ChangePassWord(string matkhauthaydoi, string matkhauxacthuc)
+        {
+            var sesskh = getID();
+            if (sesskh == null)
+            {
+                return RedirectToAction("Login", "Customer");
+            }
+            else
+            {
+                 var khachhang = await _context.Khachhangs.FirstOrDefaultAsync(x => x.MaKh.Equals(sesskh.ID));
+                 bool passwordMatch = HashPasword.HashPasword.VerifyPassword(matkhauxacthuc, khachhang.Matkhau, khachhang.Salt);
+                 if (passwordMatch)
+                 {
+                     (string hashedPassword, byte[] salt) = HashPasword.HashPasword.HashPasword1(matkhauthaydoi);
+
+                     khachhang.Matkhau = hashedPassword;
+                     khachhang.Salt = salt;
+                     _context.Update(khachhang);
+                     await  _context.SaveChangesAsync();
+                    // Tạo URL mới với fragment identifier và chuyển hướng đến đó
+                    TempData["Success"] = "Cập nhật mật khẩu thành công";
+                    var urlWithFragment = Url.Action("Profile") + "#thongtintaikhoan";
+                    return Redirect(urlWithFragment);
+                }
+                else
+                 {
+                    TempData["Message"] = "Mật khẩu cũ không đúng";
+                    // Tạo URL mới với fragment identifier và chuyển hướng đến đó
+                    var urlWithFragment = Url.Action("Profile") + "#thongtintaikhoan";
+                    return Redirect(urlWithFragment);
+                }
+            }
+        }
+
+        public async Task<IActionResult> UpdateInfo(Khachhang kh)
+        {
+            var sesskh = getID();
+            if (sesskh == null)
+            {
+                return RedirectToAction("Login", "Customer");
+            }
+            else
+            {
+                var checkKh = await _context.Khachhangs.FirstOrDefaultAsync(x => x.MaKh.Equals(kh.MaKh));
+                if(checkKh == null)
+                {
+                    return RedirectToAction("Login", "Customer");
+                }
+                checkKh.Ten = kh.Ten;
+                checkKh.Email = kh.Email;
+                checkKh.Dienthoai = kh.Dienthoai;
+                _context.Khachhangs.Update(checkKh);
+                await _context.SaveChangesAsync();
+                TempData["SuccessUpdate"] = "Cập nhật tài khoản thành công!";
+
+                // Tạo URL mới với fragment identifier và chuyển hướng đến đó
+                var urlWithFragment = Url.Action("Profile") + "#thongtintaikhoan";
+                return Redirect(urlWithFragment);
             }
         }
         [HttpPost]

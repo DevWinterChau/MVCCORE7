@@ -1433,6 +1433,14 @@
       "PackagePath": "staticwebassets\\images\\products\\20231214220959aothunmarvel.jpg"
     },
     {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\aothunmarvel.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\aothunmarvel.jpg"
+    },
+    {
+      "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\images\\products\\giaynam2023.jpg",
+      "PackagePath": "staticwebassets\\images\\products\\giaynam2023.jpg"
+    },
+    {
       "Id": "D:\\HK1 -NAM4\\ASP.NET\\MVCCORE7\\MVC7\\BAITAP\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

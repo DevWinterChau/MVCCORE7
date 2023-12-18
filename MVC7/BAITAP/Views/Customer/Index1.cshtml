@@ -340,8 +340,8 @@
             <ul class="list-group list-group-horizontal position-relative overflow-auto ">
                 @foreach (var item in Model.ListSanPhamHot)
                 {
-                    <li class="list-group-item">
-                        <div class="card h-30">
+                    <li class="list-group-item w-100">
+                        <div class="card h-100" style="width: 200px;">
                             <!-- Sale badge-->
                             <div class="badge bg-danger text-white position-absolute" style="top: 2rem; right: 0.5rem">HOT</div>
                             <!-- Product image-->
@@ -376,12 +376,13 @@
 {
     <section class="py-3">
         <h3 class="text-info">Phù hợp với sở thích của bạn</h3>
-        <ul class="list-group list-group-horizontal position-relative overflow-auto ">
+        <ul class="list-group list-group-horizontal position-relative overflow-auto" style="overflow-y: hidden;" >
             @foreach (var item in Model.ListSanPhamGoiY)
             {
-                <li class="list-group-item">
-                    <div class="card h-100">
-                        <!-- Sale badge-->
+                <li class="list-group-item w-100">
+                    <div class="card h-100" style="width: 200px;">
+                        <!-- Set your desired width -->
+                        <!-- Sale badge -->
                         @if (item.Phantramkhuyenmai > 0)
                         {
                             <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Khuyến mãi @item.Phantramkhuyenmai%</div>
@@ -389,24 +390,21 @@
                         @if (item.mathang.LuotMua > 10)
                         {
                             <div class="badge bg-danger text-white position-absolute" style="top: 2rem; right: 0.5rem">Bán chạy</div>
-
                         }
-                        <!-- Product image-->
-
+                        <!-- Product image -->
                         <a asp-action="Details" asp-route-id="@item.mathang.MaMh" style="text-decoration: none;">
                             <img class="card-img-top" src="~/images/products/@item.mathang.HinhAnh" alt="@item.mathang.HinhAnh" />
                         </a>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
+                        <!-- Product details -->
+                        <div class="card-body">
                             <div class="text-center">
-                                <!-- Product name-->
+                                <!-- Product name -->
                                 <a asp-action="Details" asp-route-id="@item.mathang.MaMh" style="text-decoration: none;">
-                                    <h5 class="fw-bolder text-info">
+                                    <h6 class="text-info">
                                         @Html.DisplayFor(modelItem => item.mathang.Ten)
-                                    </h5>
+                                    </h6>
                                 </a>
-
-                                <!-- Product reviews-->
+                                <!-- Product reviews -->
                                 <div class="d-flex justify-content-center small text-warning mb-2">
                                     <div class="bi-star-fill"></div>
                                     <div class="bi-star-fill"></div>
@@ -414,48 +412,50 @@
                                     <div class="bi-star-fill"></div>
                                     <div class="bi-star"></div>
                                 </div>
-
-
-                                <!-- Product price-->
+                                <!-- Product price -->
                                 @if (item.Phantramkhuyenmai > 0)
                                 {
-                                    <span class="text-muted text-decoration-line-through">
-                                        Giá góc: @item.mathang.GiaBan.ToString("N0") đ
+                                    <span class="text-muted text-decoration-line-through d-block mb-2">
+                                        Giá gốc: @item.mathang.GiaBan.ToString("N0") đ
                                     </span>
-                                    <span class="text-danger ">
+                                    <span class="text-danger d-block">
                                         Khuyến mãi: @item.Giakhuyemai.ToString("N0") đ
                                     </span>
                                 }
                                 else
                                 {
-                                    <span class="text-danger ">
+                                    <span class="text-danger d-block">
                                         Giá bán: @item.mathang.GiaBan.ToString("N0") đ
                                     </span>
                                 }
                             </div>
                         </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <!-- Product actions -->
+                        <div class="card-footer border-top-0 bg-transparent">
                             <div class="text-center">
-                                <a class="btn btn-outline-danger mt-auto" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh"><i class="bi bi-heart-fill"></i></a>
-                                <!-- <a asp-controller="Customer" asp-action="Addtocart" asp-route-id="item.MaMh">Mua</a> -->
+                                <a class="btn btn-outline-danger" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh" asp-route-giakhuyenmai="@item.Giakhuyemai"><i class="bi bi-heart-fill"></i></a>
                                 @if (item.Phantramkhuyenmai > 0 && item.Giakhuyemai > 0)
                                 {
-                                    <a class="btn btn-outline-info mt-auto" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', '@item.Giakhuyemai', '@item.mathang.SoLuong')"><i class="bi bi-bag-plus-fill"></i> Chọn mua</a>
+                                    <a class="btn btn-outline-info" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', '@item.Giakhuyemai', '@item.mathang.SoLuong')"><i class="bi bi-bag-plus-fill"></i></a>
                                 }
                                 else
                                 {
-                                    <a class="btn btn-outline-info mt-auto" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', 0, '@item.mathang.SoLuong')"><i class="bi bi-bag-plus-fill"></i> Chọn mua</a>
+                                    <a class="btn btn-outline-info" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', 0, '@item.mathang.SoLuong')"><i class="bi bi-bag-plus-fill"></i></a>
                                 }
                             </div>
                         </div>
                     </div>
                 </li>
+
             }
 
         </ul>
     </section>
 }
+
+
+
+
 <script>
     function addToCart(id, giaban, hinhanh, ten, giakhuyenmai, soluongconsp) {
         var cart = JSON.parse(localStorage.getItem('cart')) || [];

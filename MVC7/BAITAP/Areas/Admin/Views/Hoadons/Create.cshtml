@@ -38,18 +38,18 @@
                         <label asp-for="Trangthai" class="control-label">Trạng Thái:</label>
                         <select asp-for="Trangthai" class="form-control">
                             <option value="0">
-                                Chờ xét duyệt
+                                Chờ xác nhận
                             </option>
                             <option value="1">
-                                Xác nhận
+                                Đã xác nhận
                             </option>
                             <option value="2">
                                 Đang giao hàng
                             </option>
-                            <option value="2">
+                            <option value="3">
                                 Giao hàng thành công
                             </option>
-                            <option value="2">
+                            <option value="4">
                                 Hủy
                             </option>
                         </select>
@@ -331,7 +331,7 @@
             Makh: $("#selectedKh").val(),
             Ngay: $("#Ngay").val(),
             Trangthai: $("#Trangthai").val(),
-            Tennguoinhan: $("#Tennguoinhan").val(),
+            Tennguoinhan: $("#tennguoinhan").val(),
             Sodienthoai: $("#Sodienthoai").val(),
             Tinh: $("#city").val(),
             Quanhuyen: $("#district").val(),

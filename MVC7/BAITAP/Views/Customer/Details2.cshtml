@@ -83,7 +83,7 @@
                             <img src="~/images/products/@item.mathang.HinhAnh" alt="Hình ảnh" style="max-width: 100px;" />
                         </td>
                         <td>
-                            <a class="btn btn-outline-danger" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh"><i class="bi bi-heart-fill"></i></a>
+                            <a class="btn btn-outline-danger" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh" asp-route-giakhuyenmai="@item.Giakhuyemai"><i class="bi bi-heart-fill"></i></a>
                             <!-- <a asp-controller="Customer" asp-action="Addtocart" asp-route-id="item.MaMh">Mua</a> -->
                             @if (item.Phantramkhuyenmai > 0 && item.Giakhuyemai > 0)
                             {

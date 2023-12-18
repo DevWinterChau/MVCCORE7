@@ -23,7 +23,7 @@ public partial class Mathang
     public string MoTa { get; set; }
     [DisplayName("Hình ảnh")]
 
-    public string HinhAnh { get; set; }
+    public string? HinhAnh { get; set; }
     [DisplayName("Danh mục")]
     public int MaDm { get; set; }
     [DisplayName("Lượt xem")]

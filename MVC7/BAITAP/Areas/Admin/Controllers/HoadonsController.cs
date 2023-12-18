@@ -25,10 +25,45 @@ namespace BAITAP.Areas.Admin.Controllers
         }
 
         // GET: Hoadons
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 8, string keyword = null, string category = null, string sort = null, bool Fill = false, DateTime? ngaybatdau = null, DateTime? ngayketthuc = null, int Trangthai = 5)
         {
-            var applicationDbContext = _context.Hoadons.Include(h => h.MakhNavigation);
-            return View(await applicationDbContext.ToListAsync());
+            
+            var applicationDbContext = await _context.Hoadons.Include(c => c.MakhNavigation).Include(c => c.Cthoadons).ToListAsync();
+            var totalItems = applicationDbContext.Count();
+
+            if (Trangthai != 5)
+                applicationDbContext = applicationDbContext.Where(x => x.Trangthai.Equals(Trangthai)).ToList();
+            // Filter by keyword if provided
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                applicationDbContext = applicationDbContext.Where(x => x.MakhNavigation.Ten.Contains(keyword.Trim())
+                                                           || x.Tennguoinhan.Contains(keyword.Trim())
+                                                           || x.Sodienthoai.Contains(keyword.Trim())
+                                                            || x.Diachi.Contains(keyword.Trim())
+                                                             || x.Tinh.Contains(keyword.Trim()) 
+                                                              || x.Xaphuong.Contains(keyword.Trim())
+                                                               || x.Quanhuyen.Contains(keyword.Trim())).ToList();
+            }
+            if (!string.IsNullOrEmpty(ngaybatdau.ToString()) && !string.IsNullOrEmpty(ngayketthuc.ToString()))
+            {
+                applicationDbContext = applicationDbContext.Where(x => x.Ngay >= ngaybatdau
+                                                          && x.Ngay <= ngayketthuc).ToList();
+            }
+
+            // Apply pagination
+            var items = applicationDbContext.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            // Tính toán các thông tin phân trang
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.keyword = keyword;
+            ViewBag.Fill = Fill;
+            ViewBag.Trangthai = Trangthai;
+            // Populate the dropdown with categories
+            ViewBag.ListDanhMuc = await _context.LoaiKhuyenMais.ToListAsync();
+            return View(items);
         }
 
         // GET: Hoadons/Details/5
@@ -41,6 +76,8 @@ namespace BAITAP.Areas.Admin.Controllers
 
             var hoadon = await _context.Hoadons
                 .Include(h => h.MakhNavigation)
+                .Include(x => x.Cthoadons)
+                .ThenInclude(m => m.MamhNavigation)
                 .FirstOrDefaultAsync(m => m.Mahd == id);
             if (hoadon == null)
             {
