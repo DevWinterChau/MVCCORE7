@@ -56,7 +56,7 @@ namespace BAITAP.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var chucvu = await _context.Chucvus
+            var chucvu = await _context.Chucvus.Include(x => x.Nhanviens)
                 .FirstOrDefaultAsync(m => m.Macv == id);
             if (chucvu == null)
             {

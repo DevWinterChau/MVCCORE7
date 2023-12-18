@@ -56,7 +56,7 @@ namespace BAITAP.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var danhmuc = await _context.Danhmucs
+            var danhmuc = await _context.Danhmucs.Include(x => x.Mathangs)
                 .FirstOrDefaultAsync(m => m.MaDm == id);
             if (danhmuc == null)
             {

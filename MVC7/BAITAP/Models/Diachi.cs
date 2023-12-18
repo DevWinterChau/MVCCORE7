@@ -26,5 +26,5 @@ public partial class Diachi
     public int Macdinh { get; set; }
     [DisplayName("Khách hàng")]
 
-    public virtual Khachhang MakhNavigation { get; set; } = null!;
+    public virtual Khachhang? MakhNavigation { get; set; } = null!;
 }

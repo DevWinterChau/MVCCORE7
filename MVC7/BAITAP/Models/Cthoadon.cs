@@ -16,13 +16,13 @@ public partial class Cthoadon
     public int Mamh { get; set; }
     [DisplayName("Đơn giá bán")]
 
-    public int? Dongia { get; set; }
+    public int Dongia { get; set; }
     [DisplayName("Số lượng mua")]
 
     public int Soluong { get; set; }
     [DisplayName("Thành tiền")]
 
-    public int? Thanhtien { get; set; }
+    public int Thanhtien { get; set; }
     [DisplayName("Hóa đơn")]
 
     public virtual Hoadon MahdNavigation { get; set; } = null!;

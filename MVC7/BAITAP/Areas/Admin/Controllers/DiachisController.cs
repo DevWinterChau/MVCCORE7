@@ -23,11 +23,35 @@ namespace BAITAP.Areas.Admin.Controllers
         }
 
         // GET: Diachis
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 8, string keyword = null, string category = null, string sort = null, bool Fill = false)
         {
-            var applicationDbContext = _context.Diachis.Include(d => d.MakhNavigation);
-            return View(await applicationDbContext.ToListAsync());
+            var applicationDbContext = await _context.Diachis.Include(x => x.MakhNavigation).ToListAsync();
+            var totalItems = applicationDbContext.Count();
+            // Filter by keyword if provided
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                applicationDbContext = applicationDbContext.Where(x => x.Diachi1.Contains(keyword.Trim())
+                || x.Tinhthanh.Contains(keyword.Trim())
+                || x.Phuongxa.Contains(keyword.Trim())
+                || x.Quanhuyen.Contains(keyword.Trim())
+                || x.MakhNavigation.Ten.Contains(keyword.Trim())
+                || x.MakhNavigation.Dienthoai.Contains(keyword.Trim())).ToList();
+            }
+            // Apply pagination
+            var items = applicationDbContext.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            // Tính toán các thông tin phân trang
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.keyword = keyword;
+            ViewBag.Fill = Fill;
+            // Populate the dropdown with categories
+            ViewBag.ListDanhMuc = await _context.CtKhuyenMais.ToListAsync();
+            return View(items);
         }
+
 
         // GET: Diachis/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -51,7 +75,7 @@ namespace BAITAP.Areas.Admin.Controllers
         // GET: Diachis/Create
         public IActionResult Create()
         {
-            ViewData["Makh"] = new SelectList(_context.Khachhangs, "MaKh", "MaKh");
+            ViewData["Makh"] = new SelectList(_context.Khachhangs, "MaKh", "Ten");
             return View();
         }
 
@@ -68,7 +92,7 @@ namespace BAITAP.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Makh"] = new SelectList(_context.Khachhangs, "MaKh", "MaKh", diachi.Makh);
+            ViewData["Makh"] = new SelectList(_context.Khachhangs, "MaKh", "Ten", diachi.Makh);
             return View(diachi);
         }
 
@@ -85,7 +109,7 @@ namespace BAITAP.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["Makh"] = new SelectList(_context.Khachhangs, "MaKh", "MaKh", diachi.Makh);
+            ViewData["Makh"] = new SelectList(_context.Khachhangs, "MaKh", "Ten", diachi.Makh);
             return View(diachi);
         }
 
@@ -121,7 +145,7 @@ namespace BAITAP.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Makh"] = new SelectList(_context.Khachhangs, "MaKh", "MaKh", diachi.Makh);
+            ViewData["Makh"] = new SelectList(_context.Khachhangs, "MaKh", "Ten", diachi.Makh);
             return View(diachi);
         }
 

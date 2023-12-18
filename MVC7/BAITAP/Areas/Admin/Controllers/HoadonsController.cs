@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BAITAP.Data;
 using BAITAP.Models;
 using Microsoft.AspNetCore.Authorization;
+using BAITAP.DTO;
 
 namespace BAITAP.Areas.Admin.Controllers
 {
@@ -48,10 +49,32 @@ namespace BAITAP.Areas.Admin.Controllers
 
             return View(hoadon);
         }
-
-        // GET: Hoadons/Create
-        public IActionResult Create()
+        public class OrderData
         {
+            public Hoadon Hoadon { get; set; }
+            public List<ChiTietSanPhamHoaDon> ListSanPham { get; set; }
+        }
+        // GET: Hoadons/Create
+        public async Task<IActionResult> Create()
+        {
+            DateTime currentDate = DateTime.Now;
+
+            var query = from mathang in _context.Mathangs
+                        join ctkm in _context.CtKhuyenMaiSanPhams
+                        on mathang.MaMh equals ctkm.Mamh into ctkmGroup
+                        from ctkm in ctkmGroup.DefaultIfEmpty()
+                        join danhmuc in _context.Danhmucs
+                        on mathang.MaDm equals danhmuc.MaDm
+                        //where ctkm.MaCtkmNavigation.NgayBatDau <= currentDate && ctkm.MaCtkmNavigation.NgayKetThuc <= currentDate
+                        select new SanphamKhuyemMai
+                        {
+                            mathang = mathang,
+                            danhmuc = danhmuc,
+                            ctkm = ctkm,
+                            Phantramkhuyenmai = ctkm != null ? ctkm.Phantramkhuyenmai != null ? ctkm.Phantramkhuyenmai : 0 : 0,
+                            Giakhuyemai = ctkm != null ? mathang.GiaBan - mathang.GiaBan * (ctkm.Phantramkhuyenmai / 100.0) : 0
+                        };
+            ViewBag.DSSP = await query.ToListAsync();
             ViewData["Makh"] = new SelectList(_context.Khachhangs, "MaKh", "Ten");
             return View();
         }
@@ -60,17 +83,52 @@ namespace BAITAP.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Mahd,Makh,Ngay,Tongtien,Trangthai")] Hoadon hoadon)
+        public async Task<IActionResult> Create([FromBody] OrderData orderData)
         {
-            if (ModelState.IsValid)
+
+            _context.Add(orderData.Hoadon);
+            await _context.SaveChangesAsync();
+            int tongtien = 0;
+            foreach( var item in orderData.ListSanPham)
             {
-                _context.Add(hoadon);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var cthd = new Cthoadon();
+                cthd.Mahd = orderData.Hoadon.Mahd;
+                cthd.Mamh = item.MaSP;
+                cthd.Soluong = item.Soluong;
+                cthd.Dongia = item.GiaKhuyenMai > 0 ? item.GiaKhuyenMai : item.GiaBan;
+                cthd.Thanhtien = cthd.Soluong * cthd.Dongia;
+                tongtien += cthd.Thanhtien;
+                _context.Add(cthd);
             }
-            ViewData["Makh"] = new SelectList(_context.Khachhangs, "MaKh", "Ten", hoadon.Makh);
-            return View(hoadon);
+            orderData.Hoadon.Tongtien = tongtien;
+
+
+            _context.Hoadons.Update(orderData.Hoadon);
+            await _context.SaveChangesAsync();
+            DateTime currentDate = DateTime.Now;
+
+            var query = from mathang in _context.Mathangs
+                        join ctkm in _context.CtKhuyenMaiSanPhams
+                        on mathang.MaMh equals ctkm.Mamh into ctkmGroup
+                        from ctkm in ctkmGroup.DefaultIfEmpty()
+                        join danhmuc in _context.Danhmucs
+                        on mathang.MaDm equals danhmuc.MaDm
+                        //where ctkm.MaCtkmNavigation.NgayBatDau <= currentDate && ctkm.MaCtkmNavigation.NgayKetThuc <= currentDate
+                        select new SanphamKhuyemMai
+                        {
+                            mathang = mathang,
+                            danhmuc = danhmuc,
+                            ctkm = ctkm,
+                            Phantramkhuyenmai = ctkm != null ? ctkm.Phantramkhuyenmai != null ? ctkm.Phantramkhuyenmai : 0 : 0,
+                            Giakhuyemai = ctkm != null ? mathang.GiaBan - mathang.GiaBan * (ctkm.Phantramkhuyenmai / 100.0) : 0
+                        };
+            ViewBag.DSSP = await query.ToListAsync();
+            ViewData["Makh"] = new SelectList(_context.Khachhangs, "MaKh", "Ten", orderData.Hoadon.Makh);
+            return Json(new { 
+                success = true ,
+                message = "Thêm thành công"
+            });
+
         }
 
         // GET: Hoadons/Edit/5
@@ -86,6 +144,24 @@ namespace BAITAP.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            DateTime currentDate = DateTime.Now;
+
+            var query = from mathang in _context.Mathangs
+                        join ctkm in _context.CtKhuyenMaiSanPhams
+                        on mathang.MaMh equals ctkm.Mamh into ctkmGroup
+                        from ctkm in ctkmGroup.DefaultIfEmpty()
+                        join danhmuc in _context.Danhmucs
+                        on mathang.MaDm equals danhmuc.MaDm
+                        //where ctkm.MaCtkmNavigation.NgayBatDau <= currentDate && ctkm.MaCtkmNavigation.NgayKetThuc <= currentDate
+                        select new SanphamKhuyemMai
+                        {
+                            mathang = mathang,
+                            danhmuc = danhmuc,
+                            ctkm = ctkm,
+                            Phantramkhuyenmai = ctkm != null ? ctkm.Phantramkhuyenmai != null ? ctkm.Phantramkhuyenmai : 0 : 0,
+                            Giakhuyemai = ctkm != null ? mathang.GiaBan - mathang.GiaBan * (ctkm.Phantramkhuyenmai / 100.0) : 0
+                        };
+            ViewBag.DSSP = await query.ToListAsync();
             ViewData["Makh"] = new SelectList(_context.Khachhangs, "MaKh", "Ten", hoadon.Makh);
             return View(hoadon);
         }
