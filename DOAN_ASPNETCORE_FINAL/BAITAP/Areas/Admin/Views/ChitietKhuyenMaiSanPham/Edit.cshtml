@@ -1,0 +1,42 @@
+﻿@model BAITAP.Models.CtKhuyenMaiSanPham
+
+@{
+    ViewData["Title"] = "Cập nhật sản phẩm khuyến mãi";
+    Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
+}
+
+
+<h3 class="mt-4">Cập nhật sản phẩm khuyến mãi</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Sản phẩm khuyến mãi</a></li>
+    <li class="breadcrumb-item active">Cập nhật</li>
+</ol>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="MaCtkm" class="control-label"></label>
+                <select asp-for="MaCtkm" class="form-control" asp-items="ViewBag.MaCtkm"></select>
+                <span asp-validation-for="MaCtkm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mamh" class="control-label"></label>
+                <select asp-for="Mamh" class="form-control" asp-items="ViewBag.Mamh"></select>
+                <span asp-validation-for="Mamh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phantramkhuyenmai" class="control-label"></label>
+                <input asp-for="Phantramkhuyenmai" class="form-control" />
+                <span asp-validation-for="Phantramkhuyenmai" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-outline-success" />
+                <a asp-action="Index" class="btn btn-outline-info">Quay lại danh sách</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+

@@ -1,0 +1,536 @@
+﻿@using Microsoft.JSInterop;
+@using System.Text.Json;
+@using System.Text.Json.Serialization;
+@using BAITAP.DTO;
+@model SanPham
+
+@{
+    ViewData["Title"] = "Trang mua sắm";
+}
+
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<!-- Modal -->
+@{
+    if (ViewData["MaKH"] != null && ViewData["CheckSoThich"] != "ok")
+    {
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Cho chúng tôi biết về sở thích mua sắm của bạn <i class="bi bi-chat-square-heart-fill"></i></h5>
+                </div>
+                    <form asp-action="SaveFavorite" asp-controller="customer" method="post" onsubmit="return validateForm()">
+                    <div class="modal-body">
+                        <p>Bạn quan tâm danh mục sản phẩm nào ?</p>
+                        <div class="row">
+                            @foreach (var danhmuc in ViewBag.ListDanhMuc)
+                            {
+                                <div class="col-md-4">
+                                    <input type="checkbox" name="SelectedDanhMuc" value="@danhmuc.Ten" id="@danhmuc.Ten">
+                                    <label for="danhmuc-@danhmuc.Ten">@danhmuc.Ten</label>
+                                </div>
+                            }
+                        </div>
+
+                        <p>Thương hiệu bạn yêu thích gì ?</p>
+                        <div class="row">
+                            @foreach (var thuonghieu in ViewBag.ThuongHieu)
+                            {
+                                <div class="col-md-4">
+                                    <input type="checkbox" name="SelectedThuongHieu" value="@thuonghieu.TenThuonghieu" id="@thuonghieu.TenThuonghieu">
+                                    <label for="thuonghieu-@thuonghieu.TenThuonghieu">@thuonghieu.TenThuonghieu</label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Lưu sở thích</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="staticthank" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Cảm ơn bạn <i class="bi bi-hearts"></i></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Chúng tôi đã lưu sở thích của bạn để gợi ý giúp bạn mua sắm !!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+}
+
+<script>
+    function validateForm() {
+        // Check if at least one checkbox is checked for each category
+        const danhMucCheckboxes = document.querySelectorAll('input[name="SelectedDanhMuc"]:checked');
+        const thuongHieuCheckboxes = document.querySelectorAll('input[name="SelectedThuongHieu"]:checked');
+
+        if (danhMucCheckboxes.length === 0 && thuongHieuCheckboxes.length === 0) {
+            alert('Chọn ít nhất một danh mục hoặc thương hiệu.');
+            return false; // Prevent form submission
+        }
+
+        return true; // Allow form submission
+    }
+    // Automatically show the modal
+    const modal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+    modal.show();
+
+    function savePreference() {
+        // Your logic to save the user's preference
+        const modalthanks = new bootstrap.Modal(document.getElementById('staticthank'));
+        modalthanks.show();
+
+        // Close the modal after saving the preference
+        modal.hide();
+    }
+</script>
+
+<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="~/images/panner/1.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="~/images/panner/2.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="~/images/panner/3.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="~/images/panner/4.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="~/images/panner/5.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="~/images/panner/6.png" class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+
+<section class="py-3">
+    <div class="container px-4 px-lg-5 mt-3">
+        <form id="filterForm" method="post" asp-action="index1" asp-route-Fill="true">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="category-filter" class="form-label">Danh mục:</label>
+                    <select class="form-control" name="category">
+                        <option value="">Tất cả</option>
+                        @foreach (var category in ViewBag.ListDanhMuc)
+                        {
+                            <option value="@category.Ten" selected="@(ViewBag.category == category.Ten)">@category.Ten</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="sort-filter" class="form-label">Sắp xếp:</label>
+                    <select class="form-control" name="sort">
+                        <option value="">Không sắp xếp</option>
+                        <option value="priceHighToLow" selected="@(ViewBag.sort == "priceHighToLow")">Giá từ cao đến thấp</option>
+                        <option value="priceLowToHigh" selected="@(ViewBag.sort == "priceLowToHigh")">Giá từ thấp đến cao</option>
+                        <!-- Add more sorting options if needed -->
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="khuyenmai-filter" class="form-label">Khuyến mãi:</label>
+                    <select class="form-control" name="khuyenmai">
+                        <option value="0" selected="@(ViewBag.khuyenmai == "1")">Không khuyến mãi</option>
+                        <option value="1" selected="@(ViewBag.khuyenmai == "1")">Có chương trình khuyến mãi</option>
+                        <!-- Add more sorting options if needed -->
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="keyword" class="form-label">Từ khóa tìm kiếm:</label>
+                    <div class="input-group">
+                        <input value="@ViewBag.keyword" type="text" class="form-control" name="keyword" placeholder="Nhập từ khóa...">
+                        <button class="btn btn-success" type="submit">Lọc</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        @if (ViewBag.Fill)
+        {
+            <h3 class="text-info">
+                @ViewBag.category -
+                @{
+                    if (ViewBag.sort == "priceHighToLow")
+                    {
+                        <text>Giá từ cao đến thấp</text>
+                    }
+                    else if (ViewBag.sort == "priceLowToHigh")
+                    {
+                        <text>Giá từ thấp đến cao</text> <!-- Add your other message here -->
+                    }
+                    else
+                    {
+
+                        <text>@ViewBag.sort</text> <!-- Add your other message here -->
+                    }
+                }
+                @if(@ViewBag.keyword != null )
+                {
+                    <text> - @ViewBag.keyword -</text>
+                }
+                else
+                {
+                    <text>-</text>
+
+                }
+                @if (ViewBag.khuyenmai == "1")
+                {
+                    <text>Có chương trình khuyến mãi</text> <!-- Add your other message here -->
+                }
+                else
+                {
+                    <text>Không khuyễn mãi</text> <!-- Add your other message here -->
+                }
+            </h3>
+        }
+        else
+        {
+            <h3 class="text-info">Tất cả sản phẩm</h3>
+
+        }
+    </div>
+
+    <div class="container px-4 px-lg-5 mt-1">
+
+
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            @foreach (var item in Model.ListSanPhamDTOs)
+            {
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Sale badge-->
+                        @if (item.KhuyenMai)
+                        {
+                            <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Khuyến mãi</div>
+                        }
+                        @if (item.NoiBat)
+                        {
+                            <div class="badge bg-danger text-white position-absolute" style="top: 2rem; right: 0.5rem">Nổi bật</div>
+
+                        }
+                        <!-- Product image-->
+
+                        <a asp-action="Details2" asp-route-id="@item.mh.Id" style="text-decoration: none;">
+                            <img class="card-img-top" src="~/images/products/@item.mh.Hinhanh" alt="@item.mh.Hinhanh" style="width: 218px; height: 250px;" />
+                        </a>
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <a asp-action="Details" asp-route-id="@item.mh.Id" style="text-decoration: none;">
+                                    <h5 class="fw-bolder text-info">
+                                        @Html.DisplayFor(modelItem => item.mh.Ten)
+                                    </h5>
+                                </a>                                
+                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                @{
+                                    float count = item.DanhGiaTrungBinh;
+                                    @for(int i =0; i<count; i++)
+                                    {
+                                        <div class="bi-star-fill"></div>
+                                    }
+                                }
+                                </div>
+                                <p class="text-danger text-center">
+                                    @item.GiaGiaoDong
+                                </p>
+                            </div>
+                        </div>
+                     
+
+                    </div>
+                </div>
+            }
+        </div>
+        @if (Model.ListSanPhamDTOs.Count > 0)
+        {
+            <ul class="pagination justify-content-center" style="margin: 20px 0;">
+
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index1", new { page = 1 , keyword = ViewBag.keyword,  sort = ViewBag.sort , category = ViewBag.category, Fill = ViewBag.Fill})">
+                        <i class="bi bi-skip-start-btn-fill"></i>
+                    </a>
+                </li>
+                @if (ViewBag.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index1", new {
+                                page = ViewBag.CurrentPage - 1,
+                                keyword = ViewBag.keyword,
+                                sort = ViewBag.sort,
+                                category = ViewBag.category,
+                                Fill = ViewBag.Fill
+                            })">
+                            <i class="bi bi-arrow-left-square-fill"></i>
+                        </a>
+                    </li>
+                }
+
+                @for (var i = Math.Max(1, ViewBag.CurrentPage - 2); i <= Math.Min(ViewBag.TotalPages, ViewBag.CurrentPage + 2); i++)
+                {
+                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                        @if (i == ViewBag.CurrentPage)
+                        {
+                            <span class="page-link">@i</span>
+                        }
+                        else
+                        {
+                            <a class="page-link" href="@Url.Action("Index1", new { page = i,  keyword = ViewBag.keyword,  sort = ViewBag.sort , category = ViewBag.category,    Fill = ViewBag.Fill })">@i</a>
+                        }
+                    </li>
+                }
+
+                @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                {
+                    <li class="page-item ">
+                        <a class="page-link" href="@Url.Action("Index1", new { page = ViewBag.CurrentPage + 1,  keyword = ViewBag.keyword,  sort = ViewBag.sort , category = ViewBag.category, Fill = ViewBag.Fill  })">
+                            <i class="bi bi-arrow-right-square-fill"></i>
+                        </a>
+                    </li>
+                }
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index1", new { page = ViewBag.TotalPages,  keyword = ViewBag.keyword,  sort = ViewBag.sort , category = ViewBag.category, Fill = ViewBag.Fill })">
+                        <i class="bi bi-skip-end-btn-fill"></i>
+                    </a>
+                </li>
+            </ul>
+
+        }
+    </div>
+</section>
+
+@if(Model.ListSanPhamHot.Count > 0)
+{
+    <section class="py-3">
+        <div class="row">
+            <h3 class="text-danger">Các sản phẩm đang HOT</h3>
+            <ul class="list-group list-group-horizontal position-relative overflow-auto ">
+                @foreach (var item in Model.ListSanPhamHot)
+                {
+                    <li class="list-group-item ">
+                        <div class="card h-100" style="width: 200px;">
+                            <!-- Sale badge-->
+                            <div class="badge bg-danger text-white position-absolute" style="top: 2rem; right: 0.5rem">HOT</div>
+                            <!-- Product image-->
+
+                            <a asp-action="Details2" asp-route-id="@item.mathangchinh.Id" style="text-decoration: none;">
+                                <img class="card-img-top" src="~/images/products/@item.mathangchinh.Hinhanh" alt="@item.mathangchinh.Hinhanh" style="width: 200px; height: 250px;" />
+                            </a>
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <a asp-action="Details2" asp-route-id="@item.mathangchinh.Id" style="text-decoration: none;">
+                                        <h5 class="fw-bolder text-info">
+                                            @Html.DisplayFor(modelItem => item.mathangchinh.Ten)
+                                        </h5>
+                                    </a>
+                                    <p class="text-danger text-center">
+                                        Đã bán @item.LuotMuatrungbinh <i class="bi bi-fire"></i>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
+
+            </ul>
+        </div>
+
+    </section>
+}
+@if(ViewData["MaKH"] != null)
+{
+    <section class="py-3">
+        <h3 class="text-info">Phù hợp với sở thích của bạn</h3>
+        <ul class="list-group list-group-horizontal position-relative overflow-auto" style="overflow-y: hidden;" >
+            @foreach (var item in Model.ListSanPhamGoiY)
+            {
+                <li class="list-group-item w-100">
+                    <div class="card h-100" style="width: 200px;">
+                        <!-- Set your desired width -->
+                        <!-- Sale badge -->
+                        @if (item.Phantramkhuyenmai > 0)
+                        {
+                            <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Khuyến mãi @item.Phantramkhuyenmai%</div>
+                        }
+                        @if (item.mathang.LuotMua > 10)
+                        {
+                            <div class="badge bg-danger text-white position-absolute" style="top: 2rem; right: 0.5rem">Bán chạy</div>
+                        }
+                        <!-- Product image -->
+                        <a asp-action="Details" asp-route-id="@item.mathang.MaMh" style="text-decoration: none;">
+                            <img class="card-img-top" src="~/images/products/@item.mathang.HinhAnh" alt="@item.mathang.HinhAnh" />
+                        </a>
+                        <!-- Product details -->
+                        <div class="card-body">
+                            <div class="text-center">
+                                <!-- Product name -->
+                                <a asp-action="Details" asp-route-id="@item.mathang.MaMh" style="text-decoration: none;">
+                                    <h6 class="text-info">
+                                        @Html.DisplayFor(modelItem => item.mathang.Ten)
+                                    </h6>
+                                </a>
+                                <!-- Product reviews -->
+                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star"></div>
+                                </div>
+                                <!-- Product price -->
+                                @if (item.Phantramkhuyenmai > 0)
+                                {
+                                    <span class="text-muted text-decoration-line-through d-block mb-2">
+                                        Giá gốc: @item.mathang.GiaBan.ToString("N0") đ
+                                    </span>
+                                    <span class="text-danger d-block">
+                                        Khuyến mãi: @item.Giakhuyemai.ToString("N0") đ
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="text-danger d-block">
+                                        Giá bán: @item.mathang.GiaBan.ToString("N0") đ
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                        <!-- Product actions -->
+                        <div class="card-footer border-top-0 bg-transparent">
+                            <div class="text-center">
+                                @if (item.Phantramkhuyenmai > 0 && item.Giakhuyemai > 0)
+                                {
+                                    if(item.mathang.SoLuong > 0)
+                                    {
+                                        <a class="btn btn-outline-danger" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh" asp-route-giakhuyenmai="@item.Giakhuyemai"><i class="bi bi-heart-fill"></i></a>
+                                        <a class="btn btn-outline-info" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', '@item.Giakhuyemai', '@item.mathang.SoLuong')"><i class="bi bi-bag-plus-fill"></i></a>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-danger">Hết hàng <i class="bi bi-fire"></i></p>
+                                    }
+                                }
+                                else
+                                {
+                                    if (item.mathang.SoLuong > 0)
+                                    {
+                                        <a class="btn btn-outline-danger" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh" asp-route-giakhuyenmai="@item.Giakhuyemai"><i class="bi bi-heart-fill"></i></a>
+
+                                        <a class="btn btn-outline-info" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', 0, '@item.mathang.SoLuong')"><i class="bi bi-bag-plus-fill"></i></a>
+                                    }
+                                    else{
+                                        <p class="text-danger">Hết hàng <i class="bi bi-fire"></i></p>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+            }
+
+        </ul>
+        <script>
+            function addToCart(id, giaban, hinhanh, ten, giakhuyenmai, soluongconsp) {
+                var cart = JSON.parse(localStorage.getItem('cart')) || [];
+                console.log(soluongconsp);
+                if (soluongconsp <= 0) {
+                    // Hiển thị toast thông báo
+                    Toastify({
+                        text: "Sản phẩm này đã bán hết!",
+                        duration: 3000,
+                        gravity: "bottom",
+                        position: 'right',
+                        backgroundColor: "rgba(255, 0, 0, 0.8)", // Red with 80% opacity
+                        stopOnFocus: true,
+                        className: 'custom-toast', // Thêm class để tùy chỉnh CSS
+                    }).showToast();
+                    return;
+                }
+                var existingProduct = cart.find(item => item.id === id);
+                if (existingProduct && existingProduct.soluongmua == soluongconsp) {
+                    // Hiển thị toast thông báo
+                    Toastify({
+                        text: "Số lượng sản phẩm chỉ còn " + soluongconsp + " ! Bạn đã thêm sản phẩm này vào giỏ hàng!",
+                        duration: 3000,
+                        gravity: "bottom",
+                        position: 'right',
+                        backgroundColor: "rgba(255, 0, 0, 0.8)", // Red with 80% opacity
+                        stopOnFocus: true,
+                        className: 'custom-toast', // Thêm class để tùy chỉnh CSS
+                    }).showToast();
+                    return;
+                }
+
+                if (existingProduct) {
+                    existingProduct.soluongmua++;
+                    Toastify({
+                        text: "Đã cập nhật số lượng vào giỏ hàng !",
+                        duration: 3000,
+                        gravity: "bottom", // Chọn bottom để hiển thị ở dưới
+                        position: 'right',
+                        backgroundColor: "rgba(0, 128, 0, 0.8)", // Màu nền xanh lá cây với độ trong suốt
+                        stopOnFocus: true,
+                        className: 'custom-toast', // Thêm class để tùy chỉnh CSS
+                    }).showToast();
+                } else {
+                    cart.push({ id, ten, giaban, hinhanh, soluongmua: 1, giakhuyenmai: giakhuyenmai });
+                    // Hiển thị toast thông báo
+                    Toastify({
+                        text: "Đã thêm vào giỏ hàng !",
+                        duration: 3000,
+                        gravity: "bottom",
+                        position: 'right',
+                        backgroundColor: "rgba(0, 128, 0, 0.8)", // Màu nền xanh lá cây với độ trong suốt
+                        stopOnFocus: true,
+                        className: 'custom-toast', // Thêm class để tùy chỉnh CSS
+                    }).showToast();
+
+                }
+
+                console.log(cart);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                displayNumbercart();
+            }
+        </script>
+    </section>
+}
+
+
+
+

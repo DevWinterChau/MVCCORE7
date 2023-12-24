@@ -1,0 +1,61 @@
+﻿@model BAITAP.Models.Cthoadon
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h3 class="mt-4">Xóa</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Chi tiết hóa đơn</a></li>
+    <li class="breadcrumb-item active">Xóa</li>
+</ol>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MahdNavigation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MahdNavigation.Mahd)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MahdNavigation.Ngay)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MahdNavigation.Ngay)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Dongia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Dongia)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Soluong)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Soluong)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Thanhtien)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Thanhtien)
+        </dd>
+ 
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MamhNavigation.Ten)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MamhNavigation.Ten)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Macthd" />
+        <input type="submit" value="Xóa" class="btn btn-danger" /> |
+        <a asp-action="Details" asp-controller="hoadons" asp-route-id="@Model.Mahd">Quay lại hóa đơn</a>
+    </form>
+</div>

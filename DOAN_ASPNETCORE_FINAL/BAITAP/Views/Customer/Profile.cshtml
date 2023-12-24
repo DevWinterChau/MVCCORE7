@@ -1,0 +1,1005 @@
+﻿@model BAITAP.DTO.ProfileCustomer
+@{
+    ViewData["Title"] = "Thông tin tài khoản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<div class="container p-5 ">
+    <div class="row">
+        <div class="col-lg-4">
+            <aside class="user-info-wrapper">
+                <div class="user-cover" style="background-image: url(https://bootdey.com/img/Content/bg1.jpg);">
+                </div>
+                <div class="user-info">
+                    <div class="user-avatar">
+                        @if(Model.KhachHang.HinhAnh == null){
+                            <img src="~/images/account/user.png" alt="@Model.KhachHang.Ten" id="anhdaidien" />
+                        }
+                        else
+                        {
+                            <img src="~/images/account/@Model.KhachHang.HinhAnh" alt="@Model.KhachHang.Ten" id="anhdaidien" />
+                        }
+                    </div>
+                    <div class="user-data">
+                        <h4>@Model.KhachHang.Ten</h4><span>@Model.KhachHang.Email</span>
+                    </div>
+                </div>
+            </aside>
+            <nav class="list-group">
+                <a class="list-group-item with-badge active" href="#danhsachdonhang"><i class="fa fa-th"></i>Đơn mua hàng<span class="badge badge-primary badge-pill">@ViewData["soluongdonhang"]</span></a>
+                <a class="list-group-item" href="#thongtintaikhoan"><i class="fa fa-user"></i>Thông tin tài khoản</a>
+                <a class="list-group-item" href="#diachi"><i class="fa fa-map"></i>Địa chỉ</a>
+                <a class="list-group-item with-badge" href="#sanphamyeuthich"><i class="fa fa-heart"></i>Sản phẩm yêu thích<span class="badge badge-primary badge-pill">@ViewData["slSPYT"]</span></a>
+            </nav>
+
+        </div>
+        <div class="col-lg-8 content-section" id="sanphamyeuthich">
+            <div class="padding-top-2x mt-2 hidden-lg-up"></div>
+            <!-- Wishlist Table-->
+            <div class="table-responsive wishlist-table margin-bottom-none">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Danh sách sản phẩm yêu thích</th>
+                            <th class="text-center"><a class="btn btn-sm btn-outline-danger" asp-action="RemoveAllWishlist"><i class="bi bi-x-square-fill"></i></a></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            if (Model.WistList != null)
+                            {
+                                if (Model.WistList.Count > 0)
+                                {
+                                    foreach (var item in Model.WistList)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="product-item">
+                                                    <a class="product-thumb" href="#">
+                                                        <img src="~/images/products/@item.hinhanh" />
+                                                    </a>
+                                                    <div class="product-info">
+                                                        <h4 class="product-title"><a href="#">@item.ten</a></h4>
+                                                        @if (item.giakhuyenmai > 0)
+                                                        {
+                                                            <div class="text-lg text-medium text-muted">
+                                                                <span class="text-muted text-decoration-line-through">
+                                                                    @item.giaban.ToString("N0") đ
+                                                                </span>
+                                                            </div>
+                                                            <div class="text-lg text-medium text-muted">
+                                                                <span class="text-danger ">
+                                                                    @item.giakhuyenmai.ToString("N0") đ
+                                                                </span>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="text-lg text-medium text-muted">
+                                                                <span class="text-muted text-decoration-line-through">
+                                                                    @item.giaban.ToString("N0") đ
+                                                                </span>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div>
+                                                    @if (item.giakhuyenmai > 0)
+                                                    {
+                                                        <a class="btn btn-outline-info mt-auto" onclick="addToCart('@item.id', '@item.giaban', '@item.hinhanh', '@item.ten', '@item.giakhuyenmai')" asp-action="RemoveItemWish" asp-route-id="@item.id"><i class="bi bi-bag-plus-fill"></i> </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="btn btn-outline-info mt-auto" onclick="addToCart('@item.id', '@item.giaban', '@item.hinhanh', '@item.ten', 0)" asp-action="RemoveItemWish" asp-route-id="@item.id"><i class="bi bi-bag-plus-fill"></i> </a>
+                                                    }
+                                                    <a class="btn btn-outline-warning" asp-action="RemoveItemWish" asp-route-id="@item.id">
+                                                        <i class="bi bi-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>
+                                        Chưa có sản phẩm yêu thích
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <hr class="mb-4">
+        </div>
+
+        <div class="col-lg-8 content-section" id="danhsachdonhang">
+            <div class="padding-top-2x mt-2 hidden-lg-up"></div>
+            <!-- Wishlist Table-->
+            <div class="table-responsive wishlist-table margin-bottom-none">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th colspan="3" class="text-center">Danh sách đơn mua hàng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.HoadonList != null && Model.HoadonList.Any())
+                        {
+                            foreach (var item in Model.HoadonList)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="product-item">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <strong>Mã đơn:</strong> @item.Mahd
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <strong>Ngày đặt đơn:</strong> @item.Ngay
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <strong>Tổng tiền:</strong> @item.Tongtien.ToString("N0") đ
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    @if (item.Trangthai == 0)
+                                                    {
+                                                        <strong> Đang chờ xác nhận</strong>
+                                                    }
+                                                    else if (item.Trangthai == 1)
+                                                    {
+                                                        <strong>Đã xác nhận</strong>
+                                                    }
+                                                    else if (item.Trangthai == 2)
+                                                    {
+                                                        <strong> Đang giao hàng</strong>
+                                                    }
+                                                    else
+                                                    {
+                                                        <strong>Đã nhận hàng</strong>
+                                                    }
+                                                </div>
+                                         
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div>
+                                            <!-- Nút để mở modal -->
+                                            <button class="btn btn-info" onclick="openProductModal('@item.Mahd')">
+                                                <i class="bi bi-eye-fill"></i> 
+                                            </button>
+                                        </div>
+                                        <div class="modal fade" id="@item.Mahd" tabindex="-1" role="dialog" aria-labelledby="@item.Mahd" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="productModalLabel@item.MaHd">Danh sách sản phẩm đã mua</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cloesModal('@item.Mahd')">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body" id="productList">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <h6 class="text-info">Mã đơn hàng: @item.Mahd</h6>
+
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <h6 class="text-dark">Ngày đặt: @item.Ngay</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                           
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Tỉnh</th>
+                                                                        <th>Quận huyện</th>
+                                                                        <th>Xã ph
+                                                                            ường</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                        <tr>
+
+                                                                            <td>@item.Tinh</td>
+                                                                            <td>@item.Quanhuyen</td>
+                                                                            <td>@item.Xaphuong</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Địa chỉ chi tiết:</td>
+                                                                            <td colspan="2" class="text-center">
+                                                                                 @item.Diachi
+                                                                            </td>
+                                                                        </tr>
+                                                                  
+                                                                </tbody>
+                                                               
+                                                            </table>
+                                                        </div>                                               
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Sản phẩm</th>
+                                                                    <th>Số lượng mua</th>
+                                                                    <th>Đơn giá</th>
+                                                                    <th>Thành tiền</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach (var sp in item.Cthoadons)
+                                                                {
+                                                                    <tr>
+
+                                                                        <td>@sp.Mamh</td>
+                                                                        <td>@sp.Soluong</td>
+                                                                        <td>@sp.Dongia.ToString("N0") đ</td>
+                                                                        <td>@sp.Thanhtien.ToString("N0") đ</td>
+                                                                    </tr>
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="row">
+                                                            <div class="col-md-8">
+                                                                <h6 class="text-dark">Tổng tiền đơn hàng:</h6>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <h6 class="text-danger">@item.Tongtien.ToString("N0") đ</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <div class="col-md-4">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cloesModal('@item.Mahd')">Đóng</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    <td class="text-center">
+                                        @if (item.Trangthai == 0)
+                                        {
+                                                <!-- Nút để mở modal -->
+                                                <button type="button" class="btn btn-danger" onclick="showModalhuy('@item.Mahd-10')">
+                                                <i class="bi bi-cart-x"></i>
+                                                </button>
+                                        }
+                                        <div class="modal fade" id="@item.Mahd-10" tabindex="-1" role="dialog" aria-labelledby="@item.Mahd-10" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="productModalLabel@item.MaHd">Hủy đơn hàng</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cloesModalhuy('@item.Mahd-10')">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form asp-action="CancelOrder" asp-route-id="@item.Mahd" onsubmit="return checkLydo()">
+                                                        <div class="modal-body" id="productList">
+                                                            <div class="row">
+                                                                    <div class="form-group">
+                                                                          <textarea type="text" class="form-control" placeholder="Nhập lý do hủy đơn hàng của bạn..." name="lydo" id="lydo"></textarea>
+                                                                    </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <h6 class="text-info">Mã đơn hàng: @item.Mahd</h6>
+
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <h6 class="text-dark">Ngày đặt: @item.Ngay</h6>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                     
+                                                                <table class="table">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Tỉnh</th>
+                                                                            <th>Quận huyện</th>
+                                                                            <th>Xã phường</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+
+                                                                            <td>@item.Tinh</td>
+                                                                            <td>@item.Quanhuyen</td>
+                                                                            <td>@item.Xaphuong</td>
+                                                                       
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Địa chỉ chi tiết:</td>
+                                                                            <td colspan="2" class="text-center">
+                                                                                @item.Diachi
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+
+                                                                </table>
+                                                            </div>
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Sản phẩm</th>
+                                                                        <th>Số lượng mua</th>
+                                                                        <th>Đơn giá</th>
+                                                                        <th>Thành tiền</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach (var sp in item.Cthoadons)
+                                                                    {
+                                                                        <tr>
+
+                                                                            <td>@sp.Mamh</td>
+                                                                            <td>@sp.Soluong</td>
+                                                                            <td>@sp.Dongia.ToString("N0") đ</td>
+                                                                            <td>@sp.Thanhtien.ToString("N0") đ</td>
+                                                                        </tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                            <div class="row">
+                                                                <div class="col-md-8">
+                                                                    <h6 class="text-dark">Tổng tiền đơn hàng:</h6>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <h6 class="text-danger">@item.Tongtien.ToString("N0") đ</h6>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <div class="col-md-4">
+                                                                <button type="submit" class="btn btn-danger">
+                                                                    <i class="bi bi-cart-x"></i> Hủy đơn
+                                                                </button>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                            
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cloesModalhuy('@item.Mahd-10')">Đóng</button>
+                                                            </div>
+                                                        </div>
+                                                       
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="2" class="text-center">
+                                    <em>Chưa có đơn hàng</em>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-center">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            @if (Model.HoadonList != null && Model.HoadonList.Count > 0)
+                            {
+                                for (var i = 1; i <= ViewBag.TotalPages; i++)
+                                {
+                                    <li class="page-item @(i == ViewBag.PageNumber ? "active" : "")">
+                                        <a class="page-link" href="?page=@i">@i</a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <hr class="mb-4">
+        </div>
+
+        <div class="col-lg-8 content-section" id="thongtintaikhoan">
+            <div class="padding-top-2x mt-2 hidden-lg-up"></div>
+            <div class="product-item">
+                <script>
+                    function validateForm() {
+                        // Perform additional checks here before allowing the form submission
+                        if (!validateFullName()) {
+                            return false; // Prevent form submission
+                        }
+
+                        if (!validatePhoneNumber()) {
+                            return false; // Prevent form submission
+                        }
+
+                        // Add more validation checks if needed
+
+                        // If all checks pass, allow the form submission
+                        return true;
+                    }
+
+                    function validateFullName() {
+                        var fullName = $('#Ten').val().trim();
+                        if (fullName.length < 2) {
+                            alert("Họ tên phải có ít nhất 2 ký tự.");
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    function validatePhoneNumber() {
+                        var phoneNumber = $('#DienThoai').val().trim();
+                        // Remove non-numeric characters
+                        var numericPhoneNumber = phoneNumber.replace(/\D/g, '');
+
+                        // Check if the phone number is 10 or 11 digits
+                        if (numericPhoneNumber.length !== 10 && numericPhoneNumber.length !== 11) {
+                            alert("Số điện thoại phải có 10 hoặc 11 số.");
+                            return false;
+                        }
+
+                        return true;
+                    }
+                </script>
+                <form enctype="multipart/form-data" asp-action="UpdateInfo" onsubmit="return validateForm()">
+                    <h5 class="text-success"><strong>@TempData["SuccessUpdate"]</strong></h5>
+
+                    <input type="hidden" id="MaKh" name="MaKh" value="@Model.KhachHang.MaKh" class="form-control" />
+                    <div class="form-group">
+                        <label for="fileanh">Ảnh đại diện:</label>
+                        <input type="file" id="fileanh" name="fileanh" class="form-control-file" onchange="updateImage()" />
+                    </div>
+                    <script>
+                        function updateImage() {
+                            // Get the input element
+                            var input = document.getElementById('fileanh');
+
+                            // Get the image element
+                            var img = document.getElementById('anhdaidien');
+
+                            // Check if a file is selected
+                            if (input.files && input.files[0]) {
+                                // Get the selected file
+                                var file = input.files[0];
+
+                                // Create a FileReader to read the file
+                                var reader = new FileReader();
+
+                                // Set the callback function when the file is loaded
+                                reader.onload = function (e) {
+                                    // Set the source attribute of the image to the loaded data URL
+                                    img.src = e.target.result;
+                                };
+
+                                // Read the file as a data URL
+                                reader.readAsDataURL(file);
+                            }
+                        }
+                    </script>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="Ten">Họ và tên:</label>
+                            <input type="text" id="Ten" name="Ten" value="@Model.KhachHang.Ten" class="form-control" />
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="Email">Email:</label>
+                            <input type="text" id="Email" name="Email" value="@Model.KhachHang.Email" class="form-control" readonly />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="Dienthoai">Điện thoại:</label>
+                            <input type="text" id="Dienthoai" name="Dienthoai" value="@Model.KhachHang.Dienthoai" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group col-md-4">
+                            <button type="submit" class="btn btn-outline-success">Lưu</button>
+                        </div>
+                    </div>
+                </form>
+                <form enctype="multipart/form-data" id="form1" asp-action="ChangePassWord">
+                    <h5 class="text-success"><strong>@TempData["Success"]</strong></h5>
+                    <h5 class="text-warning"><strong>@TempData["Message"]</strong></h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label>Mật khẩu cũ</label>
+                            <input type="password" id="matkhauxacthuc" name="matkhauxacthuc" class="form-control" />
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label>Mật khẩu mới</label>
+                            <input type="password" id="matkhauthaydoi" name="matkhauthaydoi" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Nhập lại mật khẩu mới</label>
+                            <input type="password" id="matkhauthaydoiVerifi" name="matkhauthaydoiVerifi" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <button type="submit" class="btn btn-outline-success">Đổi mật khẩu</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <hr class="mb-4">
+        </div>
+        <div class="col-lg-8 content-section" id="diachi">
+            <a class="btn btn-outline-success" onclick="showmodalthemdiachi()">Thêm mới địa chỉ</a>
+            <div class="modal fade" id="themdiachi" tabindex="-1" role="dialog" aria-labelledby="themdiachi" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <form asp-action="CreateAddress" onsubmit="return updateAddress()">
+                    <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="productModalLabel@item.MaHd">Thêm mới địa chỉ</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closemodalthemdiachi()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="productList">
+                                    <div>
+                                        <select id="city" name="tinh" class="form-control m-1">
+                                            <option value="" selected></option>
+                                        </select>
+                                        <select id="district" name="huyen" class="form-control m-1">
+                                            <option value="" selected>Chọn quận huyện</option>
+                                        </select>
+                                        <select id="ward" name="xa" class="form-control m-1">
+                                            <option value="" selected>Chọn phường xã</option>
+                                        </select>
+                                        <input type="text" placeholder="Nhập địa chỉ chi nhận hàng chi tiết (số nhà, tên đường,...)" class="form-control m-1" id="text-address" />
+                                        <h2 id="result" class="text-info m-1 text-10 small-text">Địa chỉ: </h2>
+                                        <input id="result1" name="diachi" type="hidden" />
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-secondary">Thêm địa chỉ</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closemodalthemdiachi()">Đóng</button>
+                                </div>
+                            </div>
+                        </form>
+            
+                                    
+                    </div>
+                </div>
+            </div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+            <script>
+                const host = "https://provinces.open-api.vn/api/";
+                var callAPI = (api) => {
+                    return axios.get(api)
+                        .then((response) => {
+                            renderData(response.data, "city");
+                        });
+                }
+                callAPI('https://provinces.open-api.vn/api/?depth=1');
+                var callApiDistrict = (api) => {
+                    return axios.get(api)
+                        .then((response) => {
+                            renderData(response.data.districts, "district");
+                        });
+                }
+                var callApiWard = (api) => {
+                    return axios.get(api)
+                        .then((response) => {
+                            renderData(response.data.wards, "ward");
+                        });
+                }
+
+                var renderData = (array, select) => {
+                    let row = ' <option disable value="">Chọn</option>';
+                    array.forEach(element => {
+                        row += `<option data-id="${element.code}" value="${element.name}">${element.name}</option>`
+                    });
+                    document.querySelector("#" + select).innerHTML = row
+                }
+
+                $("#city").change(() => {
+                    callApiDistrict(host + "p/" + $("#city").find(':selected').data('id') + "?depth=2");
+                    printResult();
+                });
+                $("#district").change(() => {
+                    callApiWard(host + "d/" + $("#district").find(':selected').data('id') + "?depth=2");
+                    printResult();
+                });
+                $("#ward").change(() => {
+                    printResult();
+                })
+                // Define the printResult function first
+                var printResult = () => {
+                    if ($("#district").find(':selected').data('id') !== "" &&
+                        $("#city").find(':selected').data('id') !== "" &&
+                        $("#ward").find(':selected').data('id') !== "") {
+                        let result = $("#city option:selected").text() +
+                            ", " + $("#district option:selected").text() + ", " +
+                            $("#ward option:selected").text() + ", " + $('#text-address').val();
+                        $("#result").text(result);
+                        $("#result1").val(result);
+                    }
+                };
+
+                // Attach the change event handler
+                $('#text-address').on('change', function () {
+                    // Thực hiện các hành động khi giá trị thay đổi
+                    printResult();
+                });
+            </script>
+
+            <div class="padding-top-2x mt-2 hidden-lg-up"></div>
+            <!-- Wishlist Table-->
+            <div class="table-responsive wishlist-table margin-bottom-none">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Tỉnh</th>
+                            <th>Quận huyện</th>
+                            <th>Xã phường</th>
+                            <th>Mặc định</th>
+                            <th>Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            if (Model.Diachi != null)
+                            {
+                                if (Model.Diachi.Count > 0)
+                                {
+                                    foreach (var item in Model.Diachi)
+                                    {
+                                        <tr>
+                                            <td>@item.Tinhthanh</td>
+                                            <td>@item.Quanhuyen</td>
+                                            <td>@item.Phuongxa</td>
+                                            <td class="text-center">
+                                                <div>
+                                                    @if (item.Macdinh == 0)
+                                                    {
+                                                        <form asp-action="Diachimacdinh" asp-controller="customer" method="post" asp-route-id="@item.MaDc">
+                                                            <button type="submit" class="btn btn-outline-danger">
+                                                                <i class="bi bi-check-circle-fill"></i> Mặc định
+                                                            </button>
+                                                        </form>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button class="btn btn-success" disabled>
+                                                            <i class="bi bi-patch-check-fill"></i>
+                                                        </button>
+                                                    }
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div>
+                                                    @if (item.Macdinh == 0)
+                                                    {
+                                                        <form asp-action="XoaDiaChi" asp-controller="customer" method="post" asp-route-id="@item.MaDc">
+                                                            <button type="submit" class="btn btn-outline-danger">
+                                                                <i class="bi bi-trash"></i>
+                                                            </button>
+                                                        </form>
+                                             
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        <tr>
+                                            <td colspan="1" class="text-center">Địa chỉ chi tiết:</td>
+                                            <td colspan="4" class="text-start">
+                                                    @item.Diachi1
+                                            </td>
+                                        </tr>
+                                        </tr>
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>
+                                        Chưa có địa chỉ mua hàng
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <hr class="mb-4">
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> <!-- Include jQuery library -->
+<script>
+    function checkLydo() {
+        var lydo = $('#lydo').val().trim(); // Trim leading and trailing whitespaces
+
+        if (lydo === "") {
+            alert("Vui lòng nhập lý do hủy đơn đặt hàng !");
+            return false;
+        }
+
+        return true;
+    }
+    function checkLydo() {
+        var lydo = $('#lydo').val();
+        if (lydo === "") {
+            alert("Vui lòng nhập lý do hủy đơn đặt hàng !");
+            return false;
+        }
+        return true;
+    }
+
+    /*
+    document.addEventListener("DOMContentLoaded", function () {
+        // Check if the current URL contains "/Customer/Profile"
+        if (window.location.href.indexOf("/Customer/Profile") > -1) {
+            // Append "#thongtintaikhoan" to the URL
+            window.history.replaceState(null, null, window.location.href + "#thongtintaikhoan");
+        }
+    });
+
+    // Function to show the corresponding content section
+    function showContent(contentId) {
+        // Hide all content sections
+        $('.content-section').hide();
+
+        // Show the selected content section
+        $('#' + contentId).show();
+    }
+
+    // Initial setup to show the default active section
+    $(document).ready(function () {
+        // Get the active link's href
+        var activeHref = $('.list-group-item.active').attr('href');
+
+        // Show the corresponding content section
+        showContent(activeHref.substr(1)); // Remove the '#' symbol
+    });
+
+    // Add click event listeners to navigation links
+    $('.list-group-item').click(function () {
+        // Remove 'active' class from all links
+        $('.list-group-item').removeClass('active');
+
+        // Add 'active' class to the clicked link
+        $(this).addClass('active');
+
+        // Get the href of the clicked link
+        var clickedHref = $(this).attr('href');
+
+        // Show the corresponding content section
+        showContent(clickedHref.substr(1)); // Remove the '#' symbol
+    });
+
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var form = document.getElementById("form1");
+
+        form.addEventListener("submit", function (event) {
+            var newPassword = document.getElementById("matkhauthaydoi").value;
+            var confirmPassword = document.getElementById("matkhauthaydoiVerifi").value;
+            var oldPassword = document.getElementById("matkhauxacthuc").value;
+
+            if (newPassword.trim() === "" || confirmPassword.trim() === "" || oldPassword.trim() === "") {
+                alert("Vui lòng điền đầy đủ thông tin!");
+                event.preventDefault(); // Prevent form submission
+            } else if (newPassword !== confirmPassword) {
+                alert("Mật khẩu mới và xác nhận mật khẩu mới không khớp!");
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get the current URL fragment (the part after #)
+        var currentFragment = window.location.hash.substring(1);
+
+        // Activate the corresponding tab based on the current fragment
+        activateTab(currentFragment);
+
+        // Listen for hash changes to update the active tab dynamically
+        window.addEventListener("hashchange", function () {
+            var newFragment = window.location.hash.substring(1);
+            activateTab(newFragment);
+        });
+
+        // Function to activate the tab
+        function activateTab(tabId) {
+            // Remove the "active" class from all tabs
+            var tabs = document.querySelectorAll(".list-group-item");
+            tabs.forEach(function (tab) {
+                tab.classList.remove("active");
+            });
+
+            // Add the "active" class to the tab with the matching ID
+            var targetTab = document.querySelector('a[href="#' + tabId + '"]');
+            if (targetTab) {
+                targetTab.classList.add("active");
+            }
+        }
+    });*/
+</script>
+
+<script>
+    function openProductModal(maHd) {
+        var modalId = maHd;
+        $('#' + modalId).modal('show')
+    }
+    function showmodalthemdiachi() {
+        $('#themdiachi').modal('show')
+    }
+    function closemodalthemdiachi() {
+        $('#themdiachi').modal('hide')
+    }
+    function cloesModal(maHd) {
+        var modalId = maHd;
+        $('#' + modalId).modal('hide');
+    }
+    function showModalhuy(maHd) {
+        var modalId = maHd;
+        $('#' + modalId).modal('show')
+    }
+    function cloesModalhuy(maHd) {
+        var modalId = maHd;
+        $('#' + modalId).modal('hide');
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Function to show the corresponding content section
+        function showContent(contentId) {
+            // Hide all content sections
+            $('.content-section').hide();
+
+            // Show the selected content section
+            $('#' + contentId).show();
+        }
+
+        // Function to activate the tab
+        function activateTab(tabId) {
+            // Remove the "active" class from all tabs
+            document.querySelectorAll(".list-group-item").forEach(function (tab) {
+                tab.classList.remove("active");
+            });
+
+            // Add the "active" class to the tab with the matching ID
+            var targetTab = document.querySelector(`a[href="#${tabId}"]`);
+            if (targetTab) {
+                targetTab.classList.add("active");
+
+                // Show the corresponding content section
+                showContent(tabId);
+            }
+        }
+
+        // Initial setup to show the default active section
+        var activeHref = $('.list-group-item.active').attr('href');
+        showContent(activeHref.substr(1)); // Remove the '#' symbol
+
+        // Add click event listeners to navigation links
+        $('.list-group-item').click(function () {
+            // Remove 'active' class from all links
+            $('.list-group-item').removeClass('active');
+
+            // Add 'active' class to the clicked link
+            $(this).addClass('active');
+
+            // Get the href of the clicked link
+            var clickedHref = $(this).attr('href');
+
+            // Show the corresponding content section
+            showContent(clickedHref.substr(1)); // Remove the '#' symbol
+        });
+
+        var form = document.getElementById("form1");
+
+        form.addEventListener("submit", function (event) {
+            var newPassword = document.getElementById("matkhauthaydoi").value;
+            var confirmPassword = document.getElementById("matkhauthaydoiVerifi").value;
+            var oldPassword = document.getElementById("matkhauxacthuc").value;
+
+            if (newPassword.trim() === "" || confirmPassword.trim() === "" || oldPassword.trim() === "") {
+                alert("Vui lòng điền đầy đủ thông tin!");
+                event.preventDefault(); // Prevent form submission
+            } else if (newPassword !== confirmPassword) {
+                alert("Mật khẩu mới và xác nhận mật khẩu mới không khớp!");
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+
+        // Get the current URL fragment (the part after #)
+        var currentFragment = window.location.hash.substring(1);
+
+        // Activate the corresponding tab based on the current fragment
+        activateTab(currentFragment);
+
+        // Listen for hash changes to update the active tab dynamically
+        window.addEventListener("hashchange", function () {
+            var newFragment = window.location.hash.substring(1);
+            activateTab(newFragment);
+        });
+    });
+
+
+
+    function addToCart(id, giaban, hinhanh, ten, giakhuyenmai) {
+
+        var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        var existingProduct = cart.find(item => item.id === id);
+
+        if (existingProduct) {
+            existingProduct.soluongmua++;
+            Toastify({
+                text: "Đã cập nhật số lượng vào giỏ hàng !",
+                duration: 3000,
+                gravity: "bottom", // Chọn bottom để hiển thị ở dưới
+                position: 'right',
+                backgroundColor: "rgba(0, 128, 0, 0.8)", // Màu nền xanh lá cây với độ trong suốt
+                stopOnFocus: true,
+                className: 'custom-toast', // Thêm class để tùy chỉnh CSS
+            }).showToast();
+        } else {
+            cart.push({ id, ten, giaban, hinhanh, soluongmua: 1, giakhuyenmai: giakhuyenmai });
+            // Hiển thị toast thông báo
+            Toastify({
+                text: "Đã thêm vào giỏ hàng !",
+                duration: 3000,
+                gravity: "bottom",
+                position: 'right',
+                backgroundColor: "rgba(0, 128, 0, 0.8)", // Màu nền xanh lá cây với độ trong suốt
+                stopOnFocus: true,
+                className: 'custom-toast', // Thêm class để tùy chỉnh CSS
+            }).showToast();
+
+        }
+
+        console.log(cart);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        displayNumbercart();
+    }
+</script>
+<script>
+    function updateAddress() {
+        var city = document.getElementById("city").value;
+        var district = document.getElementById("district").value;
+        var ward = document.getElementById("ward").value;
+        var diachi = document.getElementById("diachi").value;
+
+        if (city === "" || district === "" || ward === "" || diachi === "") {
+            alert("Vui lòng nhập đầy đủ thông tin!");
+            return false;
+        } 
+        return true;
+    }
+</script>
+

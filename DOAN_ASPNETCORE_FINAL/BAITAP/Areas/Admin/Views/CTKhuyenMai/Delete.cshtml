@@ -1,0 +1,68 @@
+﻿@model BAITAP.Models.CtKhuyenMai
+
+@{
+    ViewData["Title"] = "Xóa CTKM";
+    Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<h3 class="mt-0">Xóa CTKM</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Chương trình khuyến mãi</a></li>
+    <li class="breadcrumb-item active">Xóa</li>
+</ol>
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Tên Khuyến Mãi</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.TenKm)</dd>
+
+            <dt class="col-sm-3">Mô Tả</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.MoTa)</dd>
+
+            <dt class="col-sm-3">Ngày Bắt Đầu</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.NgayBatDau)</dd>
+
+            <dt class="col-sm-3">Ngày Kết Thúc</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.NgayKetThuc)</dd>
+
+            <dt class="col-sm-3">Số Lượng Mua Tối Thiểu</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Soluongmuatoithieu)</dd>
+
+            <dt class="col-sm-3">Số Tiền Mua Tối Thiểu</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Sotienmuatoithieu)</dd>
+
+            <dt class="col-sm-3">Phần Trăm Giảm Giá</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.PhanTramGiamGia)</dd>
+
+            <dt class="col-sm-3">Giá Giảm</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.GiaGiam)</dd>
+
+            <dt class="col-sm-3">Điều Kiện Áp Dụng</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.DieuKienApDung)</dd>
+
+            <dt class="col-sm-3">Số Lượng Sử Dụng</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Soluongsudung)</dd>
+
+            <dt class="col-sm-3">Trạng Thái</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.TrangThai)</dd>
+
+            <dt class="col-sm-3">Mã Loại Khuyến Mãi</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.MaLoaiKmNavigation.TenLoaiKm)</dd>
+
+            <dt class="col-sm-3">Nhóm Sản Phẩm Khuyến Mãi</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.NhomSpkhuyemaiNavigation.Ten)</dd>
+        </dl>
+
+        <div class="text-center">
+            <p class="text-danger">Bạn có chắc chắn muốn xóa mục này?</p>
+
+            <form asp-action="Delete" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+
+                <button type="submit" class="btn btn-danger">Xóa</button>
+                <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,122 @@
+﻿@model BAITAP.Models.CtKhuyenMai
+
+@{
+    ViewData["Title"] = "Thêm mới CTKM";
+    Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
+}
+
+
+<h3 class="mt-0">Thêm mới CTKM</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Chương trình khuyến mãi</a></li>
+    <li class="breadcrumb-item active">Thêm mới</li>
+</ol>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label asp-for="Id" class="control-label">ID:</label>
+                    <input asp-for="Id" class="form-control" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label asp-for="TenKm" class="control-label">Tên Khuyến Mãi:</label>
+                    <input asp-for="TenKm" class="form-control" />
+                    <span asp-validation-for="TenKm" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label asp-for="MoTa" class="control-label">Mô Tả:</label>
+                    <input asp-for="MoTa" class="form-control" />
+                    <span asp-validation-for="MoTa" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label asp-for="NgayBatDau" class="control-label">Ngày Bắt Đầu:</label>
+                    <input asp-for="NgayBatDau" class="form-control" />
+                    <span asp-validation-for="NgayBatDau" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label asp-for="NgayKetThuc" class="control-label">Ngày Kết Thúc:</label>
+                    <input asp-for="NgayKetThuc" class="form-control" />
+                    <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label asp-for="Soluongmuatoithieu" class="control-label">Số Lượng Mua Tối Thiểu:</label>
+                    <input asp-for="Soluongmuatoithieu" class="form-control" />
+                    <span asp-validation-for="Soluongmuatoithieu" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <!-- Thêm các ô input còn lại vào đây -->
+                <div class="form-group col-md-4">
+                    <label asp-for="Sotienmuatoithieu" class="control-label">Số Tiền Mua Tối Thiểu:</label>
+                    <input asp-for="Sotienmuatoithieu" class="form-control" />
+                    <span asp-validation-for="Sotienmuatoithieu" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label asp-for="PhanTramGiamGia" class="control-label">Phần Trăm Giảm Giá:</label>
+                    <input asp-for="PhanTramGiamGia" class="form-control" />
+                    <span asp-validation-for="PhanTramGiamGia" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label asp-for="GiaGiam" class="control-label">Giá Giảm:</label>
+                    <input asp-for="GiaGiam" class="form-control" />
+                    <span asp-validation-for="GiaGiam" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label asp-for="DieuKienApDung" class="control-label">Điều Kiện Áp Dụng:</label>
+                    <input asp-for="DieuKienApDung" class="form-control" />
+                    <span asp-validation-for="DieuKienApDung" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label asp-for="Soluongsudung" class="control-label">Số Lượng Sử Dụng:</label>
+                    <input asp-for="Soluongsudung" class="form-control" />
+                    <span asp-validation-for="Soluongsudung" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label asp-for="NhomSpkhuyemai" class="control-label">Nhóm Sản Phẩm Khuyến Mãi:</label>
+                    <select asp-for="NhomSpkhuyemai" class="form-control" asp-items="ViewBag.NhomSpkhuyemai"></select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label class="control-label">Trạng Thái:</label>
+                    <div class="form-check">
+                        <input class="form-check-input" asp-for="TrangThai" />
+                        <label class="form-check-label">Trạng thái</label>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label asp-for="MaLoaiKm" class="control-label">Mã Loại Khuyến Mãi:</label>
+                    <select asp-for="MaLoaiKm" class="form-control" asp-items="ViewBag.MaLoaiKm"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-success" />
+                <a asp-action="Index" class="btn btn-outline-info">Quay lại danh sách</a>
+
+            </div>
+        </form>
+    </div>
+</div>
+

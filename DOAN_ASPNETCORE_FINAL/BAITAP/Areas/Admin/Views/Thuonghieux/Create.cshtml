@@ -1,0 +1,27 @@
+﻿@model BAITAP.Models.Thuonghieu
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
+}
+
+
+<h3>Tạo mới thương hiệu</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TenThuonghieu" class="control-label"></label>
+                <input asp-for="TenThuonghieu" class="form-control" />
+                <span asp-validation-for="TenThuonghieu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+                <a asp-action="Index">Quay về danh sách</a>
+
+            </div>
+        </form>
+    </div>
+</div>

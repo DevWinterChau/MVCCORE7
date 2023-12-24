@@ -1,0 +1,132 @@
+﻿@model BAITAP.Models.CtKhuyenMai
+
+@{
+    ViewData["Title"] = "Cập nhật CTKM";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+
+<h3 class="mt-0">Cập nhật CTKM</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Chương trình khuyến mãi</a></li>
+    <li class="breadcrumb-item active">Cập nhật</li>
+</ol>
+<div class="row justify-content-start">
+    <div class="col-md-8">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="TenKm" class="control-label"></label>
+                                <input asp-for="TenKm" class="form-control" />
+                                <span asp-validation-for="TenKm" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="MoTa" class="control-label"></label>
+                                <input asp-for="MoTa" class="form-control" />
+                                <span asp-validation-for="MoTa" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="NgayBatDau" class="control-label"></label>
+                                <input asp-for="NgayBatDau" class="form-control" />
+                                <span asp-validation-for="NgayBatDau" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="NgayKetThuc" class="control-label"></label>
+                                <input asp-for="NgayKetThuc" class="form-control" />
+                                <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Soluongmuatoithieu" class="control-label"></label>
+                                <input asp-for="Soluongmuatoithieu" class="form-control" />
+                                <span asp-validation-for="Soluongmuatoithieu" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Sotienmuatoithieu" class="control-label"></label>
+                                <input asp-for="Sotienmuatoithieu" class="form-control" />
+                                <span asp-validation-for="Sotienmuatoithieu" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="PhanTramGiamGia" class="control-label"></label>
+                                <input asp-for="PhanTramGiamGia" class="form-control" />
+                                <span asp-validation-for="PhanTramGiamGia" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="GiaGiam" class="control-label"></label>
+                                <input asp-for="GiaGiam" class="form-control" />
+                                <span asp-validation-for="GiaGiam" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="DieuKienApDung" class="control-label"></label>
+                                <input asp-for="DieuKienApDung" class="form-control" />
+                                <span asp-validation-for="DieuKienApDung" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Soluongsudung" class="control-label"></label>
+                                <input asp-for="Soluongsudung" class="form-control" />
+                                <span asp-validation-for="Soluongsudung" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="NhomSpkhuyemai" class="control-label"></label>
+                                <select asp-for="NhomSpkhuyemai" class="form-control" asp-items="ViewBag.NhomSpkhuyemai"></select>
+                                <span asp-validation-for="NhomSpkhuyemai" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="TrangThai" /> @Html.DisplayNameFor(model => model.TrangThai)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="MaLoaiKm" class="control-label"></label>
+                                <select asp-for="MaLoaiKm" class="form-control" asp-items="ViewBag.MaLoaiKm"></select>
+                                <span asp-validation-for="MaLoaiKm" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Lưu" class="btn btn-primary" />
+                        <a asp-action="Index" class="btn btn-outline-info">Quay lại danh sách</a>
+
+                    </div>
+        </form>
+    </div>
+</div>
+
+

@@ -1,0 +1,38 @@
+﻿@model BAITAP.Models.Khachhang
+
+@{
+    ViewData["Title"] = "Xóa khách hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
+
+}
+<h3 class="mt-0">Xóa khách hàng</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Khách hàng</a></li>
+    <li class="breadcrumb-item active">Xóa</li>
+</ol>
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Tên</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Ten)</dd>
+            <dt class="col-sm-3">Điện thoại</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Dienthoai)</dd>
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Email)</dd>
+            <dt class="col-sm-3">Mật khẩu</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Matkhau)</dd>
+        </dl>
+
+        <div class="text-center">
+            <p class="text-danger">Bạn có chắc chắn muốn xóa khách hàng này?</p>
+
+            <form asp-action="Delete" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="MaKh" />
+
+                <button type="submit" class="btn btn-danger">Xóa</button>
+                <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+            </form>
+        </div>
+    </div>
+</div>

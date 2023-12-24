@@ -1,0 +1,242 @@
+﻿@model BAITAP.DTO.ChitietSanphamDTO;
+
+@{
+    ViewData["Title"] = "Chi tiết sản phẩm";
+}
+  <div class="ps-lg-3 mt-10">
+          <div class="row">
+            <div class="col-md-8">
+                <h4 class="title text-dark">
+                    @Model.mathangchinh.Ten <br />
+                </h4>
+                <div class="d-flex flex-row my-3">
+                    <div class="text-warning mb-1 me-2">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="ms-1">
+                            4.5
+                        </span>
+                    </div>
+                    <span class="text-muted"><i class="fas fa-shopping-basket fa-sm mx-1"></i>@Model.GiaGiaoDong</span>
+                </div>
+                <div class="overflow-auto  bg-light"
+                     style="max-width: 100%; max-height: 300px;">
+                <h3>Mô tả:</h3>
+                <code>@Html.Raw(@Model.mathangchinh.Mota)</code>
+                </div>                
+            </div>
+            <div class="col-md-4">
+            <img src="~/images/products/@Model.mathangchinh.Hinhanh" alt="Hình ảnh" style="max-width: 200px;" />
+            </div>
+          </div>
+
+         
+         <div class="d-flex flex-row my-3">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Thuộc tích</th>
+                    <th scope="col">Giá Bán</th>
+                    <th scope="col">Tình trạng</th>
+                    <th scope="col">Hình ảnh</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.DanhsachMathang)
+                {
+                    <tr>
+                        <td>@item.mathang.Kichco, @item.mathang.Mausac</td>
+                        <td>
+                            @if (item.Phantramkhuyenmai > 0)
+                            {
+                                <span class="text-muted text-decoration-line-through">
+                                   @item.mathang.GiaBan.ToString("N0") đ
+                                </span>
+                                <span class="text-danger ">
+                                    @item.Giakhuyemai.ToString("N0") đ
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="text-danger ">
+                                    @item.mathang.GiaBan.ToString("N0") đ
+                                </span>
+                            }
+                        </td>
+                        @if(item.mathang.SoLuong > 0)
+                        {
+                            <td><p class="text-info"> Còn hàng</p> </td>
+                        }
+                        else{
+                            <td><p class="text-danger"> Đã bán hết</p></td>
+                        }
+                        <td>
+                            <img src="~/images/products/@item.mathang.HinhAnh" alt="Hình ảnh" style="max-width: 100px;" />
+                        </td>
+                        <td>
+                            <!-- <a asp-controller="Customer" asp-action="Addtocart" asp-route-id="item.MaMh">Mua</a> -->
+                            @if (item.Phantramkhuyenmai > 0 && item.Giakhuyemai > 0)
+                            {
+                                if (item.mathang.SoLuong > 0)
+                                {
+                                    <a class="btn btn-outline-danger" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh" asp-route-giakhuyenmai="@item.Giakhuyemai"><i class="bi bi-heart-fill"></i></a>
+                                    <a class="btn btn-outline-info" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', '@item.Giakhuyemai', '@item.mathang.SoLuong')"><i class="bi bi-bag-plus-fill"></i></a>
+                                }
+                                else
+                                {
+                                    <p class="text-danger">Hết hàng <i class="bi bi-fire"></i></p>
+                                }
+                            }
+                            else
+                            {
+                                if (item.mathang.SoLuong > 0)
+                                {
+                                    <a class="btn btn-outline-danger" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh" asp-route-giakhuyenmai="@item.Giakhuyemai"><i class="bi bi-heart-fill"></i></a>
+
+                                    <a class="btn btn-outline-info" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', 0, '@item.mathang.SoLuong')"><i class="bi bi-bag-plus-fill"></i></a>
+                                }
+                                else
+                                {
+                                    <p class="text-danger">Hết hàng <i class="bi bi-fire"></i></p>
+                                }
+                            }
+                        </td>
+                     
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        </div>
+
+  </div>
+
+
+
+<script>
+
+    var timeout = 15000;
+    var timer;
+    function startTimer() {
+        timer = setTimeout(function () {
+            // Sử dụng Ajax để update Lượt xem
+            updateView();
+        }, timeout);
+    }
+
+    function cancelTimer() {
+        console.log('Đã tới thời gian update');
+        clearTimeout(timer);
+    }
+
+    function updateView() {
+        // Sử dụng JSON.stringify để chuyển đối tượng thành chuỗi JSON
+        fetch('/customer/UpdateLuotXem/' + encodeURIComponent('@ViewData["ID"]'), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            // Nếu bạn cần thêm dữ liệu trong trường hợp POST, hãy thêm body ở đây
+            // body: JSON.stringify({ key: 'value' }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Lượt xem đã được cập nhật:', data);
+                cancelTimer();
+            })
+            .catch(error => {
+                console.error('Lỗi khi cập nhật lượt xem:', error);
+            });
+    }
+
+    // Gọi hàm bắt đầu đồng hồ đếm khi trang được tải
+    document.addEventListener('DOMContentLoaded', function () {
+        startTimer();
+    });
+
+    // Nếu có sự kiện nào đó khi người dùng tương tác với trang, hủy đồng hồ đếm và bắt đầu lại
+    document.addEventListener('click', function () {
+        cancelTimer();
+        startTimer();
+    });
+
+    function addToCart(id, giaban, hinhanh, ten, giakhuyenmai, soluongconsp) {
+        var cart = JSON.parse(localStorage.getItem('cart')) || [];
+        console.log(soluongconsp);
+        if (soluongconsp <= 0) {
+            // Hiển thị toast thông báo
+            Toastify({
+                text: "Sản phẩm này đã bán hết!",
+                duration: 3000,
+                gravity: "bottom",
+                position: 'right',
+                backgroundColor: "rgba(255, 0, 0, 0.8)", // Red with 80% opacity
+                stopOnFocus: true,
+                className: 'custom-toast', // Thêm class để tùy chỉnh CSS
+            }).showToast();
+            return;
+        }
+        var existingProduct = cart.find(item => item.id === id);
+        if (existingProduct && existingProduct.soluongmua == soluongconsp) {
+            // Hiển thị toast thông báo
+            Toastify({
+                text: "Số lượng sản phẩm chỉ còn " + soluongconsp + " ! Bạn đã thêm sản phẩm này vào giỏ hàng!",
+                duration: 3000,
+                gravity: "bottom",
+                position: 'right',
+                backgroundColor: "rgba(255, 0, 0, 0.8)", // Red with 80% opacity
+                stopOnFocus: true,
+                className: 'custom-toast', // Thêm class để tùy chỉnh CSS
+            }).showToast();
+            return;
+        }
+        
+        if (existingProduct) {
+            existingProduct.soluongmua++;
+            Toastify({
+                text: "Đã cập nhật số lượng vào giỏ hàng !",
+                duration: 3000,
+                gravity: "bottom", // Chọn bottom để hiển thị ở dưới
+                position: 'right',
+                backgroundColor: "rgba(0, 128, 0, 0.8)", // Màu nền xanh lá cây với độ trong suốt
+                stopOnFocus: true,
+                className: 'custom-toast', // Thêm class để tùy chỉnh CSS
+            }).showToast();
+        } else {
+            cart.push({ id, ten, giaban, hinhanh, soluongmua: 1, giakhuyenmai: giakhuyenmai });
+            // Hiển thị toast thông báo
+            Toastify({
+                text: "Đã thêm vào giỏ hàng !",
+                duration: 3000,
+                gravity: "bottom",
+                position: 'right',
+                backgroundColor: "rgba(0, 128, 0, 0.8)", // Màu nền xanh lá cây với độ trong suốt
+                stopOnFocus: true,
+                className: 'custom-toast', // Thêm class để tùy chỉnh CSS
+            }).showToast();
+
+        }
+
+        console.log(cart);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        displayNumbercart();
+    }
+
+    var filterForm = document.getElementById("filterForm");
+
+    function handleScroll() {
+        var scroll = window.scrollY;
+
+        if (scroll > 50) {
+            filterForm.classList.add("form-fixed");
+        } else {
+            filterForm.classList.remove("form-fixed");
+        }
+    }
+
+    window.addEventListener("scroll", handleScroll);
+</script>

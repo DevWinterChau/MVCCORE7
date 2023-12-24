@@ -1,0 +1,716 @@
+﻿@using Newtonsoft.Json;
+@using BAITAP.DTO;
+@model CustomerAddress
+@{
+    ViewData["Title"] = "Giỏ hàng";
+}
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+<section class="h-100 gradient-custom m-2">
+    <div class="container py-1">
+        <div class="row d-flex justify-content-center my-4">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">Địa chỉ nhận hàng của bạn</h5>
+                    </div>
+                    <div class="card-body">
+                        @if(Model != null)
+                        {
+                            if(Model.Diachiganday != null )
+                            {
+                                if (!ViewBag.UseNearest)
+                                {
+                                    <a class="btn-outline-success m-1" asp-action="cart" asp-route-isusenearest=true>Dùng địa chỉ đã sử dụng gần nhất</a>
+                                }
+                                else
+                                {
+                                    <a class="btn-outline-success m-1" asp-action="cart" asp-route-isusenearest=false>Dùng địa chỉ khác</a>
+                                }
+                            }
+                            else
+                            {
+                                <p class="text-danger m-1">Bạn chưa có lịch sửa mua hàng. Vui lòng nhập địa chỉ nhận hàng mới...!</p>
+                            }
+                            @if (!ViewBag.UseNearest )
+                            {
+                                <div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="text" placeholder="Họ tên..." class="form-control m-1" id="hoten" value="@Model.KhachhangLogin.Name" />
+                                        </div>
+                                        <div class="col">
+                                            <input type="number" placeholder="Số điện thoại..." class="form-control m-1" id="sodienthoai" value="@Model.KhachhangLogin.Phone" />
+                                        </div>
+                                    </div>
+                                    <select id="city" class="form-control m-1">
+                                        <option value="" selected>Tỉnh An Giang</option>
+                                    </select>
+
+                                    <select id="district" class="form-control m-1">
+                                        <option value="" selected>Chọn quận huyện</option>
+                                    </select>
+                                    <select id="ward" class="form-control m-1">
+                                        <option value="" selected>Chọn phường xã</option>
+                                    </select>
+                                    <input type="text" placeholder="Nhập địa chỉ chi nhận hàng chi tiết (số nhà, tên đường,...)" class="form-control m-1" id="text-address" />
+                                    <h2 id="result" class="text-info m-1 text-10 small-text">Địa chỉ nhận hàng: </h2>
+                                </div>
+                            }
+                            else
+                            {
+                                <div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="text" placeholder="Họ tên..." class="form-control m-1" id="hoten" value="@Model.KhachhangLogin.Name" />
+                                        </div>
+                                        <div class="col">
+                                            <input type="number" placeholder="Số điện thoại..." class="form-control m-1" id="sodienthoai" value="@Model.KhachhangLogin.Phone" />
+                                        </div>
+                                    </div>
+                                    <select id="city" class="form-control m-1">
+                                        <option value="@Model.Diachiganday.Tinhthanh" selected>@Model.Diachiganday.Tinhthanh</option>
+                                    </select>
+
+                                    <select id="district" class="form-control m-1">
+                                        <option value="@Model.Diachiganday.Quanhuyen" selected>@Model.Diachiganday.Quanhuyen</option>
+                                    </select>
+                                    <select id="ward" class="form-control m-1">
+                                        <option value="@Model.Diachiganday.Phuongxa" selected>@Model.Diachiganday.Phuongxa</option>
+                                    </select>
+                                    <input value="@Model.Diachiganday.Diachi1" type="text" placeholder="Nhập địa chỉ chi nhận hàng chi tiết (số nhà, tên đường,...)" class="form-control m-1" id="text-address" disabled />
+                                    <h2 id="result" class="text-info m-1 text-10 small-text">Địa chỉ nhận hàng: @Model.Diachiganday.Tinhthanh, @Model.Diachiganday.Quanhuyen, @Model.Diachiganday.Phuongxa, @Model.Diachiganday.Diachi1 </h2>
+                                </div>
+
+                            }
+                        }
+                        else
+                        {
+                            <a class="btn-outline-success m-1" asp-action="login" asp-controller="customer" asp-route-returnUrl="" id="loginLink">
+                                Đăng nhập để sử dụng lại vị trí đã mua gần đây
+                            </a>
+                        }
+                    
+                    </div>
+
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">Giỏ hàng - <span id="cart-item-count1"></span> sản phẩm</h5>
+                    </div>
+                    
+                    <button type="button" class="btn btn-danger btn-sm me-1 mb-2 p-2" data-mdb-toggle="tooltip" title="Xóa" id="btnremoveAll" onclick="removeAllCart()">
+                        <i class="bi bi-x-square-fill"></i> Xóa tất cả
+                    </button>
+                    <div class="card-body">
+                        <div id="cart-container">
+
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <p><strong>Dự kiến giao hàng</strong></p>
+                        <p class="mb-0">@DateTime.Now.ToShortDateString() - @DateTime.Now.AddDays(3).ToShortDateString()</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">Tổng cộng</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <!-- You can dynamically update this section based on the cart total -->
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                Sản phẩm
+                                <span id="cart-total-product"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                Vận chuyển
+                                <span id="cart-total-feeship"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                <div>
+                                    <strong>Tổng tiền</strong>
+                                    <strong>
+                                        <p class="mb-0">(bao gồm thuế VAT)</p>
+                                    </strong>
+                                </div>
+                                <span id="cart-total"></span>
+                            </li>
+                        </ul>
+
+                        <button type="button" class="btn btn-sm btn-info btn-block" id="btn-payment1" onclick="totalPayment()">
+                            Thanh toán khi nhận hàng <i class="material-icons">attach_money</i>
+                        </button>
+
+                        <button type="button" class="btn btn-sm btn-info btn-block" id="btn-payment2" onclick="totalPaymentVNPay()">
+                            Thanh toán VNPay <i class="material-icons">credit_card</i>
+                        </button>
+
+                        <button type="button" class="btn btn-sm btn-info btn-block" id="btn-payment3">
+                            Thanh toán Paypal <i class="material-icons">payment</i>
+                        </button>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // JavaScript code to set returnUrl to the current URL
+    document.getElementById('loginLink').href = "/customer/login?returnUrl=" + encodeURIComponent(window.location.href);
+</script>
+
+<script>
+
+
+    function Total(cartItems) {
+        var total = 0;
+        cartItems.forEach(function (item) {
+            total += (item.giaban * item.soluongmua);
+        });
+        return total +25000;
+    }
+    // Hàm kiểm tra và vô hiệu hóa nút
+    function checkCartLength() {
+        var cartItems = getCartItems();
+        var paymentButton1 = document.getElementById('btn-payment1');  // Assuming the ID is 'btn-payment'
+        var paymentButton2 = document.getElementById('btn-payment2');  // Assuming the ID is 'btn-payment'
+        var paymentButton3 = document.getElementById('btn-payment3');  // Assuming the ID is 'btn-payment'
+
+        paymentButton3.hidden = true;
+        // Kiểm tra chiều dài của cart
+        if (cartItems.length === 0) {
+            // Nếu cart rỗng, vô hiệu hóa nút
+            paymentButton1.disabled = true;
+            paymentButton2.disabled = true;
+            paymentButton3.disabled = true;
+
+        } else {
+            // Nếu cart có sản phẩm, bỏ vô hiệu hóa nút (nếu chúng đã bị vô hiệu hóa)
+            paymentButton1.disabled = false;
+            paymentButton2.disabled = false;
+            paymentButton3.disabled = false;
+        }
+    }
+    // Function to check if the fields are filled
+    function checkFields() {
+        var city = document.getElementById('city').value;
+        var district = document.getElementById('district').value;
+        var ward = document.getElementById('ward').value;
+        var address = document.getElementById('text-address').value;
+        var hoten = document.getElementById('hoten').value;
+        var sdt = document.getElementById('sodienthoai').value;
+
+        // Enable or disable buttons based on the conditions
+        var btnPayment1 = document.getElementById('btn-payment1');
+        var btnPayment2 = document.getElementById('btn-payment2');
+
+        if (city !== '' && district !== '' && ward !== '' && address !== '' ) {
+            btnPayment1.disabled = false;
+            btnPayment2.disabled = false;
+        } else {
+            btnPayment1.disabled = true;
+            btnPayment2.disabled = true;
+        }
+    }
+
+    // Call the checkFields function whenever there is a change in any of the input fields
+
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    }
+
+    // Function to display cart items
+    function displayCartItems() {
+        var cartItems = getCartItems();
+        var cartContainer = document.getElementById('cart-container');
+        var itemCountElement = document.getElementById('cart-item-count');
+        var itemCountElement1 = document.getElementById('cart-item-count1');
+
+        var carttotalproduct = document.getElementById('cart-total-product');
+        var carttotal = document.getElementById('cart-total');
+        var buttonremoveall = document.getElementById('btnremoveAll');
+        var carttotafeeship = document.getElementById('cart-total-feeship');
+        
+
+        // Clear existing content
+        cartContainer.innerHTML = '';
+        if (cartItems.length == 0) {
+            buttonremoveall.hidden = true;
+
+        }
+        // Update the item count
+        itemCountElement.textContent = cartItems.length;
+        itemCountElement1.textContent = cartItems.length;
+
+        carttotal.textContent = formatCurrency(Total(cartItems));
+        carttotalproduct.textContent = formatCurrency(Total(cartItems) - 25000);
+        carttotafeeship.textContent = formatCurrency(25000);
+        if (cartItems.length > 0) {
+            cartItems.forEach(function (item) {
+                var productHtml = `
+                                <div class="row">
+                                        <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                                    <!-- Image -->
+                                                    <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                                                             <img src="/images/products/${item.hinhanh}" class="img-fluid" alt="${item.ten}">
+                                                                        <a href="#!">
+                                                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                                                        </a>
+                                                    </div>
+                                                    <!-- Image -->
+                                                </div>
+
+                                                <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                                    <!-- Data -->
+                                                    <p><strong>${item.ten}</strong></p>
+                                                        <button type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Xóa"  onclick="removeItem('${item.id}')">
+                                                        <i class="bi bi-x-square-fill"></i>
+                                                    </button>
+                                                        <button type="button" class="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip" title="Chuyển vào danh sách yêu thích"  >
+                                                        <i class="bi bi-bag-heart-fill"></i>
+                                                    </button>
+                                                    <!-- Data -->
+                                                </div>
+
+                                                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                                                    <!-- Quantity -->
+                                                    <div class="d-flex mb-4" style="max-width: 300px">
+                                                                <button class="btn btn-primary px-3 me-2" onclick="decreaseQuantity('${item.id}')">
+                                                            <i class="bi bi-dash-square-fill"></i>
+                                                        </button>
+
+                                                        <div class="form-outline">
+                                                                    <input
+                                                                        id="quantity-${item.id}"
+                                                                        min="0"
+                                                                        name="quantity"
+                                                                        value="${item.soluongmua}"
+                                                                        type="number"
+                                                                        class="form-control"
+                                                                            onChange="changeQuantity('${item.id}',this.value)"
+                                                                    />
+                                                                    <label class="form-label" for="quantity-${item.id}">Số lượng</label>
+                                                        </div>
+
+                                                            <button class="btn btn-primary px-3 ms-2" onclick="updateQuantity('${item.id}')">
+                                                            <i class="bi bi-plus-square-fill"></i>
+                                                        </button>
+                                                    </div>
+                                                    <!-- Quantity -->
+
+                                                    <!-- Price -->
+                                                      <p class="text-start text-md-center">
+
+                                                                        ${item.giakhuyenmai > 0 ? ` <strong class ="text-muted text-decoration-line-through">${formatCurrency(item.giaban)}</strong><strong class="text-danger">${formatCurrency(item.giakhuyenmai)}</strong>` : ` <strong class = "text-danger" > ${formatCurrency(item.giaban)} </strong>`}
+                                                    </p>
+
+                                                    <!-- Price -->
+                                                </div>
+                                </div>
+                                <hr class="my-4" />
+                            `;
+
+                // Append the generated HTML to the cart container
+                cartContainer.innerHTML += productHtml;
+            });
+        }
+    
+        else {
+            var productHtml = `
+                                <div class="row">
+
+                                              <h4>Chưa có sản phẩm trong giỏ hàng</h4>
+                                </div>
+                                <hr class="my-4" />
+                            `;
+
+            // Append the generated HTML to the cart container
+            cartContainer.innerHTML += productHtml;
+        }
+        // Iterate through each item in the cart and generate HTML
+        checkCartLength();
+        checkFields();
+    }
+    // Function to update quantity in local storage
+    function updateQuantity(productId) {
+        var cartItems = getCartItems();
+
+        // Find the item in the cart
+        var item = cartItems.find(i => i.id === productId);
+        console.log(item);
+        if (item) {
+            // Update the quantity and save back to local storage
+            item.soluongmua++;
+            localStorage.setItem('cart', JSON.stringify(cartItems));
+
+            // Update the displayed cart items
+            displayCartItems();
+            checkFields();
+        }
+    }
+    function changeQuantity(productId, value) {
+        var cartItems = getCartItems();
+
+        // Find the item in the cart
+        var item = cartItems.find(i => i.id === productId);
+        if (value > 0) {
+            if (item) {
+                // Update the quantity and save back to local storage
+                item.soluongmua = value;
+                localStorage.setItem('cart', JSON.stringify(cartItems));
+
+                // Update the displayed cart items
+                
+                displayCartItems();
+                checkFields()
+            }
+        }
+        else {
+            displayCartItems();
+            alert("Số lượng phải lớn hơn 0 !");
+        }
+    }
+
+    // Function to update quantity in local storage
+    // Function to update quantity in local storage
+    function decreaseQuantity(productId) {
+        var cartItems = getCartItems();
+
+        // Find the index of the item in the cart
+        var index = cartItems.findIndex(i => i.id === productId);
+
+        if (index !== -1) {
+            // Update the quantity
+            cartItems[index].soluongmua--;
+
+            // If the quantity becomes 0, remove the item from the cart
+            if (cartItems[index].soluongmua === 0) {
+                cartItems.splice(index, 1);
+            } else {
+                // Save the modified cartItems back to local storage
+                localStorage.setItem('cart', JSON.stringify(cartItems));
+            }
+            // Update the displayed cart items
+            displayCartItems();
+        }
+    }
+
+
+    function removeItem(productId) {
+        var cartItems = getCartItems();
+
+        // Find the index of the item in the cart
+        var index = cartItems.findIndex(i => i.id === productId);
+
+        if (index !== -1) {
+            // Remove the item at the found index
+            cartItems.splice(index, 1);
+
+            // Update the localStorage with the modified cartItems
+            localStorage.setItem('cart', JSON.stringify(cartItems));
+
+            // Update the displayed cart items
+            displayCartItems();
+        }
+    }
+
+    function isValidPhoneNumber(phoneNumber) {
+        // Regular expression to validate a 10-digit phone number (adjust as needed)
+        var phoneRegex = /^\d{10}$/;
+
+        // Test the input against the regular expression
+        return phoneRegex.test(phoneNumber);
+    }
+    function isValidName(name) {
+        if (name.length < 2) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    function totalPayment() {
+        var city = document.getElementById('city').value;
+        var district = document.getElementById('district').value;
+        var ward = document.getElementById('ward').value;
+        var address = document.getElementById('text-address').value;
+        var hoten = document.getElementById('hoten').value;
+        var sdt = document.getElementById('sodienthoai').value;
+
+        if (!isValidName(hoten)) {
+            // Display an error message or take appropriate action
+            alert('Tên không hợp lên. Ít nhất là 2 ký tự');
+            return;
+        }
+
+        // Validate phone number
+        if (!isValidPhoneNumber(sdt)) {
+            // Display an error message or take appropriate action
+            alert('Số điện thoại không hợp lệ. Vui lòng nhập đúng số điện thoại!');
+            return;
+        }
+
+        // Rest of your code remains unchanged
+        var cartItems = getCartItems();
+        if (cartItems.length > 0) {
+            var dataToSend = {
+                cartItems: cartItems,
+                Diachi: {
+                    id: @(Model != null  && Model.Diachiganday != null && ViewBag.UseNearest == true ? Model.Diachiganday.MaDc : 0),
+                    Diachi: address,
+                    phuongxa: ward,
+                    quanhuyen: district,
+                    tinhthanh: city,
+                    macdinh: 1
+                },
+                Info: {
+                    hoten: hoten,
+                    sodienthoai:sdt
+                }
+            };
+
+            // Sử dụng Ajax để gửi dữ liệu tới action Total
+            $.ajax({
+                url: '/customer/total',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(dataToSend),
+                success: function (response) {
+                    if (response.success) {
+                        // Hiển thị toast thông báo
+                        Toastify({
+                            text: "Đặt hàng thành công !",
+                            duration: 500,
+                            gravity: "bottom",
+                            position: 'right',
+                            backgroundColor: "rgba(0, 128, 0, 0.8)", // Màu nền xanh lá cây với độ trong suốt
+                            stopOnFocus: true,
+                            className: 'custom-toast', // Thêm class để tùy chỉnh CSS
+                        }).showToast();
+
+
+                        // Đợi 3 giây rồi mới chuyển hướng
+                        setTimeout(function () {
+                            localStorage.setItem('cart', JSON.stringify(null));
+                            window.location.href = '/customer/profile#danhsachdonhang';
+                        }, 500);
+                    }
+                    else if (response.message == "Vui lòng đăng nhập" && response.success == false) {
+                        var currentUrl = window.location.href;
+                        window.location.href = '/customer/Login?returnUrl=' + encodeURIComponent(currentUrl);
+                    }
+                    else {
+                        // Hiển thị toast thông báo
+                        Toastify({
+                            text: response.message,
+                            duration: 3000,
+                            gravity: "bottom",
+                            position: 'right',
+                            backgroundColor: "rgba(255, 60, 0, 0.8)", // Màu đỏ cam với độ trong suốt
+                            stopOnFocus: true,
+                            className: 'custom-toast', // Thêm class để tùy chỉnh CSS
+                        }).showToast();
+                    }
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        } else {
+
+            // Cart rỗng, xử lý tùy ý (hiển thị thông báo, chuyển hướng, ...)
+        }
+
+    }
+
+
+    function totalPaymentVNPay() {
+        var city = document.getElementById('city').value;
+        var district = document.getElementById('district').value;
+        var ward = document.getElementById('ward').value;
+        var address = document.getElementById('text-address').value;
+        var hoten = document.getElementById('hoten').value;
+        var sdt = document.getElementById('sodienthoai').value;
+
+        if (!isValidName(hoten)) {
+            // Display an error message or take appropriate action
+            alert('Tên không hợp lên. Ít nhất là 2 ký tự');
+            return;
+        }
+
+        // Validate phone number
+        if (!isValidPhoneNumber(sdt)) {
+            // Display an error message or take appropriate action
+            alert('Số điện thoại không hợp lệ. Vui lòng nhập đúng số điện thoại!');
+            return;
+        }
+
+        // Rest of your code remains unchanged
+        var cartItems = getCartItems();
+        if (cartItems.length > 0) {
+            var dataToSend = {
+                cartItems: cartItems,
+                Diachi: {
+                    id: @(Model?.Diachiganday?.MaDc ?? 0),
+                    Diachi: address,
+                    phuongxa: ward,
+                    quanhuyen: district,
+                    tinhthanh: city,
+                    macdinh: 1
+                },
+                Info: {
+                    hoten: hoten,
+                    sodienthoai: sdt
+                }
+            };
+
+            // Sử dụng Ajax để gửi dữ liệu tới action Total
+            $.ajax({
+                url: '/customer/Payment',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(dataToSend),
+                success: function (response) {
+                    if (response.success) {
+                        window.location.href = response.url;
+                    }
+                    else if (response.message == "Vui lòng đăng nhập" && response.success == false) {
+                        var currentUrl = window.location.href;
+                        window.location.href = '/customer/Login?returnUrl=' + encodeURIComponent(currentUrl);
+                    }
+                    else {
+                        // Hiển thị toast thông báo
+                        Toastify({
+                            text: response.message,
+                            duration: 3000,
+                            gravity: "bottom",
+                            position: 'right',
+                            backgroundColor: "rgba(255, 60, 0, 0.8)", // Màu đỏ cam với độ trong suốt
+                            stopOnFocus: true,
+                            className: 'custom-toast', // Thêm class để tùy chỉnh CSS
+                        }).showToast();
+                    }
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        } else {
+
+        }
+
+    }
+
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    }
+    function getCartItems() {
+        return JSON.parse(localStorage.getItem('cart')) || [];
+    }
+    function displayNumbercart() {
+        var itemCountElement = document.getElementById('cart-item-count');
+        var carts = getCartItems();
+        itemCountElement.textContent = carts.length;
+    }
+
+
+    function removeFromCart(productId) {
+        var cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart = cart.filter(item => item.id !== productId);
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    function removeAllCart() {
+        localStorage.setItem('cart', JSON.stringify(null));
+        displayCartItems();
+        displayNumbercart();
+    }
+    displayCartItems();
+    displayNumbercart();
+    checkFields();
+</script>
+@if (!ViewBag.UseNearest)
+{
+    <script>
+        var callAPI = (api) => {
+            return axios.get(api)
+                .then((response) => {
+                    renderData(response.data, "city");
+                });
+        }
+    </script>
+}
+<!--  API tỉnh thành việt nam -->
+<script>
+    const host = "https://provinces.open-api.vn/api/";
+
+
+
+    callAPI('https://provinces.open-api.vn/api/?depth=1');
+    var callApiDistrict = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data.districts, "district");
+            });
+    }
+    var callApiWard = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data.wards, "ward");
+            });
+    }
+
+    var renderData = (array, select) => {
+        let row = ' <option disable value="">Chọn tỉnh thành</option>';
+        array.forEach(element => {
+            row += `<option data-id="${element.code}" value="${element.name}">${element.name}</option>`
+        });
+        document.querySelector("#" + select).innerHTML = row
+    }
+
+    $("#city").change(() => {
+        callApiDistrict(host + "p/" + $("#city").find(':selected').data('id') + "?depth=2");
+        printResult();
+    });
+    $("#district").change(() => {
+        callApiWard(host + "d/" + $("#district").find(':selected').data('id') + "?depth=2");
+        printResult();
+    });
+    $("#ward").change(() => {
+        printResult();
+    })
+    $("#sodienthoai").change(() => {
+        printResult();
+    })
+    $("#hoten").change(() => {
+        printResult();
+    })
+    var printResult = () => {
+        checkFields();
+        checkCartLength();
+        if ($("#district").find(':selected').data('id') !== "" && $("#city").find(':selected').data('id') !== "" &&
+            $("#ward").find(':selected').data('id') !== "") {
+            let result = "Địa chỉ: ";
+            result += $("#city option:selected").text() +
+                ", " + $("#district option:selected").text() + ", " +
+                $("#ward option:selected").text() + ", " + $("#text-address").val();
+            $("#result").text(result);
+        }
+    };
+
+
+
+    $("#text-address").change(() => {
+        printResult();
+    });
+    checkFields();
+</script>

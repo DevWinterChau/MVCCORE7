@@ -1,0 +1,59 @@
+﻿@model BAITAP.Models.Hoadon
+
+@{
+    ViewData["Title"] = "Xóa hóa đơn";
+    Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<h3 class="mt-0">Xóa đơn đặt hàng</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Đơn đặt hàng</a></li>
+    <li class="breadcrumb-item active">Xóa</li>
+</ol>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Chi tiết hóa đơn</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">Ngày</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Ngay)</dd>
+            <dt class="col-sm-3">Tổng tiền</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Tongtien)</dd>
+            <dt class="col-sm-3">Trạng thái</dt>
+            @if (Model.Trangthai == 0)
+            {
+                <dd class="col-sm-9">Chờ xác nhận</dd>
+            }
+            else if(Model.Trangthai == 1)
+            {
+                <dd class="col-sm-9">Đã xác nhận</dd>
+            }
+            else if (Model.Trangthai == 2)
+            {
+                <dd class="col-sm-9">Đang giao hàng</dd>
+            }
+            else if (Model.Trangthai == 3)
+            {
+                <dd class="col-sm-9">Đã nhận hàng</dd>
+            }
+            else if (Model.Trangthai == 4)
+            {
+                <dd class="col-sm-9">Hủy</dd>
+            }
+            <dt class="col-sm-3">Khách hàng</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.MakhNavigation.Ten)</dd>
+        </dl>
+
+        <div class="text-center">
+            <p class="text-danger">Bạn có chắc chắn muốn xóa hóa đơn này?</p>
+
+            <form asp-action="Delete" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Mahd" />
+
+                <button type="submit" class="btn btn-danger">Xóa</button>
+                <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+            </form>
+        </div>
+    </div>
+</div>
