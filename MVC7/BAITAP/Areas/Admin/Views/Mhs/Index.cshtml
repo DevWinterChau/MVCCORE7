@@ -1,7 +1,7 @@
 ﻿@model List<BAITAP.Models.Mh>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 
@@ -30,7 +30,11 @@
 
 
 </style>
-
+<h3 class="mt-0">Danh sách sản phẩm</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Sản phẩm</a></li>
+    <li class="breadcrumb-item active">Danh sách</li>
+</ol>
 <div class="table-container">
     <div class="container px-4 px-lg-5 mt-3">
 

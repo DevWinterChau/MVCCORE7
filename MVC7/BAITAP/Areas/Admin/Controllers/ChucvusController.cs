@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace BAITAP.Areas.Admin.Controllers
 {
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class ChucvusController : Controller
     {

@@ -273,5 +273,10 @@ function removeFromCart(productId) {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
+function removeAllCart() {
+    localStorage.setItem('cart', JSON.stringify(null));
+    displayCartItems();
+    displayNumbercart();
+}
 
 

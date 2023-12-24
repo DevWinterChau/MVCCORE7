@@ -1,12 +1,15 @@
 ﻿@model List<BAITAP.Models.Mathang>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách phiên bản sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
-
+<h3 class="mt-0">Danh sách phiên bản sản phẩm</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Phiên bản sản phẩm</a></li>
+    <li class="breadcrumb-item active">Thêm mới</li>
+</ol>
 <div class="container mt-5">
-
     <div class="container px-4 px-lg-5 mt-3">
         <form id="filterForm" method="post" asp-action="index" asp-route-Fill="true">
             <div class="row">
@@ -85,11 +88,6 @@
                     <text>Không khuyễn mãi</text> <!-- Add your other message here -->
                 }
             </h3>
-        }
-        else
-        {
-            <h3 class="text-info">Tất cả sản phẩm</h3>
-
         }
     </div>
     <p class="text-right">

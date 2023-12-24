@@ -1,13 +1,16 @@
 ﻿@model BAITAP.Models.Chucvu
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Cập nhật chức vụ";
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 
 
-<h4>Cập nhật chức vụ</h4>
-<hr />
+<h3 class="mt-0">Cập nhật chức vụ</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Chức vụ</a></li>
+    <li class="breadcrumb-item active">Cập nhật</li>
+</ol>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">

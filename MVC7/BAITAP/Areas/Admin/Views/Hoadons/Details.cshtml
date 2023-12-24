@@ -64,11 +64,13 @@
         margin-right: 10px;
     }
 </style>
-
+<h3 class="mt-0">Chi tiết đơn đặt hàng</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Đơn đặt hàng</a></li>
+    <li class="breadcrumb-item active">Xem chi tiết</li>
+</ol>
 <div class="card mx-auto">
     <div class="card-body">
-        <h4 class="card-title text-center">Thông tin chi tiết hóa đơn</h4>
-        <hr />
         <div class="row">
             <div class="col-md-4">
                 <strong>Mã hóa đơn:</strong> @Html.DisplayFor(model => model.Mahd)
@@ -155,8 +157,8 @@
                         <td>@Html.DisplayFor(modelItem => item.Thanhtien)</td>
 
                         <td>
-                            <a class="btn btn-outline-primary mb-1" asp-action="Edit" asp-controller="cthoadons" asp-route-id="@item.Mamh"><i class="bi bi-pencil"></i></a>
-                            <a class="btn btn-outline-danger mb-1" asp-action="Delete" asp-controller="cthoadons"  asp-route-id="@item.Mamh"><i class="bi bi-archive-fill"></i></a>
+                            <a class="btn btn-outline-primary mb-1" asp-action="Edit" asp-controller="cthoadons" asp-route-id="@item.Macthd"><i class="bi bi-pencil"></i></a>
+                            <a class="btn btn-outline-danger mb-1" asp-action="Delete" asp-controller="cthoadons"  asp-route-id="@item.Macthd"><i class="bi bi-archive-fill"></i></a>
                         </td>
                     </tr>
                 }

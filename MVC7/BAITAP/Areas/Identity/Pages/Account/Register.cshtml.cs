@@ -10,17 +10,23 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using BAITAP.Data;
+using BAITAP.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace BAITAP.Areas.Identity.Pages.Account
 {
+    [Authorize(Roles="Admin")]
+    [Area("Admin")]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -29,13 +35,16 @@ namespace BAITAP.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ApplicationDbContext _context;
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            RoleManager<IdentityRole> roleManager,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -43,6 +52,8 @@ namespace BAITAP.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager;
+            _context = context;
         }
 
         /// <summary>
@@ -97,6 +108,25 @@ namespace BAITAP.Areas.Identity.Pages.Account
             [Display(Name = "Mật khẩu xác nhận")]
             [Compare("Password", ErrorMessage = "Mật khẩu xác nhận không đúng!")]
             public string ConfirmPassword { get; set; }
+            [Display(Name = "Quyền")]
+            [Required]
+            public string Role { get; set; }
+            [Display(Name = "Mã nhân viên")]
+            public int MaNV { get; set; }
+            [Display(Name = "Họ tên")]
+            [Required]
+            public string Hoten { get; set; }
+            [Display(Name = "Số điện thoại")]
+            [Required]
+            public string Sodienthoai { get; set; }
+            [Display(Name = "Chức vụ")]
+            [Required]
+            public int macv { get; set; }
+            [Display(Name = "Quyền")]
+            public IEnumerable<SelectListItem> RoleList { get; set; }
+            [Display(Name = "Chức vụ")]
+            public IEnumerable<Chucvu> ChucVuList { get; set; }
+
         }
 
 
@@ -104,9 +134,20 @@ namespace BAITAP.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-        }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+            Input = new InputModel
+            {
+                RoleList = _roleManager.Roles.Select(x => x.Name).Select(x => new SelectListItem
+                {
+                    Text = x,
+                    Value = x
+                }),
+                ChucVuList = await _context.Chucvus.ToListAsync()
+            };
+        }
+    
+
+    public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -116,15 +157,28 @@ namespace BAITAP.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
+                    await _userManager.AddToRoleAsync(user, Input.Role);
+
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    var nhanvien = new Nhanvien
+                    {
+                        Ten = Input.Hoten,
+                        Email = Input.Email,
+                        Dienthoai = Input.Sodienthoai,
+                        Macv = Input.macv, 
+                        UserID = userId
+                    };
+                    _context.Nhanviens.Add(nhanvien);
+                    await _context.SaveChangesAsync();
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,

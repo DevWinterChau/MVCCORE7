@@ -1,20 +1,87 @@
 ﻿@model BAITAP.Models.LoaiKhuyenMai
 
 @{
-    ViewData["Title"] = "Chi Tiết";
+    ViewData["Title"] = "Chi Tiết loại khuyến mãi";
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
+<style>
+    /* Add your custom styles here */
+    .table-container {
+        max-width: 100%; /* Adjust the maximum width as needed */
+        margin: auto;
+    }
 
-<div class="container mt-4">
-    <h1 class="display-4">Chi Tiết Loại Khuyến Mãi</h1>
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
 
-    <hr />
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 12px;
+    }
 
+    th {
+        background-color: #f2f2f2;
+    }
+
+    td {
+        max-width: 200px; /* Limit the maximum width of cells */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        a:hover {
+            text-decoration: underline;
+        }
+</style>
+<h3 class="mt-0">Danh sách loại khuyến mãi</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Loại khuyến mãi</a></li>
+    <li class="breadcrumb-item active">Xem chi tiết</li>
+</ol>
+<div class="container mt-2">
     <dl class="row">
         <dt class="col-sm-2">Tên Loại Khuyến Mãi:</dt>
         <dd class="col-sm-10">@Html.DisplayFor(model => model.TenLoaiKm)</dd>
     </dl>
+    <dl class="row">
+        <dt class="col-sm-2">Danh sách chương trình khuyến mãi</dt>
+    </dl>
+    <dd class="col-sm-10">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Tên </th>
+                    <th>Email</th>
+                    <th>Điện thoại</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CtKhuyenMais)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.TenKm)</td>
+                        <td>@Html.DisplayFor(modelItem => item.NgayBatDau)</td>
+                        <td>@Html.DisplayFor(modelItem => item.NgayKetThuc)</td>
+                        <td>
+                            <a class="btn btn-outline-success mb-1" asp-action="Details" asp-controller="ctkhuyenmai" asp-route-id="@item.Id"><i class="bi bi-eye"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
+    </dd>
     <div class="row">
         <div class="col-sm-12">
             <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.MaLoaiKm">Chỉnh Sửa</a>

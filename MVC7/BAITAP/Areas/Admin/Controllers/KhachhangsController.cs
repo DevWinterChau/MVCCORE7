@@ -11,8 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BAITAP.Areas.Admin.Controllers
 {
-
-    [Authorize]
     [Area("Admin")]
     public class KhachhangsController : Controller
     {
@@ -22,14 +20,36 @@ namespace BAITAP.Areas.Admin.Controllers
         {
             _context = context;
         }
+        [Authorize(Roles = "Admin,Sale")]
 
         // GET: Khachhangs
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 8, string keyword = null, string category = null, string sort = null, bool Fill = false)
         {
-            return _context.Khachhangs != null ?
-                        View(await _context.Khachhangs.ToListAsync()) :
-                        Problem("Entity set 'ApplicationDbContext.Khachhangs'  is null.");
+            var applicationDbContext = await _context.Khachhangs.Include(x => x.Diachis).ToListAsync();
+            var totalItems = applicationDbContext.Count();
+            // Filter by keyword if provided
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                applicationDbContext = applicationDbContext
+                    .Where(x => x.Ten.Contains(keyword.Trim())
+                             || x.Email.Contains(keyword.Trim())
+                             || x.Dienthoai.Contains(keyword.Trim())
+                ).ToList();
+            }
+            // Apply pagination
+            var items = applicationDbContext.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            // Tính toán các thông tin phân trang
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.keyword = keyword;
+            ViewBag.Fill = Fill;
+            // Populate the dropdown with categories
+            return View(items);
         }
+        [Authorize(Roles = "Admin,Sale")]
 
         // GET: Khachhangs/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -39,7 +59,7 @@ namespace BAITAP.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var khachhang = await _context.Khachhangs
+            var khachhang = await _context.Khachhangs.Include(x => x.Diachis)
                 .FirstOrDefaultAsync(m => m.MaKh == id);
             if (khachhang == null)
             {
@@ -48,12 +68,14 @@ namespace BAITAP.Areas.Admin.Controllers
 
             return View(khachhang);
         }
+        [Authorize(Roles = "Admin,Sale")]
 
         // GET: Khachhangs/Create
         public IActionResult Create()
         {
             return View();
         }
+        [Authorize(Roles = "Admin,Sale")]
 
         // POST: Khachhangs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -64,12 +86,16 @@ namespace BAITAP.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                (string hashedPassword, byte[] salt) = HashPasword.HashPasword.HashPasword1(khachhang.Matkhau);
+                khachhang.Matkhau = hashedPassword;
+                khachhang.Salt = salt;
                 _context.Add(khachhang);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(khachhang);
         }
+        [Authorize(Roles = "Admin,Sale")]
 
         // GET: Khachhangs/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -86,6 +112,7 @@ namespace BAITAP.Areas.Admin.Controllers
             }
             return View(khachhang);
         }
+        [Authorize(Roles = "Admin,Sale")]
 
         // POST: Khachhangs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -103,6 +130,10 @@ namespace BAITAP.Areas.Admin.Controllers
             {
                 try
                 {
+                    (string hashedPassword, byte[] salt) = HashPasword.HashPasword.HashPasword1(khachhang.Matkhau);
+
+                    khachhang.Matkhau = hashedPassword;
+                    khachhang.Salt = salt;
                     _context.Update(khachhang);
                     await _context.SaveChangesAsync();
                 }
@@ -121,6 +152,7 @@ namespace BAITAP.Areas.Admin.Controllers
             }
             return View(khachhang);
         }
+        [Authorize(Roles = "Admin")]
 
         // GET: Khachhangs/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -139,6 +171,7 @@ namespace BAITAP.Areas.Admin.Controllers
 
             return View(khachhang);
         }
+        [Authorize(Roles = "Admin")]
 
         // POST: Khachhangs/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -158,7 +191,7 @@ namespace BAITAP.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        [Authorize(Roles = "Admin,Sale")]
         private bool KhachhangExists(int id)
         {
             return (_context.Khachhangs?.Any(e => e.MaKh == id)).GetValueOrDefault();

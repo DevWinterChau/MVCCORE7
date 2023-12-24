@@ -16,7 +16,6 @@ using System.Drawing.Printing;
 namespace BAITAP.Areas.Admin.Controllers
 {
 
-    [Authorize]
     [Area("Admin")]
     public class MhsController : Controller
     {
@@ -26,6 +25,7 @@ namespace BAITAP.Areas.Admin.Controllers
         {
             _context = context;
         }
+        [Authorize(Roles = "Admin,Sale")]
 
         // GET: Mhs
         public async Task<IActionResult> Index(int page = 1, int pageSize = 8, string keyword = null, string category = null, string sort = null, bool Fill = false, string khuyenmai = "0")
@@ -71,6 +71,7 @@ namespace BAITAP.Areas.Admin.Controllers
 
 
         }
+        [Authorize(Roles = "Admin,Sale")]
 
         // GET: Mhs/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -101,6 +102,7 @@ namespace BAITAP.Areas.Admin.Controllers
 
             return View(detailmodel);
         }
+        [Authorize(Roles = "Admin")]
 
         // GET: Mhs/Create
         public async Task<IActionResult> Create()
@@ -126,6 +128,7 @@ namespace BAITAP.Areas.Admin.Controllers
              }
              return View(mh);
          }*/
+        [Authorize(Roles = "Admin")]
 
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] PhienBansSanPhamDTO mh, List<IFormFile> fileanh, IFormFile fileanhchinh)
@@ -217,6 +220,7 @@ namespace BAITAP.Areas.Admin.Controllers
             }
             return View(mh);
         }
+        [Authorize(Roles = "Admin")]
 
         // GET: Mhs/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -234,6 +238,7 @@ namespace BAITAP.Areas.Admin.Controllers
             ViewData["MaDm"] = new SelectList(_context.Danhmucs, "MaDm", "Ten");
             return View(mh);
         }
+        [Authorize(Roles = "Admin")]
 
         // POST: Mhs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -281,6 +286,7 @@ namespace BAITAP.Areas.Admin.Controllers
             }
             return View(mh);
         }
+        [Authorize(Roles = "Admin")]
 
         // GET: Mhs/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -299,6 +305,7 @@ namespace BAITAP.Areas.Admin.Controllers
 
             return View(mh);
         }
+        [Authorize(Roles = "Admin")]
 
         // POST: Mhs/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -318,7 +325,7 @@ namespace BAITAP.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+        [Authorize(Roles = "Admin,Sale")]
         private bool MhExists(int id)
         {
             return (_context.Mhs?.Any(e => e.Id == id)).GetValueOrDefault();

@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<BAITAP.Models.Nhanvien>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách nhân viên";
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 
 <style>
     /* Add your custom styles here */
     .table-container {
-        max-width: 800px; /* Adjust the maximum width as needed */
+        max-width: 100%; /* Adjust the maximum width as needed */
         margin: auto;
     }
 
@@ -45,19 +45,37 @@
         }
 </style>
 
+<h3 class="mt-0">Danh sách nhân viên</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Nhân viên</a></li>
+    <li class="breadcrumb-item active">Danh sách</li>
+</ol>
 <div class="table-container">
-    <p class="text-right">
-        <a class="btn btn-success" asp-action="Create">Thêm mới</a>
-    </p>
-
+    <form id="filterForm" method="post" asp-action="index" asp-route-Fill="true">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="keyword" class="form-label">Từ khóa tìm kiếm:</label>
+                <div class="input-group">
+                    <input value="@ViewBag.keyword" type="text" class="form-control" name="keyword" placeholder="Nhập từ khóa...">
+                    <button class="btn btn-success" type="submit">Tìm kiếm</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <p class="text-right">
+                    <a class="btn btn-success" asp-area="Identity" asp-page="/Account/Register">Thêm mới</a>
+                </p>
+            </div>
+        </div>
+    </form>
     <table class="table">
         <thead>
             <tr>
                 <th>@Html.DisplayNameFor(model => model.Ten)</th>
                 <th>@Html.DisplayNameFor(model => model.Dienthoai)</th>
                 <th>@Html.DisplayNameFor(model => model.Email)</th>
-                <th>@Html.DisplayNameFor(model => model.Matkhau)</th>
-                <th>@Html.DisplayNameFor(model => model.MacvNavigation.Macv)</th>
+                <th>@Html.DisplayNameFor(model => model.MacvNavigation.Ten)</th>
                 <th></th>
             </tr>
         </thead>
@@ -68,8 +86,7 @@
                     <td>@Html.DisplayFor(modelItem => item.Ten)</td>
                     <td>@Html.DisplayFor(modelItem => item.Dienthoai)</td>
                     <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Matkhau)</td>
-                    <td>@Html.DisplayFor(modelItem => item.MacvNavigation.Macv)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MacvNavigation.Ten)</td>
                     <td>
                         <a class="btn btn-outline-primary mb-1" asp-action="Edit" asp-route-id="@item.Manv"><i class="bi bi-pencil"></i></a>
                         <a class="btn btn-outline-success mb-1" asp-action="Details" asp-route-id="@item.Manv"><i class="bi bi-eye"></i></a>

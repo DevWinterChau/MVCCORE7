@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<BAITAP.Models.LoaiKhuyenMai>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách loại khuyến mãi";
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 
 <style>
     /* Add your custom styles here */
     .table-container {
-        max-width: 800px; /* Adjust the maximum width as needed */
+        max-width: 100%; /* Adjust the maximum width as needed */
         margin: auto;
     }
 
@@ -44,11 +44,31 @@
             text-decoration: underline;
         }
 </style>
-
+<h3 class="mt-0">Danh sách loại khuyến mãi</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Loại khuyến mãi</a></li>
+    <li class="breadcrumb-item active">Danh sách</li>
+</ol>
 <div class="table-container">
-    <p class="text-right">
-        <a class="btn btn-success" asp-action="Create">Thêm mới</a>
-    </p>
+    <form id="filterForm" method="post" asp-action="index" asp-route-Fill="true">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="keyword" class="form-label">Từ khóa tìm kiếm:</label>
+                <div class="input-group">
+                    <input value="@ViewBag.keyword" type="text" class="form-control" name="keyword" placeholder="Nhập từ khóa...">
+                    <button class="btn btn-success" type="submit">Tìm kiếm</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <p class="text-right">
+                    <a class="btn btn-success" asp-action="Create">Thêm mới</a>
+                </p>
+            </div>
+        </div>
+    </form>
+
     <table class="table">
         <thead>
             <tr>

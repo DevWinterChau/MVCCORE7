@@ -1,12 +1,16 @@
 ﻿@model BAITAP.Models.CtKhuyenMai
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Thêm mới CTKM";
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 
-<h4 class="text-center ">Thêm mới chương trình khuyến mãi  </h4>
 
+<h3 class="mt-0">Thêm mới CTKM</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Chương trình khuyến mãi</a></li>
+    <li class="breadcrumb-item active">Thêm mới</li>
+</ol>
 <div class="row justify-content-center">
     <div class="col-md-8">
         <form asp-action="Create">

@@ -1,12 +1,15 @@
 ﻿@model BAITAP.Models.Hoadon
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Xóa hóa đơn";
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 
-<h1 class="text-center text-danger">Xác nhận xóa</h1>
-
+<h3 class="mt-0">Xóa đơn đặt hàng</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Đơn đặt hàng</a></li>
+    <li class="breadcrumb-item active">Xóa</li>
+</ol>
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">Chi tiết hóa đơn</h4>

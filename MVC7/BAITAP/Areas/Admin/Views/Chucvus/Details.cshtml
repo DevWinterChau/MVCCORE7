@@ -7,7 +7,7 @@
 <style>
     /* Add your custom styles here */
     .table-container {
-        max-width: 800px; /* Adjust the maximum width as needed */
+        max-width: 100%; /* Adjust the maximum width as needed */
         margin: auto;
     }
 
@@ -44,10 +44,12 @@
         }
 </style>
 
-
+<h3 class="mt-0">Chi tiết chức vụ</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Chức vụ</a></li>
+    <li class="breadcrumb-item active">Xem chi tiết</li>
+</ol>
 <div class="container">
-    <h4>Chi tiết chức Vụ</h4>
-    <hr />
     <dl class="row">
         <dt class="col-sm-2">
             <strong>@Html.DisplayNameFor(model => model.Ten)</strong>

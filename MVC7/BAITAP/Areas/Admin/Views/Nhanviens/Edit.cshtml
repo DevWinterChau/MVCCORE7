@@ -1,14 +1,15 @@
 ﻿@model BAITAP.Models.Nhanvien
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Cập nhật nhân viên";
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 
-<h1>Edit</h1>
-
-<h4>Nhanvien</h4>
-<hr />
+<h3 class="mt-0">Cập nhật nhân viên</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Nhân viên</a></li>
+    <li class="breadcrumb-item active">Cập nhật</li>
+</ol>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
@@ -35,9 +36,9 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Matkhau" class="control-label"></label>
-                <input asp-for="Matkhau" class="form-control" />
-                <span asp-validation-for="Matkhau" class="text-danger"></span>
+                <label asp-for="UserID" class="control-label"></label>
+                <input asp-for="UserID" class="form-control" />
+                <span asp-validation-for="UserID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

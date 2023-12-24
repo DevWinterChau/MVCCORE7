@@ -1,21 +1,21 @@
 ﻿@model IEnumerable<BAITAP.Models.CtKhuyenMaiSanPham>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách khuyến mãi";
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 
 <style>
     /* Add your custom styles here */
     .table-container {
-        max-width: 800px; /* Adjust the maximum width as needed */
+        max-width: 100%; /* Adjust the maximum width as needed */
         margin: auto;
     }
 
     .table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 20px;
+        margin-top: 10px;
     }
 
     th, td {
@@ -43,7 +43,11 @@
         text-decoration: underline;
      }
 </style>
-
+<h3 class="mt-0">Danh sách sản phẩm khuyến mãi</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index" >Sản phẩm khuyến mãi</a></li>
+    <li class="breadcrumb-item active">Danh sách</li>
+</ol>
 <div class="table-container">
     <form id="filterForm" method="post" asp-action="index" asp-route-Fill="true">
         <div class="row">
@@ -88,9 +92,9 @@
                     <td>@Html.DisplayFor(modelItem => item.MaCtkmNavigation.TenKm)</td>
                     <td>@Html.DisplayFor(modelItem => item.MamhNavigation.Ten)</td>
                     <td>
-                        <a class="btn btn-outline-primary mb-1" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>
-                        <a class="btn btn-outline-success mb-1" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i></a>
-                        <a class="btn btn-outline-danger mb-1" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-archive-fill"></i></a>
+                        <a class="btn btn-outline-primary mb-1" asp-action="Edit" asp-route-id="@item.MaCtkm"><i class="bi bi-pencil"></i></a>
+                        <a class="btn btn-outline-success mb-1" asp-action="Details" asp-route-id="@item.MaCtkm"><i class="bi bi-eye"></i></a>
+                        <a class="btn btn-outline-danger mb-1" asp-action="Delete" asp-route-id="@item.MaCtkm"><i class="bi bi-archive-fill"></i></a>
                     </td>
                 </tr>
             }

@@ -21,6 +21,7 @@ using NuGet.Packaging;
 using System.Security.Cryptography;
 using Microsoft.CodeAnalysis.Elfie.Model.Map;
 using Humanizer.Localisation.TimeToClockNotation;
+using BAITAP.MailService;
 
 namespace BAITAP.Controllers
 {
@@ -29,13 +30,17 @@ namespace BAITAP.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
         public IHttpContextAccessor HttpContextAccessor { get; }
+        private readonly IMailLogic _mailLogic;
+
 
         // Inject the IHttpContextAccessor to access the session
-        public CustomerController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
+        public CustomerController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, IConfiguration configuration, IMailLogic mailLogic)
         {
             _context = context;
             HttpContextAccessor = httpContextAccessor;
             _configuration = configuration;
+            _mailLogic = mailLogic;
+
         }
 
         // GET: Customer
@@ -129,6 +134,8 @@ namespace BAITAP.Controllers
 
             return View(items);
         }
+
+        // Tính giá giao động của sản phẩm giá thấp nhất - giá cao nhất
         public string tinhgiagiaodong(List<Mathang> lstmh)
         {
             if (lstmh == null || lstmh.Count == 0)
@@ -146,6 +153,7 @@ namespace BAITAP.Controllers
 
             return minValue.ToString("N0") + "đ - " + maxValue.ToString("N0") + " đ";
         }
+        // Lượt mua trung bình
         public int TinhLuotMuaTrungBinh(List<Mathang> lstmh)
         {
             if (lstmh == null || lstmh.Count == 0)
@@ -159,6 +167,7 @@ namespace BAITAP.Controllers
             }
             return tong != 0 ? tong : 0;
         }
+        // Tính giá cao nhất
         public int tinhgiacaonhat(List<Mathang> lstmh)
         {
             if (lstmh == null || lstmh.Count == 0)
@@ -168,6 +177,7 @@ namespace BAITAP.Controllers
 
             return lstmh.Max(x => x.GiaBan);
         }
+        // Sở thích danh mục
         public async Task<List<string>> SothichDanhMuc(int IDKH)
         {
             List<string> items = new List<string>();
@@ -178,6 +188,7 @@ namespace BAITAP.Controllers
             }
             return items;
         }
+        // Sở thích Thương hiệu
         public async Task<List<string>> SothichThuongHieu(int IDKH)
         {
             List<string> items = new List<string>();
@@ -188,6 +199,7 @@ namespace BAITAP.Controllers
             }
             return items;
         }
+        //Danh sách sản phẩm hot
         public async Task<List<SanPhamHot>> DanhSachSanPhamHOT()
         {
             var lismh = await _context.Mhs.Include(m => m.Danhmucs).ToListAsync();
@@ -202,7 +214,7 @@ namespace BAITAP.Controllers
             }
             return ListSanPhamHot.OrderByDescending(x => x.LuotMuatrungbinh).ToList();
         }
-
+        // DS tương tự
         public async Task<List<SanphamKhuyemMai>> DanhSachSanPhamTuongtu(int IdDanhMuc, string thuonghieu, string size, string mausac)
         {
             List<SanphamKhuyemMai> ListSanPhamHot = new List<SanphamKhuyemMai>();
@@ -229,13 +241,11 @@ namespace BAITAP.Controllers
 
             return ListSanPhamHot.OrderByDescending(x => x.mathang.MaDm.Equals(IdDanhMuc) && x.mathang.Thuonghieu.Equals(thuonghieu) && x.mathang.Kichco.Equals(size) && x.mathang.Mausac.Equals(mausac)).ToList();
         }
-
+        // Gợi ý dựa vào sở thích
         public async Task<List<SanphamKhuyemMai>> DanhSachSanGoiYDuaVaoSoThich(int IDKH)
         {
             List<SanphamKhuyemMai> ListSanPhamHot = new List<SanphamKhuyemMai>();
-
             DateTime currentDate = DateTime.Now;
-
             var query = from mathang in _context.Mathangs
                         join ctkm in _context.CtKhuyenMaiSanPhams
                         on mathang.MaMh equals ctkm.Mamh into ctkmGroup
@@ -266,6 +276,7 @@ namespace BAITAP.Controllers
             }
             return ListSanPhamHot;
         }
+
         // GET: Customer
         public async Task<IActionResult> Index1(int page = 1, int pageSize = 8, string keyword = null, string category = null, string sort = null, bool Fill = false, string khuyenmai = "0")
         {
@@ -379,6 +390,7 @@ namespace BAITAP.Controllers
             }
             return View(danhsachsanpham);
         }
+
         // GET: Customer/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -386,17 +398,24 @@ namespace BAITAP.Controllers
             {
                 return NotFound();
             }
-
-            var mathang = await _context.Mathangs
-                .Include(m => m.Danhmucs)
-                .FirstOrDefaultAsync(m => m.MaMh == id);
-            if (mathang == null)
+            var sp = await _context.Mathangs.FirstOrDefaultAsync(x => x.MaMh.Equals(id));
+            var newsp = new MathangKM();
+            newsp.mathang = sp;
+            if (await CheckKhuyenMai(sp.MaMh))
             {
-                return NotFound();
+                var ctkm = await CheckKhuyenMaiSanpham(sp.MaMh);
+                newsp.Phantramkhuyenmai = ctkm != null ? ctkm.PhanTramGiamGia : 0;
+                newsp.Giakhuyemai = ctkm != null ? sp.GiaBan - sp.GiaBan * (ctkm.PhanTramGiamGia / 100.0) : 0;
             }
-            ViewBag.ListSanPhamGoiY = await DanhSachSanPhamTuongtu(mathang.MaDm, mathang.Thuonghieu, mathang.Kichco, mathang.Mausac);
-            return View(mathang);
+            else
+            {
+                newsp.Phantramkhuyenmai = 0;
+                newsp.Giakhuyemai = 0;
+            }
+            ViewBag.ListSanPhamGoiY = await DanhSachSanPhamTuongtu(sp.MaDm, sp.Thuonghieu, sp.Kichco, sp.Mausac);
+            return View(newsp);
         }
+        // View Giỏ hàng
         public async Task<IActionResult> Cart(bool isusenearest = false)
         {
             try
@@ -425,15 +444,27 @@ namespace BAITAP.Controllers
             }
 
         }
-        public async Task<IActionResult> Profile(int page = 1, int pageSize = 6)
+        // Xử lý profile
+        public async Task<IActionResult> Profile1(string id = null)
         {
-          
+            if (id != null)
+            {
+                // Tạo URL mới với fragment identifier và chuyển hướng đến đó
+                var urlWithFragment = Url.Action("Profile") + id;
+                return Redirect(urlWithFragment);
+            }
+            return RedirectToAction(nameof(Profile));
+        }
+        // View thông tin
+        public async Task<IActionResult> Profile(int page = 1, int pageSize = 6, string id = null)
+        {
+
             ProfileCustomer profile = new ProfileCustomer();
             var sessionKH = getID();
             if (sessionKH != null)
             {
                 profile.KhachHang = await _context.Khachhangs.FirstOrDefaultAsync(x => x.MaKh.Equals(sessionKH.ID));
-                profile.WistList = GetWishlist(sessionKH.ID);
+                profile.WistList = GetWishlist();
 
                 var totalCount = await _context.Hoadons
                     .Where(x => x.Makh.Equals(sessionKH.ID))
@@ -463,21 +494,17 @@ namespace BAITAP.Controllers
                 ViewBag.TotalPages = totalPages;
                 var donhang = _context.Hoadons.AsQueryable();
                 ViewData["soluongdonhang"] = await donhang.CountAsync();
-                var wishlistCart = GetWishlist(sessionKH.ID);
+                var wishlistCart = GetWishlist();
                 if (wishlistCart != null)
                     ViewData["slSPYT"] = wishlistCart.Count;
                 else
                     ViewData["slSPYT"] = 0;
-                ViewData["Error"] = "Tào lao";
                 return View(profile);
             }
 
             return View("Login");
         }
-        public async Task<IActionResult> PurchaseOrder()
-        {
-            return View();
-        }
+        // Lấy ID khách hàng
         public KhachHangLogin getID()
         {
             var sessionKh = HttpContext.Session;
@@ -488,6 +515,7 @@ namespace BAITAP.Controllers
             }
             return null;
         }
+        // Lấy địa chỉ lưu session
         public Diachi1 getDiachi()
         {
             var sessionKh = HttpContext.Session;
@@ -498,45 +526,53 @@ namespace BAITAP.Controllers
             }
             return null;
         }
+        // lấy hóa đơn lưu session
         public Hoadon GetHoaDon()
         {
             var jsonKH = HttpContext.Session.GetString("hoadon");
             return jsonKH != null ? JsonConvert.DeserializeObject<Hoadon>(jsonKH) : null;
+        }
+        // Lấy danh sách sản phẩm yêu thích
+        public List<Cart> GetWishlist()
+        {
+            var jsonKH = HttpContext.Session.GetString("wishlist");
+            return jsonKH != null ? JsonConvert.DeserializeObject<List<Cart>>(jsonKH) : null;
         }
         public List<Cart> GetCartList()
         {
             var jsonKH = HttpContext.Session.GetString("cart");
             return jsonKH != null ? JsonConvert.DeserializeObject<List<Cart>>(jsonKH) : null;
         }
-        public List<Cart> GetWishlist(int ID)
-        {
-            var jsonKH = HttpContext.Session.GetString("wishlist_" + ID.ToString());
-            return jsonKH != null ? JsonConvert.DeserializeObject<List<Cart>>(jsonKH) : null;
-        }
+
         private async Task<Mathang> GetMathangById(int id)
         {
             return await _context.Mathangs.FirstOrDefaultAsync(x => x.MaMh == id);
         }
+        //Lưu địa chỉ session
         private void SaveDiachiToSession(Diachi1 carts)
         {
             var sessionKh = HttpContext.Session;
             sessionKh.SetString("diachi", JsonConvert.SerializeObject(carts));
         }
-        private void SaveWishlistToSession(List<Cart> carts, int ID)
+        //Lưu SPYT session
+        private void SaveWishlistToSession(List<Cart> carts)
         {
             var sessionKh = HttpContext.Session;
-            sessionKh.SetString("wishlist_" + ID.ToString(), JsonConvert.SerializeObject(carts));
+            sessionKh.SetString("wishlist", JsonConvert.SerializeObject(carts));
         }
+        //Lưu giỏ hàng session
         private void SaveCarrtToSession(List<Cart> carts)
         {
             var sessionKh = HttpContext.Session;
             sessionKh.SetString("cart", JsonConvert.SerializeObject(carts));
         }
+        //Lưu hóa đơn session
         private void SaveHoadonToSession(Hoadon hoadon)
         {
             var sessionKh = HttpContext.Session;
             sessionKh.SetString("hoadon", JsonConvert.SerializeObject(hoadon));
         }
+        //Thêm sản phaame yeu thich
         public async Task<IActionResult> AddToWishlistAsync(int id, int giakhuyenmai)
         {
             var sesskh = getID();
@@ -552,7 +588,7 @@ namespace BAITAP.Controllers
                     return RedirectToAction("Index", "Customer");
                 }
 
-                var carts = GetWishlist(sesskh.ID) ?? new List<Cart>();
+                var carts = GetWishlist() ?? new List<Cart>();
                 var cartItem = carts.Find(x => x.id.Equals(id));
 
                 if (cartItem == null)
@@ -568,12 +604,46 @@ namespace BAITAP.Controllers
                     };
 
                     carts.Add(cartItemAdd);
-                    SaveWishlistToSession(carts, sesskh.ID);
+                    SaveWishlistToSession(carts);
                 }
-                return RedirectToAction("Profile", "Customer");
+                // Tạo URL mới với fragment identifier và chuyển hướng đến đó
+                var urlWithFragment = Url.Action("Profile") + "#sanphamyeuthich";
+                return Redirect(urlWithFragment);
             }
         }
+        // Xóa tất cả sản phẩm yêu thích
+        public async Task<IActionResult> RemoveAllWishlist()
+        {
+            var sesskh = getID();
+            if (sesskh == null)
+            {
+                return RedirectToAction("Login", "Customer");
+            }
+            else
+            {
+                RemoveAll();
 
+                var urlWithFragment = Url.Action("Profile") + "#sanphamyeuthich";
+                return Redirect(urlWithFragment);
+            }
+        }
+        // Xóa sản phẩm yêu thích
+        public async Task<IActionResult> RemoveItemWish(int id)
+        {
+            var sesskh = getID();
+            if (sesskh == null)
+            {
+                return RedirectToAction("Login", "Customer");
+            }
+            else
+            {
+                RemoveWishItem(id);
+
+                var urlWithFragment = Url.Action("Profile") + "#sanphamyeuthich";
+                return Redirect(urlWithFragment);
+            }
+        }
+        // Cập nhật mật khẩu
         public async Task<IActionResult> ChangePassWord(string matkhauthaydoi, string matkhauxacthuc)
         {
             var sesskh = getID();
@@ -583,23 +653,23 @@ namespace BAITAP.Controllers
             }
             else
             {
-                 var khachhang = await _context.Khachhangs.FirstOrDefaultAsync(x => x.MaKh.Equals(sesskh.ID));
-                 bool passwordMatch = HashPasword.HashPasword.VerifyPassword(matkhauxacthuc, khachhang.Matkhau, khachhang.Salt);
-                 if (passwordMatch)
-                 {
-                     (string hashedPassword, byte[] salt) = HashPasword.HashPasword.HashPasword1(matkhauthaydoi);
+                var khachhang = await _context.Khachhangs.FirstOrDefaultAsync(x => x.MaKh.Equals(sesskh.ID));
+                bool passwordMatch = HashPasword.HashPasword.VerifyPassword(matkhauxacthuc, khachhang.Matkhau, khachhang.Salt);
+                if (passwordMatch)
+                {
+                    (string hashedPassword, byte[] salt) = HashPasword.HashPasword.HashPasword1(matkhauthaydoi);
 
-                     khachhang.Matkhau = hashedPassword;
-                     khachhang.Salt = salt;
-                     _context.Update(khachhang);
-                     await  _context.SaveChangesAsync();
+                    khachhang.Matkhau = hashedPassword;
+                    khachhang.Salt = salt;
+                    _context.Update(khachhang);
+                    await _context.SaveChangesAsync();
                     // Tạo URL mới với fragment identifier và chuyển hướng đến đó
                     TempData["Success"] = "Cập nhật mật khẩu thành công";
                     var urlWithFragment = Url.Action("Profile") + "#thongtintaikhoan";
                     return Redirect(urlWithFragment);
                 }
                 else
-                 {
+                {
                     TempData["Message"] = "Mật khẩu cũ không đúng";
                     // Tạo URL mới với fragment identifier và chuyển hướng đến đó
                     var urlWithFragment = Url.Action("Profile") + "#thongtintaikhoan";
@@ -608,7 +678,40 @@ namespace BAITAP.Controllers
             }
         }
 
-        public async Task<IActionResult> UpdateInfo(Khachhang kh)
+        // thêm mới địa chỉ
+        public async Task<IActionResult> CreateAddress(string tinh, string huyen, string xa, string diachi)
+        {
+            var sesskh = getID();
+            if (sesskh == null)
+            {
+                return RedirectToAction("Login", "Customer");
+            }
+            else
+            {
+                var checkKh = await _context.Khachhangs.FirstOrDefaultAsync(x => x.MaKh.Equals(sesskh.ID));
+                if (checkKh == null)
+                {
+                    return RedirectToAction("Login", "Customer");
+                }
+                var diachiadd = new Diachi();
+                diachiadd.Makh = checkKh.MaKh;
+                diachiadd.Tinhthanh = tinh;
+                diachiadd.Quanhuyen = huyen;
+                diachiadd.Phuongxa = xa;
+                diachiadd.Diachi1 = diachi;
+                diachiadd.Macdinh = 0;
+                _context.Diachis.Add(diachiadd);
+                await _context.SaveChangesAsync();
+                TempData["SuccessAddress"] = "Thêm địa chỉ thành công !";
+
+                // Tạo URL mới với fragment identifier và chuyển hướng đến đó
+                var urlWithFragment = Url.Action("Profile") + "#diachi";
+                return Redirect(urlWithFragment);
+            }
+        }
+
+        // Câp nhật ttcn
+        public async Task<IActionResult> UpdateInfo(Khachhang kh, IFormFile fileanh)
         {
             var sesskh = getID();
             if (sesskh == null)
@@ -618,9 +721,28 @@ namespace BAITAP.Controllers
             else
             {
                 var checkKh = await _context.Khachhangs.FirstOrDefaultAsync(x => x.MaKh.Equals(kh.MaKh));
-                if(checkKh == null)
+                if (checkKh == null)
                 {
                     return RedirectToAction("Login", "Customer");
+                }
+                if (fileanh != null && fileanh.Length > 0)
+                {
+                    // Tạo đường dẫn cho thư mục lưu trữ hình ảnh trong wwwroot/images/products
+                    var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "account");
+
+                    var tenfile = DateTime.Now.ToString("yyyyMMddHHmmss") + fileanh.FileName;
+
+                    // Tạo đường dẫn tới file hình ảnh
+                    var fileName = Path.Combine(imagePath, tenfile);
+
+                    // Lưu file xuống đường dẫn tạm thời
+                    using (var stream = new FileStream(fileName, FileMode.Create))
+                    {
+                        await fileanh.CopyToAsync(stream);
+                    }
+
+                    // Cập nhật tên file hình ảnh trong đối tượng mathang
+                    checkKh.HinhAnh = tenfile;
                 }
                 checkKh.Ten = kh.Ten;
                 checkKh.Email = kh.Email;
@@ -634,6 +756,17 @@ namespace BAITAP.Controllers
                 return Redirect(urlWithFragment);
             }
         }
+        // Kiểm tra số lượng khi mua hàng
+        private async Task<int> checksoluongsanpham(int mamh, int soluongmua)
+        {
+            var mathang = await _context.Mathangs.FirstOrDefaultAsync(x => x.MaMh.Equals(mamh));
+            if (mathang.SoLuong >= soluongmua)
+                return 0;
+
+            return mathang.SoLuong;
+        }
+
+        // Thanh toán khi nhận hàng
         [HttpPost]
         public async Task<IActionResult> Total([FromBody] TotalRequestModel totalRequestModel)
         {
@@ -649,7 +782,24 @@ namespace BAITAP.Controllers
                         message = "Sản phẩm " + itemsp.ten + " đã hết chương trình khuyến mãi!"
                     });
                 }
+
             }
+            //Check các sản phẩm có đủ bán không 
+            foreach (var itemsp in totalRequestModel.cartItems)
+            {
+                var checksoluong = await checksoluongsanpham(itemsp.id, itemsp.soluongmua);
+                if (checksoluong > 0)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        status = 1,
+                        message = $"Số lượng của sản phẩm  {itemsp.ten} chỉ còn {checksoluong} ! Vui lòng chọn lại!"
+                    });
+                }
+
+            }
+
             KhachHangLogin idKH = new KhachHangLogin();
             var sessionKh = HttpContext.Session;
             string jsonKH = sessionKh.GetString("KH_SESSION");
@@ -686,9 +836,9 @@ namespace BAITAP.Controllers
                     hoadon.Trangthai = 0;
                     _context.Hoadons.Add(hoadon);
                     await _context.SaveChangesAsync();  // Save changes to get the generated MAHD
-                    var cthd = new Cthoadon();
                     foreach (var item in totalRequestModel.cartItems)
                     {
+                        var cthd = new Cthoadon();
                         cthd.Mahd = hoadon.Mahd;
                         cthd.Mamh = item.id;
                         cthd.Soluong = item.soluongmua;
@@ -699,6 +849,8 @@ namespace BAITAP.Controllers
                         cthd.Dongia = item.giaban;
                         _context.Cthoadons.Add(cthd);
                     }
+                    await _context.SaveChangesAsync();
+
                     var listdiachikhachhang = await _context.Diachis.Where(d => d.Makh.Equals(idKH.ID)).ToListAsync();
                     if (listdiachikhachhang.Count == 0)
                     {
@@ -745,6 +897,19 @@ namespace BAITAP.Controllers
                     await _context.SaveChangesAsync();
                     var cartsession = HttpContext.Session;
                     cartsession.Remove("cart");
+
+                    // Gởi email
+                    try
+                    {
+                        MailInfo mailInfo = new MailInfo();
+                        mailInfo.Subject = "Đặt hàng thành công tại ITShop.Com.Vn";
+                        var datHangInfo = _context.Hoadons.Where(r => r.Mahd == hoadon.Mahd).Include(s => s.MakhNavigation).Include(s => s.Cthoadons).SingleOrDefault();
+                        await _mailLogic.SendEmailDatHangThanhCong(datHangInfo, mailInfo);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception(ex.Message.ToString());
+                    }
                     // Trả về một phản hồi JSON với dữ liệu bạn muốn truyền về trang
                     return Json(new
                     {
@@ -763,6 +928,7 @@ namespace BAITAP.Controllers
             // Trả về một phản hồi nếu dữ liệu không hợp lệ hoặc không có
             return BadRequest();
         }
+        // Đăng xuất
         public ActionResult Logout()
         {
             HttpContext.Session.Clear();
@@ -770,6 +936,7 @@ namespace BAITAP.Controllers
             // Redirect to the specified returnUrl or a default page
             return RedirectToAction("Index", "Customer");
         }
+        // Đăng ký
         public ActionResult Register(Khachhang loginModel)
         {
 
@@ -807,6 +974,7 @@ namespace BAITAP.Controllers
             return Redirect(!string.IsNullOrEmpty(returnUrlFromSession) ? returnUrlFromSession : "Index1");
 
         }
+        // Đăng nhaapj
         public async Task<ActionResult> Login(Khachhang loginModel)
         {
             // Check if the user is already authenticated using session
@@ -868,6 +1036,7 @@ namespace BAITAP.Controllers
 
             return View(loginModel);
         }
+        //Kiểm tra khuyến mãi
         private async Task<bool> CheckKhuyenMai(int idsp)
         {
             var ctkmList = await _context.CtKhuyenMais.Include(x => x.CtKhuyenMaiSanPhams).ToListAsync();
@@ -887,6 +1056,7 @@ namespace BAITAP.Controllers
 
             return false; // Nếu không tìm thấy khuyến mãi thỏa mãn, trả về false
         }
+        // Kiểm tra khuyên mãi mua hàng
         private async Task<bool> CheckKhuyenMaiMuaHang(int idsp)
         {
             var currentDateTime = DateTime.Now;
@@ -916,6 +1086,7 @@ namespace BAITAP.Controllers
 
             return true; // The product is not in any active promotion
         }
+        // Kiểm tra khuyên mãi mua hàng
         private async Task<CtKhuyenMai> CheckKhuyenMaiSanpham(int idsp)
         {
             var ctkm = await _context.CtKhuyenMais.ToListAsync();
@@ -935,6 +1106,12 @@ namespace BAITAP.Controllers
             }
             return null;
         }
+
+        /// <summary>
+        /// Thanh toán VNPay
+        /// </summary>
+        /// <param name="totalRequestModel"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult> Payment([FromBody] TotalRequestModel totalRequestModel)
         {
@@ -950,6 +1127,21 @@ namespace BAITAP.Controllers
                         message = "Sản phẩm " + itemsp.ten + " đã hết chương trình khuyến mãi!"
                     });
                 }
+            }
+            //Check các sản phẩm có đủ bán không 
+            foreach (var itemsp in totalRequestModel.cartItems)
+            {
+                var checksoluong = await checksoluongsanpham(itemsp.id, itemsp.soluongmua);
+                if (checksoluong > 0)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        status = 1,
+                        message = $"Số lượng của sản phẩm  {itemsp.ten} chỉ còn {checksoluong} ! Vui lòng chọn lại!"
+                    });
+                }
+
             }
             double totalPrice = 0;
             var hoadon = new Hoadon();
@@ -1028,6 +1220,7 @@ namespace BAITAP.Controllers
             });
             //  return Redirect(paymentUrl);
         }
+        // Xác nhận thanh toán VNPay
         public async Task<IActionResult> PaymentConfirm()
         {
             if (HttpContext.Request.Query.Count > 0)
@@ -1054,10 +1247,11 @@ namespace BAITAP.Controllers
 
                 if (checkSignature)
                 {
-                    if (vnp_ResponseCode == "00")
+                    if (vnp_ResponseCode == "00")// Nếu response vnpcode la 00 thì thành công
                     {
                         // Thanh toán thành công
-                        ViewBag.Message = $"Thanh toán thành công hóa đơn {orderId} | Mã giao dịch: {vnpayTranId}";
+                        ViewData["success"] = "Thanh toán thành công !";
+                        ViewBag.Message = $"Thanh toán VNPay thành công | Mã giao dịch: {vnpayTranId} vào lúc {DateTime.Now.ToString()}";
                         var cartlist = GetCartList();
                         var hoadon = GetHoaDon();
                         var diachi = getDiachi();
@@ -1074,6 +1268,9 @@ namespace BAITAP.Controllers
                                 cthd.Mamh = item.id;
                                 cthd.Soluong = item.soluongmua;
                                 cthd.Thanhtien = item.soluongmua * item.giaban;
+                                var mathang = await _context.Mathangs.FirstOrDefaultAsync(x => x.MaMh.Equals(item.id));
+                                mathang.LuotMua += item.soluongmua;
+                                mathang.SoLuong -= 1;
                                 cthd.Dongia = item.giaban;
                                 _context.Cthoadons.Add(cthd);
                             }
@@ -1109,7 +1306,6 @@ namespace BAITAP.Controllers
                                 }
                                 else
                                 {
-
                                     var diachikhachhang = new Diachi();
                                     diachikhachhang.Makh = kh.ID;
                                     diachikhachhang.Diachi1 = diachi.Diachi;
@@ -1125,19 +1321,34 @@ namespace BAITAP.Controllers
                             cartsession.Remove("cart");
                             cartsession.Remove("diachi");
                             cartsession.Remove("hoadon");
-                            return View();
+                            var datHangInfo = _context.Hoadons.Where(r => r.Mahd == hoadon.Mahd).Include(s => s.MakhNavigation).Include(s => s.Cthoadons).ThenInclude(mh => mh.MamhNavigation).SingleOrDefault();
+
+                            // Gởi email
+                            try
+                            {
+                                MailInfo mailInfo = new MailInfo();
+                                mailInfo.Subject = "Đặt hàng thành công tại AYTI SHOP - Cảm ơn quý khách đã mua sắm!";
+                                await _mailLogic.SendEmailDatHangThanhCong(datHangInfo, mailInfo);
+                            }
+                            catch (Exception ex)
+                            {
+                                throw new Exception(ex.Message.ToString());
+                            }
+
+                            return View(datHangInfo);
                         }
                         catch (Exception ex)
                         {
                             Console.WriteLine(ex.ToString());
                         }
-
                     }
                     else
                     {
                         // Thanh toán không thành công. Mã lỗi: vnp_ResponseCode
+                        // Thanh toán thành công
+                        ViewData["success"] = "Thanh toán thất bại !";
                         ViewBag.Message = $"Có lỗi xảy ra trong quá trình xử lý hóa đơn {orderId} | Mã giao dịch: {vnpayTranId} | Mã lỗi: {vnp_ResponseCode}";
-                        return View(nameof(Cart));
+                        return View();
                     }
                 }
                 else
@@ -1147,6 +1358,7 @@ namespace BAITAP.Controllers
             }
             return BadRequest();
         }
+        // Câp nhật lượt xem
         [HttpPost]
         public async Task<IActionResult> UpdateLuotXem(int Id)
         {
@@ -1169,6 +1381,7 @@ namespace BAITAP.Controllers
                 message = "Cập nhật không thành công !"
             });
         }
+        // View xem chi tiết
         public async Task<IActionResult> Details2(int Id)
         {
             DateTime currentDate = DateTime.Now;
@@ -1202,6 +1415,7 @@ namespace BAITAP.Controllers
             sanphamchitiet.danhmuc = mathang.Danhmucs;
             return View(sanphamchitiet);
         }
+        // Lưu sở thích khách hàng
         [HttpPost]
         public async Task<IActionResult> SaveFavorite(FavoriteViewModel model)
         {
@@ -1222,6 +1436,7 @@ namespace BAITAP.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index1");
         }
+        // Xóa địa chỉ
         [HttpPost]
         public async Task<IActionResult> XoaDiaChi(int id)
         {
@@ -1243,6 +1458,22 @@ namespace BAITAP.Controllers
             // Tạo URL mới với fragment identifier và chuyển hướng đến đó
             var urlWithFragment = Url.Action("Profile") + "#diachi";
             return Redirect(urlWithFragment);
+        }
+
+        private void RemoveWishItem(int ID)
+        {
+            var list = GetWishlist();
+            if (list != null)
+            {
+                var checkitem = list.FirstOrDefault(x => x.id.Equals(ID));
+                list.Remove(checkitem);
+                SaveWishlistToSession(list);
+            }
+        }
+        private void RemoveAll()
+        {
+            var sessionKh = HttpContext.Session;
+            sessionKh.SetString("wishlist", "");
         }
 
     }

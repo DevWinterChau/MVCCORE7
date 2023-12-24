@@ -335,10 +335,7 @@ public partial class ApplicationDbContext : IdentityDbContext
                 .IsUnicode(false)
                 .HasColumnName("EMAIL");
             entity.Property(e => e.Macv).HasColumnName("MACV");
-            entity.Property(e => e.Matkhau)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("MATKHAU");
+
             entity.Property(e => e.Ten)
                 .HasMaxLength(100)
                 .HasColumnName("TEN");

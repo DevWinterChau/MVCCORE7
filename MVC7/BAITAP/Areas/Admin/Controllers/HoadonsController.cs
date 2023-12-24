@@ -13,7 +13,6 @@ using BAITAP.DTO;
 namespace BAITAP.Areas.Admin.Controllers
 {
 
-    [Authorize]
     [Area("Admin")]
     public class HoadonsController : Controller
     {
@@ -23,7 +22,7 @@ namespace BAITAP.Areas.Admin.Controllers
         {
             _context = context;
         }
-
+        [Authorize(Roles = "Admin,Sale")]
         // GET: Hoadons
         public async Task<IActionResult> Index(int page = 1, int pageSize = 8, string keyword = null, string category = null, string sort = null, bool Fill = false, DateTime? ngaybatdau = null, DateTime? ngayketthuc = null, int Trangthai = 5)
         {
@@ -65,7 +64,7 @@ namespace BAITAP.Areas.Admin.Controllers
             ViewBag.ListDanhMuc = await _context.LoaiKhuyenMais.ToListAsync();
             return View(items);
         }
-
+        [Authorize(Roles = "Admin,Sale")]
         // GET: Hoadons/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -92,6 +91,8 @@ namespace BAITAP.Areas.Admin.Controllers
             public List<ChiTietSanPhamHoaDon> ListSanPham { get; set; }
         }
         // GET: Hoadons/Create
+        [Authorize(Roles = "Admin,Sale")]
+
         public async Task<IActionResult> Create()
         {
             DateTime currentDate = DateTime.Now;
@@ -115,6 +116,7 @@ namespace BAITAP.Areas.Admin.Controllers
             ViewData["Makh"] = new SelectList(_context.Khachhangs, "MaKh", "Ten");
             return View();
         }
+        [Authorize(Roles = "Admin,Sale")]
 
         // POST: Hoadons/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -167,6 +169,7 @@ namespace BAITAP.Areas.Admin.Controllers
             });
 
         }
+        [Authorize(Roles = "Admin,Sale")]
 
         // GET: Hoadons/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -202,6 +205,7 @@ namespace BAITAP.Areas.Admin.Controllers
             ViewData["Makh"] = new SelectList(_context.Khachhangs, "MaKh", "Ten", hoadon.Makh);
             return View(hoadon);
         }
+        [Authorize(Roles = "Admin,Sale")]
 
         // POST: Hoadons/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -238,6 +242,7 @@ namespace BAITAP.Areas.Admin.Controllers
             ViewData["Makh"] = new SelectList(_context.Khachhangs, "MaKh", "Ten", hoadon.Makh);
             return View(hoadon);
         }
+        [Authorize(Roles = "Admin")]
 
         // GET: Hoadons/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -257,6 +262,7 @@ namespace BAITAP.Areas.Admin.Controllers
 
             return View(hoadon);
         }
+        [Authorize(Roles = "Admin")]
 
         // POST: Hoadons/Delete/5
         [HttpPost, ActionName("Delete")]

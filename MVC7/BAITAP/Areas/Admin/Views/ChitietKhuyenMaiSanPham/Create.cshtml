@@ -6,8 +6,12 @@
 }
 
 
-<div class="row justify-content-center">
-    <h4 class="text-info text-center">Thêm mới sản phẩm khuyến mãi</h4>
+<h3 class="mt-4">Thêm sản phẩm khuyến mãi</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Sản phẩm khuyến mãi</a></li>
+    <li class="breadcrumb-item active">Thêm mới</li>
+</ol>
+<div class="row justify-content-start">
     <div class="col-md-6">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -45,7 +49,6 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-success">Thêm Mới</button>
                 <a class="btn btn-outline-info" asp-action="Index">Quay lại danh sách</a>
-
             </div>
         </form>
     </div>

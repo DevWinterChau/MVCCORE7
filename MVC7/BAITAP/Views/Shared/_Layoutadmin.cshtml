@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard - AYTI SHOP</title>
+    <title>@ViewData["Title"] - ADMIN</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="~/admin/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -38,9 +38,9 @@
             height: 300 // Điều chỉnh chiều cao theo ý muốn của bạn
         });
     </script>
-    <nav class="sb-topnav navbar navbar-expand navbar-info bg-info">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" asp-action="Index" asp-action="home">Admim AYTI SHOP</a>
+        <a asp-area="Admin" class="navbar-brand ps-3" asp-action="Index" asp-action="home">Admim AYTI SHOP</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
@@ -50,10 +50,16 @@
                 <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
             </div>
         </form>
-       
+
         @if (SignInManager.IsSignedIn(User))
         {
             <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Xin chào @User.Identity?.Name</a>
+            <!-- Trong phần HTML của trang của bạn -->
+            <a id="logoutButton" class="btn btn-outline-danger m-1" data-toggle="modal" data-target="#confirmLogoutModal">
+                <i class="bi bi-person"></i>Đăng xuất
+            </a>
+
+
         }
         else
         {
@@ -65,27 +71,27 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <a class="nav-link" href="index.html">
+                        <a asp-area="Admin" asp-controller="Home" asp-action="index" class="nav-link">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
                         <div class="sb-sidenav-menu-heading">DANH MỤC</div>
 
-                        <a  class="nav-link collapsed"  data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                        <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             Sản Phẩm
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" asp-action="index" asp-controller="mhs" >Danh sách sản phẩm</a>
-                                <a class="nav-link" asp-action="index" asp-controller="mathangs">Danh sách phiên bản sản phẩm</a>
-                                <a class="nav-link" asp-action="index" asp-controller="danhmucs">Danh sách danh mục sản phẩm</a>
-                                <a class="nav-link" asp-action="create" asp-controller="danhmucs">Thêm mới danh mục</a>
-                                <a class="nav-link" asp-action="create" asp-controller="mathangs">Thêm mới sản phẩm</a>
+                                <a asp-area="Admin" class="nav-link" asp-action="index" asp-controller="mhs">Danh sách sản phẩm</a>
+                                <a asp-area="Admin" class="nav-link" asp-action="index" asp-controller="mathangs">Danh sách phiên bản sản phẩm</a>
+                                <a asp-area="Admin" class="nav-link" asp-action="index" asp-controller="danhmucs">Danh sách danh mục sản phẩm</a>
+                                <a asp-area="Admin" class="nav-link" asp-action="create" asp-controller="danhmucs">Thêm mới danh mục</a>
+                                <a asp-area="Admin" class="nav-link" asp-action="create" asp-controller="mathangs">Thêm mới sản phẩm</a>
                             </nav>
                         </div>
-                       
+
                         <a class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             Thương hiệu
@@ -93,11 +99,11 @@
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" asp-action="index" asp-controller="thuonghieux">Danh sách thương hiệu</a>
-                                <a class="nav-link" asp-action="create" asp-controller="thuonghieux">Thêm mới thương hiệu</a>
+                                <a class="nav-link" asp-action="index" asp-controller="thuonghieux" asp-area="Admin">Danh sách thương hiệu</a>
+                                <a class="nav-link" asp-action="create" asp-controller="thuonghieux" asp-area="Admin">Thêm mới thương hiệu</a>
                             </nav>
                         </div>
-                        
+
                         <a asp- class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             Đơn hàng
@@ -105,11 +111,11 @@
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link"  asp-action="index" asp-controller="hoadons">Danh sách đơn hàng</a>
-                                <a class="nav-link" asp-action="create" asp-controller="hoadons">Thêm mới đơn hàng</a>
+                                <a class="nav-link" asp-action="index" asp-controller="hoadons" asp-area="Admin">Danh sách đơn hàng</a>
+                                <a class="nav-link" asp-action="create" asp-controller="hoadons" asp-area="Admin">Thêm mới đơn hàng</a>
                             </nav>
                         </div>
-                     
+
                         <a asp- class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             Khách hàng & Địa chỉ
@@ -117,12 +123,12 @@
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" asp-action="index" asp-controller="khachhangs">Danh sách khách hàng</a>
-                                <a class="nav-link" asp-action="create" asp-controller="khachhangs">Thêm mới khách hàng</a>
-                                <a class="nav-link" asp-action="index" asp-controller="diachis">Địa chỉ khách hàng</a>
+                                <a class="nav-link" asp-action="index" asp-controller="khachhangs" asp-area="Admin">Danh sách khách hàng</a>
+                                <a class="nav-link" asp-action="create" asp-controller="khachhangs" asp-area="Admin">Thêm mới khách hàng</a>
+                                <a class="nav-link" asp-action="index" asp-controller="diachis" asp-area="Admin">Địa chỉ khách hàng</a>
                             </nav>
-                        </div> 
-                   
+                        </div>
+
 
                         <a asp- class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -131,64 +137,36 @@
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" asp-action="index" asp-controller="loaikhuyenmais">Danh sách loại khuyến mãi</a>
-                                <a class="nav-link" asp-action="index" asp-controller="ctkhuyenmai">Danh sách CTKM</a>
-                                <a class="nav-link" asp-action="create" asp-controller="ctkhuyenmai">Thêm mới CTKM</a>
-                                <a class="nav-link" asp-action="index" asp-controller="ChitietKhuyenMaiSanPham">Danh sách SPKM</a>
-                                <a class="nav-link" asp-action="create" asp-controller="ChitietKhuyenMaiSanPham">Thêm mới SPKM</a>
+                                <a class="nav-link" asp-action="index" asp-controller="loaikhuyenmais" asp-area="Admin">Danh sách loại khuyến mãi</a>
+                                <a class="nav-link" asp-action="index" asp-controller="ctkhuyenmai" asp-area="Admin">Danh sách CTKM</a>
+                                <a class="nav-link" asp-action="create" asp-controller="ctkhuyenmai" asp-area="Admin">Thêm mới CTKM</a>
+                                <a class="nav-link" asp-action="index" asp-controller="ChitietKhuyenMaiSanPham" asp-area="Admin">Danh sách SPKM</a>
+                                <a class="nav-link" asp-action="create" asp-controller="ChitietKhuyenMaiSanPham" asp-area="Admin">Thêm mới SPKM</a>
                             </nav>
                         </div>
-
-                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                    Authentication
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="login.html">Login</a>
-                                        <a class="nav-link" href="register.html">Register</a>
-                                        <a class="nav-link" href="password.html">Forgot Password</a>
-                                    </nav>
-                                </div>
-                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                    Error
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="401.html">401 Page</a>
-                                        <a class="nav-link" href="404.html">404 Page</a>
-                                        <a class="nav-link" href="500.html">500 Page</a>
-                                    </nav>
-                                </div>
+                        <a asp- class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Tài khoản
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" asp-action="index" asp-controller="khachhangs" asp-area="Admin">Danh sách tài khoản</a>
+                                <a class="nav-link" asp-action="create" asp-controller="khachhangs" asp-area="Admin">Thêm mới tài khoản</a>
+                                <a class="nav-link" asp-action="index" asp-controller="roles" asp-area="Admin">Danh sách quyền</a>
                             </nav>
                         </div>
-                        <div class="sb-sidenav-menu-heading">Addons</div>
-                        <a class="nav-link" href="charts.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Charts
-                        </a>
-                        <a class="nav-link" href="tables.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Tables
-                        </a>
                     </div>
                 </div>
-                <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
-                    Start Bootstrap
-                </div>
+
             </nav>
         </div>
         <div id="layoutSidenav_content">
-               <main>
-                    <div class="container-fluid px-4">
-                        @RenderBody()
-                   </div>
-               </main>
-          
+            <main>
+                <div class="container-fluid px-4">
+                    @RenderBody()
+                </div>
+            </main>
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
@@ -203,6 +181,37 @@
             </footer>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="confirmLogoutModal" tabindex="-1" role="dialog" aria-labelledby="confirmLogoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmLogoutModalLabel">Xác nhận đăng xuất</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn đăng xuất không?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Home", new { area = "Admin" })" method="post">
+                        <button type="submit" class="nav-link btn btn-outline-danger">Xác nhận đăng xuất</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script để xử lý sự kiện khi người dùng chấp nhận đăng xuất -->
+    <script>
+        $(document).ready(function () {
+            $('#logoutButton').click(function () {
+                $('#confirmLogoutModal').modal('show');
+            });
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="~/admin/js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
@@ -214,6 +223,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
 
 </body>
 </html>

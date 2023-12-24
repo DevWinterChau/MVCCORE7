@@ -1,12 +1,15 @@
 ﻿@model BAITAP.DTO.DetailMhs
 
 @{
-    ViewData["Title"] = "Chi Tiết";
+    ViewData["Title"] = "Chi Tiết sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
-
-<div class="container mt-4">
-    <hr />
+<h3 class="mt-0">Chi tiết sản phẩm</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Sản phẩm</a></li>
+    <li class="breadcrumb-item active">Xem chi tiết</li>
+</ol>
+<div class="container mt-2">
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.MatHangChinh.Ten)

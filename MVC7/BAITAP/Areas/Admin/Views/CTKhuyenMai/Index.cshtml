@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<BAITAP.Models.CtKhuyenMai>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách CTKM";
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 
 <style>
     /* Add your custom styles here */
     .table-container {
-        max-width: 1000px; /* Adjust the maximum width as needed */
+        max-width: 100%; /* Adjust the maximum width as needed */
         margin: auto;
     }
 
@@ -44,7 +44,11 @@
             text-decoration: underline;
         }
 </style>
-
+<h3 class="mt-0">Danh sách chương trình khuyến mãi</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Chương trình khuyến mãi</a></li>
+    <li class="breadcrumb-item active">Danh sách</li>
+</ol>
 <div class="table-container">
     <form id="filterForm" method="post" asp-action="index" asp-route-Fill="true">
         <div class="row">

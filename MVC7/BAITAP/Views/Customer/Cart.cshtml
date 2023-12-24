@@ -78,7 +78,7 @@
                                     <select id="ward" class="form-control m-1">
                                         <option value="@Model.Diachiganday.Phuongxa" selected>@Model.Diachiganday.Phuongxa</option>
                                     </select>
-                                    <input value="@Model.Diachiganday.Phuongxa" type="text" placeholder="Nhập địa chỉ chi nhận hàng chi tiết (số nhà, tên đường,...)" class="form-control m-1" id="text-address" disabled />
+                                    <input value="@Model.Diachiganday.Diachi1" type="text" placeholder="Nhập địa chỉ chi nhận hàng chi tiết (số nhà, tên đường,...)" class="form-control m-1" id="text-address" disabled />
                                     <h2 id="result" class="text-info m-1 text-10 small-text">Địa chỉ nhận hàng: @Model.Diachiganday.Tinhthanh, @Model.Diachiganday.Quanhuyen, @Model.Diachiganday.Phuongxa, @Model.Diachiganday.Diachi1 </h2>
                                 </div>
 
@@ -490,7 +490,7 @@
                         // Hiển thị toast thông báo
                         Toastify({
                             text: "Đặt hàng thành công !",
-                            duration: 3000,
+                            duration: 500,
                             gravity: "bottom",
                             position: 'right',
                             backgroundColor: "rgba(0, 128, 0, 0.8)", // Màu nền xanh lá cây với độ trong suốt
@@ -502,8 +502,8 @@
                         // Đợi 3 giây rồi mới chuyển hướng
                         setTimeout(function () {
                             localStorage.setItem('cart', JSON.stringify(null));
-                            window.location.href = '/';
-                        }, 3000);
+                            window.location.href = '/customer/profile#danhsachdonhang';
+                        }, 500);
                     }
                     else if (response.message == "Vui lòng đăng nhập" && response.success == false) {
                         var currentUrl = window.location.href;

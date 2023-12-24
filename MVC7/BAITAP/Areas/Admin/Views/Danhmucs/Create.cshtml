@@ -5,8 +5,12 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 
-<h4 class="text-center text-dark">Thêm mới danh mục</h4>
 
+<h3 class="mt-0">Thêm mới danh mục sản phẩm</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Danh mục sản phẩm</a></li>
+    <li class="breadcrumb-item active">Thêm mới</li>
+</ol>
 <div class="row justify-content-center">
     <div class="col-md-6">
         <form asp-action="Create" method="post" class="mt-3">

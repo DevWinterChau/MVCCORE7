@@ -13,7 +13,6 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 namespace BAITAP.Areas.Admin.Controllers
 {
 
-    [Authorize]
     [Area("Admin")]
     public class MathangsController : Controller
     {
@@ -23,6 +22,7 @@ namespace BAITAP.Areas.Admin.Controllers
         {
             _context = context;
         }
+        [Authorize(Roles = "Admin,Sale")]
 
         // GET: Mathangs
         public async Task<IActionResult> Index(int page = 1, int pageSize = 8, string keyword = null, string category = null, string sort = null, bool Fill = false, string khuyenmai = "0")
@@ -92,6 +92,7 @@ namespace BAITAP.Areas.Admin.Controllers
 
             return View(items);
         }
+        [Authorize(Roles = "Admin,Sale")]
 
         // GET: Mathangs/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -111,6 +112,7 @@ namespace BAITAP.Areas.Admin.Controllers
 
             return View(mathang);
         }
+        [Authorize(Roles = "Admin")]
 
         // GET: Mathangs/Create
         public IActionResult Create()
@@ -119,6 +121,7 @@ namespace BAITAP.Areas.Admin.Controllers
             ViewData["MaDm"] = new SelectList(_context.Danhmucs, "MaDm", "Ten");
             return View();
         }
+        [Authorize(Roles = "Admin")]
 
         // POST: Mathangs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -169,6 +172,7 @@ namespace BAITAP.Areas.Admin.Controllers
             ViewData["MaDm"] = new SelectList(_context.Danhmucs, "MaDm", "Ten", mathang.MaDm);
             return View(mathang);
         }
+        [Authorize(Roles = "Admin")]
 
         // GET: Mathangs/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -187,6 +191,7 @@ namespace BAITAP.Areas.Admin.Controllers
             ViewData["MaMHS"] = new SelectList(_context.Mhs, "Id", "Ten", mathang.MaMhchinh);
             return View(mathang);
         }
+        [Authorize(Roles = "Admin")]
 
         // POST: Mathangs/Edit/5 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -256,6 +261,7 @@ namespace BAITAP.Areas.Admin.Controllers
             ViewData["MaMHS"] = new SelectList(_context.Mhs, "Id", "Ten", mathang.MaMhchinh);
             return View(mathang);
         }
+        [Authorize(Roles = "Admin")]
 
         // GET: Mathangs/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -275,6 +281,7 @@ namespace BAITAP.Areas.Admin.Controllers
 
             return View(mathang);
         }
+        [Authorize(Roles = "Admin")]
 
         // POST: Mathangs/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -294,6 +301,7 @@ namespace BAITAP.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        [Authorize(Roles = "Admin,Sale")]
 
         private bool MathangExists(int id)
         {

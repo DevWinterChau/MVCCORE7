@@ -13,7 +13,7 @@ using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 namespace BAITAP.Areas.Admin.Controllers
 {
 
-    [Authorize]
+    [Authorize(Roles = "Admin,Sale")]
     [Area("Admin")]
     public class CTKhuyenMaiController : Controller
     {

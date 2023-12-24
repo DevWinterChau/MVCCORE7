@@ -3,11 +3,6 @@
 @{
     ViewData["Title"] = "Chi tiết sản phẩm";
 }
-   <div class="p-3">
-        <h3 class="title text-info">
-            Thông tin chi tiết sản phẩm
-        </h3>
-   </div>
   <div class="ps-lg-3 mt-10">
           <div class="row">
             <div class="col-md-8">
@@ -83,15 +78,31 @@
                             <img src="~/images/products/@item.mathang.HinhAnh" alt="Hình ảnh" style="max-width: 100px;" />
                         </td>
                         <td>
-                            <a class="btn btn-outline-danger" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh" asp-route-giakhuyenmai="@item.Giakhuyemai"><i class="bi bi-heart-fill"></i></a>
                             <!-- <a asp-controller="Customer" asp-action="Addtocart" asp-route-id="item.MaMh">Mua</a> -->
                             @if (item.Phantramkhuyenmai > 0 && item.Giakhuyemai > 0)
                             {
-                                <a class="btn btn-outline-info mt-auto" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', '@item.Giakhuyemai', '@item.mathang.SoLuong' )"><i class="bi bi-bag-plus-fill"></i> Chọn mua</a>
+                                if (item.mathang.SoLuong > 0)
+                                {
+                                    <a class="btn btn-outline-danger" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh" asp-route-giakhuyenmai="@item.Giakhuyemai"><i class="bi bi-heart-fill"></i></a>
+                                    <a class="btn btn-outline-info" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', '@item.Giakhuyemai', '@item.mathang.SoLuong')"><i class="bi bi-bag-plus-fill"></i></a>
+                                }
+                                else
+                                {
+                                    <p class="text-danger">Hết hàng <i class="bi bi-fire"></i></p>
+                                }
                             }
                             else
                             {
-                                <a class="btn btn-outline-info mt-auto" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', 0, '@item.mathang.SoLuong' )"><i class="bi bi-bag-plus-fill"></i> Chọn mua</a>
+                                if (item.mathang.SoLuong > 0)
+                                {
+                                    <a class="btn btn-outline-danger" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh" asp-route-giakhuyenmai="@item.Giakhuyemai"><i class="bi bi-heart-fill"></i></a>
+
+                                    <a class="btn btn-outline-info" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', 0, '@item.mathang.SoLuong')"><i class="bi bi-bag-plus-fill"></i></a>
+                                }
+                                else
+                                {
+                                    <p class="text-danger">Hết hàng <i class="bi bi-fire"></i></p>
+                                }
                             }
                         </td>
                      
@@ -155,7 +166,20 @@
 
     function addToCart(id, giaban, hinhanh, ten, giakhuyenmai, soluongconsp) {
         var cart = JSON.parse(localStorage.getItem('cart')) || [];
-
+        console.log(soluongconsp);
+        if (soluongconsp <= 0) {
+            // Hiển thị toast thông báo
+            Toastify({
+                text: "Sản phẩm này đã bán hết!",
+                duration: 3000,
+                gravity: "bottom",
+                position: 'right',
+                backgroundColor: "rgba(255, 0, 0, 0.8)", // Red with 80% opacity
+                stopOnFocus: true,
+                className: 'custom-toast', // Thêm class để tùy chỉnh CSS
+            }).showToast();
+            return;
+        }
         var existingProduct = cart.find(item => item.id === id);
         if (existingProduct && existingProduct.soluongmua == soluongconsp) {
             // Hiển thị toast thông báo

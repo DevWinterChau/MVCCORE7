@@ -1,5 +1,7 @@
-﻿using BAITAP.Data;
+using BAITAP.Data;
+using BAITAP.MailService;
 using BAITAP.Middelware;
+using BAITAP.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,12 +13,16 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultUI()
     .AddDefaultTokenProviders();
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddSession(options =>
@@ -27,7 +33,11 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Nếu sử dụng HTTPS
 });
+
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<IMailLogic, MailLogic>();
+// Lấy thông tin cấu hình trong tập tin appsettings.json và gán vào đối tượng mail
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("mail"));
 
 builder.Services.AddControllersWithViews()
      .AddJsonOptions(options =>

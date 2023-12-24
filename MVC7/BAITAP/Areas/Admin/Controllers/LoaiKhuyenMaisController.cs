@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BAITAP.Areas.Admin.Controllers
 {
-    [Authorize]
     [Area("Admin")]
     public class LoaiKhuyenMaisController : Controller
     {
@@ -21,13 +20,32 @@ namespace BAITAP.Areas.Admin.Controllers
         {
             _context = context;
         }
+        [Authorize(Roles = "Admin,Sale")]
 
         // GET: LoaiKhuyenMais
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 8, string keyword = null, string category = null, string sort = null, bool Fill = false)
         {
-            return _context.LoaiKhuyenMais != null ?
-                        View(await _context.LoaiKhuyenMais.ToListAsync()) :
-                        Problem("Entity set 'ApplicationDbContext.LoaiKhuyenMais'  is null.");
+            var applicationDbContext = await _context.LoaiKhuyenMais.Include(x => x.CtKhuyenMais).ToListAsync();
+            var totalItems = applicationDbContext.Count();
+            // Filter by keyword if provided
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                applicationDbContext = applicationDbContext
+                    .Where(x => x.TenLoaiKm.Contains(keyword.Trim())
+                ).ToList();
+            }
+            // Apply pagination
+            var items = applicationDbContext.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            // Tính toán các thông tin phân trang
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.keyword = keyword;
+            ViewBag.Fill = Fill;
+            // Populate the dropdown with categories
+            return View(items);
         }
 
         // GET: LoaiKhuyenMais/Details/5
@@ -38,7 +56,7 @@ namespace BAITAP.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var loaiKhuyenMai = await _context.LoaiKhuyenMais
+            var loaiKhuyenMai = await _context.LoaiKhuyenMais.Include(x => x.CtKhuyenMais)
                 .FirstOrDefaultAsync(m => m.MaLoaiKm == id);
             if (loaiKhuyenMai == null)
             {

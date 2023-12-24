@@ -13,7 +13,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BAITAP.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Sale")]
     [Area("Admin")]
     public class ChitietKhuyenMaiSanPhamController : Controller
     {
@@ -211,7 +211,7 @@ namespace BAITAP.Areas.Admin.Controllers
             {
                 return Problem("Entity set 'ApplicationDbContext.CtKhuyenMaiSanPhams'  is null.");
             }
-            var ctKhuyenMaiSanPham = await _context.CtKhuyenMaiSanPhams.FirstOrDefaultAsync(x => x.MaCtkm.Equals(id));
+            var ctKhuyenMaiSanPham = await _context.CtKhuyenMaiSanPhams.FirstOrDefaultAsync(x => x.Id.Equals(id));
             if (ctKhuyenMaiSanPham != null)
             {
                 _context.CtKhuyenMaiSanPhams.Remove(ctKhuyenMaiSanPham);

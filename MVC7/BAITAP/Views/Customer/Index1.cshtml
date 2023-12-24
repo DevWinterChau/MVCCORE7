@@ -162,7 +162,7 @@
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <label for="khuyenmai-filter" class="form-label">Khuyễn mãi:</label>
+                    <label for="khuyenmai-filter" class="form-label">Khuyến mãi:</label>
                     <select class="form-control" name="khuyenmai">
                         <option value="0" selected="@(ViewBag.khuyenmai == "1")">Không khuyến mãi</option>
                         <option value="1" selected="@(ViewBag.khuyenmai == "1")">Có chương trình khuyến mãi</option>
@@ -340,7 +340,7 @@
             <ul class="list-group list-group-horizontal position-relative overflow-auto ">
                 @foreach (var item in Model.ListSanPhamHot)
                 {
-                    <li class="list-group-item w-100">
+                    <li class="list-group-item ">
                         <div class="card h-100" style="width: 200px;">
                             <!-- Sale badge-->
                             <div class="badge bg-danger text-white position-absolute" style="top: 2rem; right: 0.5rem">HOT</div>
@@ -433,14 +433,29 @@
                         <!-- Product actions -->
                         <div class="card-footer border-top-0 bg-transparent">
                             <div class="text-center">
-                                <a class="btn btn-outline-danger" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh" asp-route-giakhuyenmai="@item.Giakhuyemai"><i class="bi bi-heart-fill"></i></a>
                                 @if (item.Phantramkhuyenmai > 0 && item.Giakhuyemai > 0)
                                 {
-                                    <a class="btn btn-outline-info" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', '@item.Giakhuyemai', '@item.mathang.SoLuong')"><i class="bi bi-bag-plus-fill"></i></a>
+                                    if(item.mathang.SoLuong > 0)
+                                    {
+                                        <a class="btn btn-outline-danger" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh" asp-route-giakhuyenmai="@item.Giakhuyemai"><i class="bi bi-heart-fill"></i></a>
+                                        <a class="btn btn-outline-info" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', '@item.Giakhuyemai', '@item.mathang.SoLuong')"><i class="bi bi-bag-plus-fill"></i></a>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-danger">Hết hàng <i class="bi bi-fire"></i></p>
+                                    }
                                 }
                                 else
                                 {
-                                    <a class="btn btn-outline-info" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', 0, '@item.mathang.SoLuong')"><i class="bi bi-bag-plus-fill"></i></a>
+                                    if (item.mathang.SoLuong > 0)
+                                    {
+                                        <a class="btn btn-outline-danger" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh" asp-route-giakhuyenmai="@item.Giakhuyemai"><i class="bi bi-heart-fill"></i></a>
+
+                                        <a class="btn btn-outline-info" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', 0, '@item.mathang.SoLuong')"><i class="bi bi-bag-plus-fill"></i></a>
+                                    }
+                                    else{
+                                        <p class="text-danger">Hết hàng <i class="bi bi-fire"></i></p>
+                                    }
                                 }
                             </div>
                         </div>
@@ -450,59 +465,72 @@
             }
 
         </ul>
+        <script>
+            function addToCart(id, giaban, hinhanh, ten, giakhuyenmai, soluongconsp) {
+                var cart = JSON.parse(localStorage.getItem('cart')) || [];
+                console.log(soluongconsp);
+                if (soluongconsp <= 0) {
+                    // Hiển thị toast thông báo
+                    Toastify({
+                        text: "Sản phẩm này đã bán hết!",
+                        duration: 3000,
+                        gravity: "bottom",
+                        position: 'right',
+                        backgroundColor: "rgba(255, 0, 0, 0.8)", // Red with 80% opacity
+                        stopOnFocus: true,
+                        className: 'custom-toast', // Thêm class để tùy chỉnh CSS
+                    }).showToast();
+                    return;
+                }
+                var existingProduct = cart.find(item => item.id === id);
+                if (existingProduct && existingProduct.soluongmua == soluongconsp) {
+                    // Hiển thị toast thông báo
+                    Toastify({
+                        text: "Số lượng sản phẩm chỉ còn " + soluongconsp + " ! Bạn đã thêm sản phẩm này vào giỏ hàng!",
+                        duration: 3000,
+                        gravity: "bottom",
+                        position: 'right',
+                        backgroundColor: "rgba(255, 0, 0, 0.8)", // Red with 80% opacity
+                        stopOnFocus: true,
+                        className: 'custom-toast', // Thêm class để tùy chỉnh CSS
+                    }).showToast();
+                    return;
+                }
+
+                if (existingProduct) {
+                    existingProduct.soluongmua++;
+                    Toastify({
+                        text: "Đã cập nhật số lượng vào giỏ hàng !",
+                        duration: 3000,
+                        gravity: "bottom", // Chọn bottom để hiển thị ở dưới
+                        position: 'right',
+                        backgroundColor: "rgba(0, 128, 0, 0.8)", // Màu nền xanh lá cây với độ trong suốt
+                        stopOnFocus: true,
+                        className: 'custom-toast', // Thêm class để tùy chỉnh CSS
+                    }).showToast();
+                } else {
+                    cart.push({ id, ten, giaban, hinhanh, soluongmua: 1, giakhuyenmai: giakhuyenmai });
+                    // Hiển thị toast thông báo
+                    Toastify({
+                        text: "Đã thêm vào giỏ hàng !",
+                        duration: 3000,
+                        gravity: "bottom",
+                        position: 'right',
+                        backgroundColor: "rgba(0, 128, 0, 0.8)", // Màu nền xanh lá cây với độ trong suốt
+                        stopOnFocus: true,
+                        className: 'custom-toast', // Thêm class để tùy chỉnh CSS
+                    }).showToast();
+
+                }
+
+                console.log(cart);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                displayNumbercart();
+            }
+        </script>
     </section>
 }
 
 
 
 
-<script>
-    function addToCart(id, giaban, hinhanh, ten, giakhuyenmai, soluongconsp) {
-        var cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        var existingProduct = cart.find(item => item.id === id);
-        if (existingProduct && existingProduct.soluongmua == soluongconsp) {
-            // Hiển thị toast thông báo
-            Toastify({
-                text: "Số lượng sản phẩm chỉ còn " + soluongconsp + " ! Bạn đã thêm sản phẩm này vào giỏ hàng!",
-                duration: 3000,
-                gravity: "bottom",
-                position: 'right',
-                backgroundColor: "rgba(255, 0, 0, 0.8)", // Red with 80% opacity
-                stopOnFocus: true,
-                className: 'custom-toast', // Thêm class để tùy chỉnh CSS
-            }).showToast();
-            return;
-        }
-
-        if (existingProduct) {
-            existingProduct.soluongmua++;
-            Toastify({
-                text: "Đã cập nhật số lượng vào giỏ hàng !",
-                duration: 3000,
-                gravity: "bottom", // Chọn bottom để hiển thị ở dưới
-                position: 'right',
-                backgroundColor: "rgba(0, 128, 0, 0.8)", // Màu nền xanh lá cây với độ trong suốt
-                stopOnFocus: true,
-                className: 'custom-toast', // Thêm class để tùy chỉnh CSS
-            }).showToast();
-        } else {
-            cart.push({ id, ten, giaban, hinhanh, soluongmua: 1, giakhuyenmai: giakhuyenmai });
-            // Hiển thị toast thông báo
-            Toastify({
-                text: "Đã thêm vào giỏ hàng !",
-                duration: 3000,
-                gravity: "bottom",
-                position: 'right',
-                backgroundColor: "rgba(0, 128, 0, 0.8)", // Màu nền xanh lá cây với độ trong suốt
-                stopOnFocus: true,
-                className: 'custom-toast', // Thêm class để tùy chỉnh CSS
-            }).showToast();
-
-        }
-
-        console.log(cart);
-        localStorage.setItem('cart', JSON.stringify(cart));
-        displayNumbercart();
-    }
-</script>

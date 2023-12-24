@@ -1,53 +1,59 @@
-﻿@model BAITAP.Models.Mathang
+﻿@model BAITAP.DTO.MathangKM
 
 @{
     ViewData["Title"] = "Chi tiết sản phẩm";
-    var MotasanphamHTML = Model.MoTa;
+    var MotasanphamHTML = Model.mathang.MoTa;
 }
 
 <div class="product-container ">
         <div class="product-title">
-            @Html.DisplayFor(model => model.Ten)
+            @Html.DisplayFor(model => model.mathang.Ten)
         </div>
 
         <div class="product-info">
             <div>
-                <dt>Tên sản phẩm:</dt>
-                <dd>@Html.DisplayFor(model => model.Ten)</dd>
-                <dt>Size: @Html.DisplayFor(model => model.Kichco)</dt>
-                <dt>Màu sắc: @Html.DisplayFor(model => model.Mausac)</dt>
-                <dt>Chất liệu: @Html.DisplayFor(model => model.Chatlieu)</dt>
-                <dt>Danh mục: @Html.DisplayFor(model => model.Danhmucs.Ten)</dt>
-            @if (Model.GiaGoc > Model.GiaBan)
-            {
-                <dt class="product-price-goc">
-                    Giá gốc:@Model.GiaGoc.ToString("N0") đ
-                </dt>
-                <dt class="product-price">
-                    Giảm còn: @Model.GiaBan.ToString("N0") đ
-                </dt>
-            }
-            else
-            {
-                <dt class="product-price">
-                    Giá bán: @Model.GiaBan.ToString("N0") đ
-                </dt>
-            }
+                <dt>Size: @Html.DisplayFor(model => model.mathang.Kichco)</dt>
+                <dt>Màu sắc: @Html.DisplayFor(model => model.mathang.Mausac)</dt>
+                <dt>Chất liệu: @Html.DisplayFor(model => model.mathang.Chatlieu)</dt>
+                <dt>Danh mục: @Html.DisplayFor(model => model.mathang.Danhmucs.Ten)</dt>
+                @if (Model.Giakhuyemai > 0)
+                {
+                    <dt class="product-price-goc">
+                        Giá góc: @Model.mathang.GiaBan.ToString("N0") đ
+                    </dt>
+                    <dt class="product-price">
+                        Giá khuyến mãi: @Model.Giakhuyemai.ToString("N0") đ
+                    </dt>
+                }
+                else
+                {
+                    <dt class="product-price">
+                        Giá bán: @Model.mathang.GiaBan.ToString("N0") đ
+                    </dt>
+                }
             </div>        
             <div>
-            <img class="product-image" src="~/images/products/@Html.DisplayFor(model => model.HinhAnh)" style="max-width: 300px;" />
+            <img class="product-image" src="~/images/products/@Html.DisplayFor(model => model.mathang.HinhAnh)" style="max-width: 300px;" />
             </div>
         </div>
         <div>
-            <a class="btn btn-outline-info mt-auto" onclick="addToCart('@Model.MaMh', '@Model.GiaBan', '@Model.HinhAnh', '@Model.Ten', 0, '@Model.SoLuong')"><i class="bi bi-bag-plus-fill"></i> Thêm vào giỏ hàng</a>
+             @if(Model.mathang.SoLuong > 0)
+             {
+                <a class="btn btn-outline-danger" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@Model.mathang.MaMh" asp-route-giakhuyenmai="@Model.Giakhuyemai"><i class="bi bi-heart-fill"></i></a>
+            <a class="btn btn-outline-info" onclick="addToCart('@Model.mathang.MaMh', '@Model.mathang.GiaBan', '@Model.mathang.HinhAnh', '@Model.mathang.Ten', '@Model.Giakhuyemai', '@Model.mathang.SoLuong')"><i class="bi bi-bag-plus-fill"></i></a>
+        }
+        else
+        {
+            <p class="text-danger">Sản phẩm tạm hết hàng!</p>
+        }
 
-            <a class="btn btn-primary" asp-action="Index1"><i class="bi bi-box-seam-fill"></i>Trang mua sắm</a>
+        <a class="btn btn-primary" asp-action="Index1"><i class="bi bi-house"></i> Home</a>
         </div>
 
         <div class="overflow-auto  bg-light"
              style="max-width: 100%; max-height: 300px;">
             <h3>Mô tả:</h3>
-            <code>@Html.Raw(@Model.MoTa)</code>
+            <code>@Html.Raw(@Model.mathang.MoTa)</code>
         </div>
 </div>
 <section class="py-3">
@@ -109,14 +115,30 @@
                     <!-- Product actions -->
                     <div class="card-footer border-top-0 bg-transparent">
                         <div class="text-center">
-                            <a class="btn btn-outline-danger" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh" asp-route-giakhuyenmai="@item.Giakhuyemai"><i class="bi bi-heart-fill"></i></a>
                             @if (item.Phantramkhuyenmai > 0 && item.Giakhuyemai > 0)
                             {
-                                <a class="btn btn-outline-info" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', '@item.Giakhuyemai', '@item.mathang.SoLuong')"><i class="bi bi-bag-plus-fill"></i></a>
+                                if (item.mathang.SoLuong > 0)
+                                {
+                                    <a class="btn btn-outline-danger" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh" asp-route-giakhuyenmai="@item.Giakhuyemai"><i class="bi bi-heart-fill"></i></a>
+                                    <a class="btn btn-outline-info" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', '@item.Giakhuyemai', '@item.mathang.SoLuong')"><i class="bi bi-bag-plus-fill"></i></a>
+                                }
+                                else
+                                {
+                                    <p class="text-danger">Hết hàng <i class="bi bi-fire"></i></p>
+                                }
                             }
                             else
                             {
-                                <a class="btn btn-outline-info" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', 0, '@item.mathang.SoLuong')"><i class="bi bi-bag-plus-fill"></i></a>
+                                if (item.mathang.SoLuong > 0)
+                                {
+                                    <a class="btn btn-outline-danger" asp-controller="customer" asp-action="AddtoWishlist" asp-route-id="@item.mathang.MaMh" asp-route-giakhuyenmai="@item.Giakhuyemai"><i class="bi bi-heart-fill"></i></a>
+
+                                    <a class="btn btn-outline-info" onclick="addToCart('@item.mathang.MaMh', '@item.mathang.GiaBan', '@item.mathang.HinhAnh', '@item.mathang.Ten', 0, '@item.mathang.SoLuong')"><i class="bi bi-bag-plus-fill"></i></a>
+                                }
+                                else
+                                {
+                                    <p class="text-danger">Hết hàng <i class="bi bi-fire"></i></p>
+                                }
                             }
                         </div>
                     </div>

@@ -1,16 +1,17 @@
 ﻿@model BAITAP.Models.Diachi
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Xóa địa chỉ";
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 
-<h4 class="text-center text-danger">Xác nhận xóa</h4>
-
+<h3 class="mt-0">Xóa địa chỉ khách hàng</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Địa chỉ khách hàng</a></li>
+    <li class="breadcrumb-item active">Xóa</li>
+</ol>
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">Chi tiết địa chỉ</h4>
-        <hr />
         <dl class="row">
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Diachi1)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Diachi1)</dd>

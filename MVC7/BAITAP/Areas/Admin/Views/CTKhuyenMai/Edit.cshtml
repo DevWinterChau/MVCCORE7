@@ -1,16 +1,19 @@
 ﻿@model BAITAP.Models.CtKhuyenMai
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Cập nhật CTKM";
     Layout = "~/Views/Shared/_Layoutadmin.cshtml";
 }
 
 
-<h4 class="text-center">Cập nhật chi tiết khuyến mãi</h4>
-<hr />
-<div class="row justify-content-center">
+<h3 class="mt-0">Cập nhật CTKM</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Chương trình khuyến mãi</a></li>
+    <li class="breadcrumb-item active">Cập nhật</li>
+</ol>
+<div class="row justify-content-start">
     <div class="col-md-8">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Id" />
                     <div class="row">

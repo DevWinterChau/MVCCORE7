@@ -1,16 +1,17 @@
 ﻿@model BAITAP.Models.Mathang
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Xóa phiên bản sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 
-<h1 class="text-center text-danger">Xác nhận xóa</h1>
-
+<h3 class="mt-0">Xóa phiên bản sản phẩm</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Phiên bản sản phẩm</a></li>
+    <li class="breadcrumb-item active">Xóa</li>
+</ol>
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">Thông tin sản phẩm</h4>
-        <hr />
         <dl class="row">
             <dt class="col-sm-3">Tên sản phẩm</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.Ten)</dd>

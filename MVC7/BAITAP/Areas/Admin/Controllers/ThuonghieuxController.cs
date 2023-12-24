@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BAITAP.Areas.Admin.Controllers
 {
-    [Authorize]
     [Area("Admin")]
     public class ThuonghieuxController : Controller
     {
@@ -21,6 +20,7 @@ namespace BAITAP.Areas.Admin.Controllers
         {
             _context = context;
         }
+        [Authorize(Roles = "Admin,Sale")]
 
         // GET: Thuonghieux
         public async Task<IActionResult> Index()
@@ -29,6 +29,7 @@ namespace BAITAP.Areas.Admin.Controllers
                         View(await _context.Thuonghieus.ToListAsync()) :
                         Problem("Entity set 'ApplicationDbContext.Thuonghieus'  is null.");
         }
+        [Authorize(Roles = "Admin,Sale")]
 
         // GET: Thuonghieux/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -47,12 +48,14 @@ namespace BAITAP.Areas.Admin.Controllers
 
             return View(thuonghieu);
         }
+        [Authorize(Roles = "Admin,Sale")]
 
         // GET: Thuonghieux/Create
         public IActionResult Create()
         {
             return View();
         }
+        [Authorize(Roles = "Admin,Sale")]
 
         // POST: Thuonghieux/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -69,6 +72,7 @@ namespace BAITAP.Areas.Admin.Controllers
             }
             return View(thuonghieu);
         }
+        [Authorize(Roles = "Admin")]
 
         // GET: Thuonghieux/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -85,6 +89,7 @@ namespace BAITAP.Areas.Admin.Controllers
             }
             return View(thuonghieu);
         }
+        [Authorize(Roles = "Admin")]
 
         // POST: Thuonghieux/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -120,6 +125,7 @@ namespace BAITAP.Areas.Admin.Controllers
             }
             return View(thuonghieu);
         }
+        [Authorize(Roles = "Admin")]
 
         // GET: Thuonghieux/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -138,6 +144,7 @@ namespace BAITAP.Areas.Admin.Controllers
 
             return View(thuonghieu);
         }
+        [Authorize(Roles = "Admin")]
 
         // POST: Thuonghieux/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -157,6 +164,7 @@ namespace BAITAP.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        [Authorize(Roles = "Admin,Sale")]
 
         private bool ThuonghieuExists(int id)
         {

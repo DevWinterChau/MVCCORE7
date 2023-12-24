@@ -21,9 +21,9 @@ public partial class Nhanvien
     [DisplayName("Email")]
 
     public string? Email { get; set; }
-    [DisplayName("Mật khẩu đăng nhập")]
+    [DisplayName("Mã tài khoản đăng nhập")]
+    public string? UserID { get; set; }
 
-    public string? Matkhau { get; set; }
     [DisplayName("Chức vụ")]
 
     public virtual Chucvu MacvNavigation { get; set; } = null!;

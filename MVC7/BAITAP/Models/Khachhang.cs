@@ -17,21 +17,24 @@ public partial class Khachhang
     [DisplayName("Email")]
 
     public string Email { get; set; } = null!;
+    [DisplayName("Hình ảnh")]
+
+    public string? HinhAnh { get; set; } = null!;
     [DisplayName("Mật khẩu")]
 
     public string? Matkhau { get; set; }
 
-    public byte[] Salt { get; set; } = null!;
+    public byte[]? Salt { get; set; } = null!;
     [DisplayName("Chi tiết danh mục yêu thích")]
 
-    public virtual ICollection<Danhmucsothich> Danhmucsothiches { get; set; } = new List<Danhmucsothich>();
+    public virtual ICollection<Danhmucsothich>? Danhmucsothiches { get; set; } = new List<Danhmucsothich>();
     [DisplayName("Danh sách địa chỉ")]
 
-    public virtual ICollection<Diachi> Diachis { get; set; } = new List<Diachi>();
+    public virtual ICollection<Diachi>? Diachis { get; set; } = new List<Diachi>();
     [DisplayName("Danh sách hóa đơn")]
 
-    public virtual ICollection<Hoadon> Hoadons { get; set; } = new List<Hoadon>();
+    public virtual ICollection<Hoadon>? Hoadons { get; set; } = new List<Hoadon>();
     [DisplayName("Chi tiết thương hiệu yêu thích")]
 
-    public virtual ICollection<Thuonghieusothich> Thuonghieusothiches { get; set; } = new List<Thuonghieusothich>();
+    public virtual ICollection<Thuonghieusothich>? Thuonghieusothiches { get; set; } = new List<Thuonghieusothich>();
 }

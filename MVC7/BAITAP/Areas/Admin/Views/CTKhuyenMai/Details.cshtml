@@ -4,10 +4,12 @@
     ViewData["Title"] = "Chi Tiết";
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
-
+<h3 class="mt-0">Chi tiết CTKM</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Chương trình khuyến mãi</a></li>
+    <li class="breadcrumb-item active">Xem chi tiết</li>
+</ol>
 <div class="container">
-    <h4>Chi Tiết Khuyến Mãi</h4>
-    <hr />
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.TenKm)

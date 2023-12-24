@@ -1,16 +1,17 @@
 ﻿@model BAITAP.Models.Diachi
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Thêm địa chỉ";
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 
-
-
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <h4>Thêm mới địa chỉ</h4>
-        <hr />
+<h3 class="mt-0">Thêm mới địa chỉ khách hàng</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Địa chỉ khách hàng</a></li>
+    <li class="breadcrumb-item active">Thêm mới</li>
+</ol>
+<div class="row justify-content-start">
+    <div class="col-md-6">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-row">

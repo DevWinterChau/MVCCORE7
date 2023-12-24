@@ -1,15 +1,18 @@
 ﻿@model BAITAP.DTO.PhienBansSanPhamDTO
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Thêm mới sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-<h1>Tạo mới sản phẩm</h1>
-<hr />
+<h3 class="mt-0">Thêm mới sản phẩm</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Sản phẩm</a></li>
+    <li class="breadcrumb-item active">Thêm mới</li>
+</ol>
 <div class="row">
     <div class="col-md-18">
         <form asp-action="Create">
@@ -503,7 +506,7 @@
                         console.log(formData);
 
                         $.ajax({
-                            url: '/Mhs/Create',
+                            url: "https://localhost:44346/Admin/mhs/create",
                             type: 'POST',
                             contentType: false,
                             processData: false,
@@ -515,7 +518,7 @@
                                 // Handle the response from the server
                                 if (response.success) {
                                     alert(response.message);
-                                    window.location.href = "/Index";
+                                    window.location.href = "Admin/Mhs/Index";
                                 } else {
                                     alert('Failed to create variants.');
                                 }

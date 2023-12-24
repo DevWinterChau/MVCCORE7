@@ -25,8 +25,8 @@ public partial class Cthoadon
     public int Thanhtien { get; set; }
     [DisplayName("Hóa đơn")]
 
-    public virtual Hoadon MahdNavigation { get; set; } = null!;
+    public virtual Hoadon? MahdNavigation { get; set; } = null!;
     [DisplayName("Sản phẩm")]
 
-    public virtual Mathang MamhNavigation { get; set; } = null!;
+    public virtual Mathang? MamhNavigation { get; set; } = null!;
 }

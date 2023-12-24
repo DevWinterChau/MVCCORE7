@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<BAITAP.Models.Diachi>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách địa chỉ";
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 <style>
     /* Add your custom styles here */
     .table-container {
-        max-width: 1000px; /* Adjust the maximum width as needed */
+        max-width: 100%; /* Adjust the maximum width as needed */
         margin: auto;
     }
 
@@ -43,7 +43,11 @@
             text-decoration: underline;
         }
 </style>
-
+<h3 class="mt-0">Danh sách địa chỉ khách hàng</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Địa chỉ khách hàng</a></li>
+    <li class="breadcrumb-item active">Danh sách</li>
+</ol>
 <div class="table-container">
     <form id="filterForm" method="post" asp-action="index" asp-route-Fill="true">
         <div class="row">

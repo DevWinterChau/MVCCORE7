@@ -1,11 +1,15 @@
 ﻿@model BAITAP.Models.Chucvu
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Xóa";
     Layout = "~/Areas/Admin/Views/Shared/_Layoutadmin.cshtml";
 }
 
-<h4 class="text-center text-danger">Xác nhận xóa chức vụ @Html.DisplayFor(model => model.Ten)</h4>
+<h3 class="mt-4">Xóa chức vụ</h3>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a asp-action="index">Chức vụ</a></li>
+    <li class="breadcrumb-item active">Xóa</li>
+</ol>
 <div class="card">
     <div class="card-body">
         <dl class="row">
